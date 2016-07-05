@@ -1,3 +1,5 @@
+modify_time:20150906
+
 DROP TABLE IF EXISTS `demo`;
 CREATE TABLE IF NOT EXISTS `demo` (
 	`id` int(11) NOT NULL,

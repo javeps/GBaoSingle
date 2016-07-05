@@ -1,3 +1,5 @@
+modify_time:20150918
+
 DELIMITER //
 DROP PROCEDURE IF EXISTS pro_rnkSword_Chn;
 CREATE PROCEDURE pro_rnkSword_Chn(in parsType int,in chn varchar(64) character set utf8)
