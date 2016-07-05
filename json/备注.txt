@@ -1,0 +1,4 @@
+app.json 注意事项
+xls中sheet名字为服务器表为server;
+1.修改GATE_HOST:server中的一条数据的入口地址host值。
+2.修改GAME_ID:GATE_HOST所指向数据的svcid值。

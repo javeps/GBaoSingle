@@ -1,0 +1,8 @@
+// ============= 删除数据库
+DROP DATABASE `gbosng`;
+DROP DATABASE `gbosng_design`;
+DROP DATABASE `gbosng_log`;
+DROP DATABASE `gbosng_cfg`;
+
+// ============= 清空数据库
+TRUNCATE TABLE `player`;

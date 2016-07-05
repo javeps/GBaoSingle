@@ -1,0 +1,17 @@
+生成网路层接口对象时候需要注意两点:
+1.网路层对象SvI.java文件
+替换所有的
+writeMapEntry(result, "cmd",
+为
+writeMapEntry(result, "0",
+
+下行通知中
+_params.put("cmd",
+
+为
+_params.put("0",
+
+2.网络层lua对象修改onCallNet.disp下面
+local cmd = map["cmd"];
+改为
+local cmd = map["0"];

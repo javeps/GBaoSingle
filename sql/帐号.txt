@@ -1,0 +1,12 @@
+93测试组linux系统
+h005.ultralisk.cn
+
+211.99.222.35 8000 ulsa cdsc2014
+root 8ik,(OL>8000
+开放端口:8001-8008
+redis端口:4011
+
+ip 101.251.64.2  ssh端口 6000 用户名 ulsa 密码 cdsc201193server  root 8ik,(OL>6000
+可使用的开放端口 6001-6008   
+unityserver: 服务端口6001 admin 123
+mysql:101.251.64.2:9002 canyon 12345670

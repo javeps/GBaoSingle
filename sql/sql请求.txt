@@ -1,0 +1,26 @@
+SELECT COUNT(*) as num,error FROM recode4error WHERE device NOT LIKE 'MacPro%' AND device NOT LIKE '%Intel(R) Core(TM)%' AND device NOT LIKE '%Pentium(R)%' Group by error ORDER BY num DESC LIMIT 0 ,100;
+
+SELECT COUNT(*) as num,recode4error.uuid FROM recode4error WHERE device NOT LIKE 'MacPro%' AND device NOT LIKE '%Intel(R) Core(TM)%' AND device NOT LIKE '%Pentium(R)%' GROUP BY recode4error.uuid ORDER BY num DESC LIMIT 0 ,100;
+
+
+SELECT COUNT(*) as num,device FROM recode4error WHERE device NOT LIKE 'MacPro%' AND device NOT LIKE '%Intel(R) Core(TM)%' AND device NOT LIKE '%Pentium(R)%' GROUP BY device ORDER BY num DESC LIMIT 0 ,100;
+
+SELECT * FROM recode4error WHERE device NOT LIKE 'MacPro%' AND device NOT LIKE '%Intel(R) Core(TM)%' AND device NOT LIKE '%Pentium(R)%' LIMIT 0 ,100;
+
+SELECT * FROM recode4error WHERE device NOT LIKE 'MacPro%' AND device NOT LIKE '%Intel(R) Core(TM)%' AND device NOT LIKE '%Pentium(R)%' Group by error LIMIT 0 ,100;
+
+
+SELECT COUNT(*) AS num,recode4error.uuid FROM recode4error WHERE device NOT LIKE 'MacPro%' AND device NOT LIKE '%Intel(R) Core(TM)%' AND device NOT LIKE '%Pentium(R)%' GROUP BY recode4error.uuid ORDER BY num DESC LIMIT 0 ,100;
+
+SELECT COUNT(*) AS num,device FROM recode4error WHERE device NOT LIKE 'MacPro%' AND device NOT LIKE '%Intel(R) Core(TM)%' AND device NOT LIKE '%Pentium(R)%' GROUP BY device ORDER BY num DESC LIMIT 0 ,100;
+
+SELECT COUNT(*) AS num,error FROM recode4error WHERE device NOT LIKE 'MacPro%' AND device NOT LIKE '%Intel(R) Core(TM)%' AND device NOT LIKE '%Pentium(R)%' GROUP BY error ORDER BY num DESC LIMIT 0 ,100;
+
+SELECT COUNT(*) AS num FROM recode4error;
+
+TRUNCATE TABLE recode4error;
+OPTIMIZE TABLE recode4error;
+
+SELECT * FROM recode4error;
+
+SELECT COUNT(*) AS num,chnSub FROM player GROUP BY player.chnSub ORDER BY num DESC;

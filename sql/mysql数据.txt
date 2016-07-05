@@ -1,0 +1,2 @@
+ALTER TABLE `player` ADD `fight4hero` INT NOT NULL DEFAULT 0 COMMENT '英雄总战斗力' ;
+ALTER TABLE `player` ADD `fight4part` INT NOT NULL DEFAULT 0 COMMENT '小伙伴总战斗力';

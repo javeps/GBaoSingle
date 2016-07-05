@@ -1,0 +1,161 @@
+DROP TABLE IF EXISTS `demo`;
+CREATE TABLE IF NOT EXISTS `demo` (
+	`id` int(11) NOT NULL,
+	`num` int(11) NOT NULL,
+	`name` varchar(50) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+ALTER TABLE `demo` ADD PRIMARY KEY (`id`);
+ALTER TABLE `demo` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+INSERT INTO `demo` (`num`, `name`) VALUES
+(0, 'test');
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS pro_getDemoNum;
+CREATE PROCEDURE pro_getDemoNum(runningName varchar(50))
+BEGIN
+start transaction;
+update demo set num = num + 1 where name = runningName;
+commit;
+select * from demo where name = runningName;
+END //
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS pro_rnkSword;
+CREATE PROCEDURE pro_rnkSword()
+BEGIN
+	DECLARE rnk varchar(32) character set utf8;
+    SET rnk = concat("gbosng_log.ranksword",DATE_FORMAT(NOW(),'%Y%m%d'));
+    
+    SET @drop = concat("DROP TABLE IF EXISTS ",rnk);
+    PREPARE drop1 FROM @drop;
+    EXECUTE drop1;
+    
+    SET @crt = concat(
+    	"CREATE TABLE IF NOT EXISTS ",
+    	rnk,
+    	" (",
+		"`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '排行榜唯一标识',",
+		"`indexs` int(11) NOT NULL COMMENT '排序',",
+		"`unqid` varchar(128) NOT NULL COMMENT '帐号登录唯一标识',",
+		"`pcid` int(11) NOT NULL COMMENT '用户标识',",
+		"`pname` varchar(32) NOT NULL COMMENT '角色名字',",
+		"`sword` int(11) NOT NULL COMMENT '战斗力',",
+		"PRIMARY KEY (`id`),",
+		"UNIQUE KEY `unqid` (`unqid`)",
+		") ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;"
+	);
+	PREPARE crt1 FROM @crt;
+    EXECUTE crt1;
+	
+	SET @in2 = concat(
+    	"INSERT INTO ",
+    	rnk,
+    	"(`indexs`,`unqid`,`pcid`,`pname`,`sword`)",
+		"SELECT @rownum:=@rownum+1 AS `index`,`unqid`,`pcid`,`pname`,`sword` FROM `player`,(SELECT @rownum:=0) r ORDER BY `sword` DESC,`lasttime` DESC,`pcid` ASC;"
+	);
+	PREPARE in2 FROM @in2;
+    EXECUTE in2;
+END //
+
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS pro_rnkScore;
+CREATE PROCEDURE pro_rnkScore()
+BEGIN
+	DECLARE rnk varchar(32) character set utf8;
+    SET rnk = concat("gbosng_log.rankscore",DATE_FORMAT(NOW(),'%Y%m%d'));
+    
+    SET @drop = concat("DROP TABLE IF EXISTS ",rnk);
+    PREPARE drop1 FROM @drop;
+    EXECUTE drop1;
+    
+    SET @crt = concat(
+    	"CREATE TABLE IF NOT EXISTS ",
+    	rnk,
+    	" (",
+		"`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '排行榜唯一标识',",
+		"`indexs` int(11) NOT NULL COMMENT '排序',",
+		"`unqid` varchar(128) NOT NULL COMMENT '帐号登录唯一标识',",
+		"`pcid` int(11) NOT NULL COMMENT '用户标识',",
+		"`pname` varchar(32) NOT NULL COMMENT '角色名字',",
+		"`score` int(11) NOT NULL COMMENT '无尽得分',",
+		"PRIMARY KEY (`id`),",
+		"UNIQUE KEY `unqid` (`unqid`)",
+		") ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;"
+	);
+	PREPARE crt1 FROM @crt;
+    EXECUTE crt1;
+	
+	SET @in2 = concat(
+    	"INSERT INTO ",
+    	rnk,
+    	"(`indexs`,`unqid`,`pcid`,`pname`,`score`)",
+		"SELECT @rownum:=@rownum+1 AS `index`,`unqid`,`pcid`,`pname`,`score4Endless` FROM `player`,(SELECT @rownum:=0) r ORDER BY `score4Endless` DESC,`lasttime` DESC,`pcid` ASC;"
+	);
+	PREPARE in2 FROM @in2;
+    EXECUTE in2;
+END //
+
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS pro_rnkDel;
+CREATE PROCEDURE pro_rnkDel()
+BEGIN
+	DECLARE b int default 0;
+	DECLARE deltb varchar(100) character set utf8 default '';
+    DECLARE cur CURSOR FOR SELECT CONCAT('DROP TABLE IF EXISTS ', table_name, ';' ) AS dtbname FROM information_schema.tables WHERE (table_name LIKE 'ranksword%' OR table_name LIKE 'rankwheel%' OR table_name LIKE 'rankscore%') AND (table_name NOT LIKE CONCAT("%",DATE_FORMAT(NOW(),'%Y%m%d')) AND table_name NOT LIKE CONCAT("%",DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y%m%d')) AND table_name NOT LIKE CONCAT("%",DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 2 DAY),'%Y%m%d')) AND table_name NOT LIKE CONCAT("%",DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 3 DAY),'%Y%m%d')));
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET b = 1;
+    OPEN cur;
+	FETCH cur INTO deltb;
+	WHILE b <> 1 DO
+		SET @sql1 = concat("",deltb);
+		PREPARE sql1 FROM @sql1;
+		EXECUTE sql1;
+		DEALLOCATE PREPARE sql1;
+		SET b = 0;
+		FETCH cur INTO deltb;
+    END WHILE;
+    CLOSE cur;
+END //
+
+
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS pro_rnkWheel;
+CREATE PROCEDURE pro_rnkWheel()
+BEGIN
+	DECLARE rnk varchar(32) character set utf8;
+    SET rnk = concat("gbosng_log.rankwheel",DATE_FORMAT(NOW(),'%Y%m%d'));
+    
+    SET @drop = concat("DROP TABLE IF EXISTS ",rnk);
+    PREPARE drop1 FROM @drop;
+    EXECUTE drop1;
+    
+    SET @crt = concat(
+    	"CREATE TABLE IF NOT EXISTS ",
+    	rnk,
+    	" (",
+		"`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '排行榜唯一标识',",
+		"`indexs` int(11) NOT NULL COMMENT '排序',",
+		"`unqid` varchar(128) NOT NULL COMMENT '帐号登录唯一标识',",
+		"`pcid` int(11) NOT NULL COMMENT '用户标识',",
+		"`pname` varchar(32) NOT NULL COMMENT '角色名字',",
+		"`wheel` int(11) NOT NULL COMMENT '无尽循环最大次数',",
+		"PRIMARY KEY (`id`),",
+		"UNIQUE KEY `unqid` (`unqid`)",
+		") ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;"
+	);
+	PREPARE crt1 FROM @crt;
+    EXECUTE crt1;
+	
+	SET @in2 = concat(
+    	"INSERT INTO ",
+    	rnk,
+    	"(`indexs`,`unqid`,`pcid`,`pname`,`wheel`)",
+		"SELECT @rownum:=@rownum+1 AS `index`,`unqid`,`pcid`,`pname`,`wheel` FROM `player`,(SELECT @rownum:=0) r ORDER BY `wheel` DESC,`lasttime` DESC,`pcid` ASC;"
+	);
+	PREPARE in2 FROM @in2;
+    EXECUTE in2;
+END //

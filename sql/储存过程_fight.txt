@@ -1,0 +1,83 @@
+DELIMITER //
+DROP PROCEDURE IF EXISTS pro_rnkSword_Chn;
+CREATE PROCEDURE pro_rnkSword_Chn(in parsType int,in chn varchar(64) character set utf8)
+BEGIN
+	DECLARE rnk varchar(64) character set utf8;
+	
+	SET rnk = concat("gbosng_log.ranksword",DATE_FORMAT(NOW(),'%Y%m%d'));
+	IF parsType = 1 THEN
+		SET rnk = concat(rnk,"_hero");
+	ELSEIF parsType = 2 THEN
+		SET rnk = concat(rnk,"_part");
+	END IF;
+	
+    IF NOT (chn is null OR chn = '') THEN
+    	SET rnk = concat(rnk,"_",chn);
+    END IF;
+    
+    SET @drop = concat("DROP TABLE IF EXISTS ",rnk);
+    PREPARE drop1 FROM @drop;
+    EXECUTE drop1;
+    
+    SET @crt = concat(
+    	"CREATE TABLE IF NOT EXISTS ",
+    	rnk,
+    	" (",
+		"`id` int(11) NOT NULL AUTO_INCREMENT COMMENT '排行榜唯一标识',",
+		"`indexs` int(11) NOT NULL COMMENT '排序',",
+		"`unqid` varchar(128) NOT NULL COMMENT '帐号登录唯一标识',",
+		"`pcid` int(11) NOT NULL COMMENT '用户标识',",
+		"`pname` varchar(32) NOT NULL COMMENT '角色名字',",
+		"`sword` int(11) NOT NULL COMMENT '战斗力',",
+		"PRIMARY KEY (`id`),",
+		"UNIQUE KEY `unqid` (`unqid`)",
+		") ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;"
+	);
+	PREPARE crt1 FROM @crt;
+    EXECUTE crt1;
+	
+	SET @in2 = concat(
+    	"INSERT INTO ",
+    	rnk,
+    	"(`indexs`,`unqid`,`pcid`,`pname`,`sword`)"
+	);
+	
+	IF chn is null OR chn = '' THEN
+		IF parsType = 1 THEN
+			SET @in2 = concat(
+				@in2,
+				"SELECT @rownum:=@rownum+1 AS `index`,`unqid`,`pcid`,`pname`,`fight4hero` FROM `player`,(SELECT @rownum:=0) r ORDER BY `fight4hero` DESC,`lasttime` DESC,`pcid` ASC;"
+			);
+		ELSEIF parsType = 2 THEN
+			SET @in2 = concat(
+				@in2,
+				"SELECT @rownum:=@rownum+1 AS `index`,`unqid`,`pcid`,`pname`,`fight4part` FROM `player`,(SELECT @rownum:=0) r ORDER BY `fight4part` DESC,`lasttime` DESC,`pcid` ASC;"
+			);
+		ELSE
+			SET @in2 = concat(
+				@in2,
+				"SELECT @rownum:=@rownum+1 AS `index`,`unqid`,`pcid`,`pname`,`sword` FROM `player`,(SELECT @rownum:=0) r ORDER BY `sword` DESC,`lasttime` DESC,`pcid` ASC;"
+			);
+		END IF;
+    ELSE
+		IF parsType = 1 THEN
+			SET @in2 = concat(
+				@in2,
+				"SELECT @rownum:=@rownum+1 AS `index`,`unqid`,`pcid`,`pname`,`fight4hero` FROM `player`,(SELECT @rownum:=0) r WHERE `player`.`chnSub` = '",chn,"' ORDER BY `fight4hero` DESC,`lasttime` DESC,`pcid` ASC;"
+			);
+		ELSEIF parsType = 2 THEN
+			SET @in2 = concat(
+				@in2,
+				"SELECT @rownum:=@rownum+1 AS `index`,`unqid`,`pcid`,`pname`,`fight4part` FROM `player`,(SELECT @rownum:=0) r WHERE `player`.`chnSub` = '",chn,"' ORDER BY `fight4part` DESC,`lasttime` DESC,`pcid` ASC;"
+			);
+		ELSE
+			SET @in2 = concat(
+				@in2,
+				"SELECT @rownum:=@rownum+1 AS `index`,`unqid`,`pcid`,`pname`,`sword` FROM `player`,(SELECT @rownum:=0) r WHERE `player`.`chnSub` = '",chn,"' ORDER BY `sword` DESC,`lasttime` DESC,`pcid` ASC;"
+			);
+		END IF;
+    END IF;
+    
+	PREPARE in2 FROM @in2;
+    EXECUTE in2;
+END //
