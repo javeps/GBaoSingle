@@ -43,7 +43,11 @@ DROP PROCEDURE IF EXISTS pro_rnkScore_Chn;
 CREATE PROCEDURE pro_rnkScore_Chn(in chn varchar(64) character set utf8)
 BEGIN
 	DECLARE rnk varchar(64) character set utf8;
-    SET rnk = concat("gbosng_log.rankscore",DATE_FORMAT(NOW(),'%Y%m%d'),"_",chn);
+    SET rnk = concat("gbosng_log.rankscore",DATE_FORMAT(NOW(),'%Y%m%d'));
+
+    IF NOT (chn is null OR chn = '') THEN
+    	SET rnk = concat(rnk,"_",chn);
+    END IF;
     
     SET @drop = concat("DROP TABLE IF EXISTS ",rnk);
     PREPARE drop1 FROM @drop;
