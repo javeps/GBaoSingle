@@ -73,6 +73,10 @@ public class Logical extends Svc {
 		return true;
 	}
 
+	static private String initPlname() {
+		return "pl" + MD5.MD5UUIDStimeF16();
+	}
+
 	static protected Player getPl(String unqid, String uuidMCode, String phone,
 			String chn, String chnSub) {
 		Player pl = getPl(unqid);
@@ -96,7 +100,7 @@ public class Logical extends Svc {
 		if (pl == null) {
 			if (StrEx.isEmpty(uuidMCode))
 				uuidMCode = unqid;
-			String uuid = MD5.MD5UUIDStimeF16();
+
 			byte[] btZero = new byte[0];
 
 			Date createtime = DateEx.nowDate();
@@ -108,7 +112,7 @@ public class Logical extends Svc {
 				chnSub = "none";
 			}
 
-			pl = Player.newPlayer(0, unqid, uuidMCode, "pl" + uuid, 0, 0,
+			pl = Player.newPlayer(0, unqid, uuidMCode, initPlname(), 0, 0,
 					btZero, btZero, btZero, btZero, btZero, btZero, phone,
 					createtime, createtime, 0, 0, chn, chnSub, 0, 0, 0);
 
@@ -140,7 +144,8 @@ public class Logical extends Svc {
 			pname = pl.getPname();
 		}
 		int lens = pname.length();
-		boolean isRename = (lens > 0) && ((lens != 18) || (pname.indexOf("pl") != 0));
+		boolean isRename = (lens > 0)
+				&& ((lens != 18) || (pname.indexOf("pl") != 0));
 		nbl.val = isRename;
 		if (isRename) {
 			nname.val = pname;
@@ -232,27 +237,27 @@ public class Logical extends Svc {
 			System.out.println("pl is null, unqid = " + unqid);
 			return;
 		}
-		
+
 		if (!ByteEx.isEmpty(btHero)) {
 			pl.setBtHero(btHero);
 		}
-		
+
 		if (!ByteEx.isEmpty(btNpc)) {
 			pl.setBtNpc(btNpc);
 		}
-		
+
 		if (!ByteEx.isEmpty(btPart)) {
 			pl.setBtPart(btPart);
 		}
-		
+
 		if (!ByteEx.isEmpty(btPl)) {
 			pl.setBtPl(btPl);
 		}
-		
+
 		if (!ByteEx.isEmpty(btProp)) {
 			pl.setBtProp(btProp);
 		}
-		
+
 		// 取消邮件同步
 		// if (!ByteEx.isEmpty(btEmail)) {
 		// pl.setBtEmail(btEmail);
@@ -260,7 +265,7 @@ public class Logical extends Svc {
 
 		Date lasttime = DateEx.nowDate();
 		pl.setLasttime(lasttime);
-		
+
 		NewMap map = B2Helper.toMap(btPl);
 		if (!MapEx.isEmpty(map)) {
 			byte[] btsAllSword = MapEx.getByteArray(map, "allSword");
@@ -285,6 +290,9 @@ public class Logical extends Svc {
 			}
 
 			String pname = map.getString("pname");
+			if (StrEx.isEmptyTrim(pname)) {
+				pname = initPlname();
+			}
 			pl.setPname(pname);
 		}
 
