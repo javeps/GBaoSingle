@@ -103,7 +103,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 2);
-            writeMapEntry(result, "0", "error4Lua");
+            writeMapEntry(result, "cmd", "error4Lua");
             writeMapEntry(result, "1", rst.toMap());
             chn.send(result.toByteArray());
         } catch (Exception e) {
@@ -126,7 +126,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 3);
-            writeMapEntry(result, "0", "getChatsByHttp");
+            writeMapEntry(result, "cmd", "getChatsByHttp");
             writeMapEntry(result, "1", rst.toMap());
             writeMapEntry(result, "nchats", nchats.toMap());
             chn.send(result.toByteArray());
@@ -151,7 +151,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 3);
-            writeMapEntry(result, "0", "getNEmals");
+            writeMapEntry(result, "cmd", "getNEmals");
             writeMapEntry(result, "1", rst.toMap());
             writeMapEntry(result, "nemails", nemails.toMap());
             chn.send(result.toByteArray());
@@ -177,7 +177,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 4);
-            writeMapEntry(result, "0", "getNRanks");
+            writeMapEntry(result, "cmd", "getNRanks");
             writeMapEntry(result, "1", rst.toMap());
             writeMapEntry(result, "nrnkSelf", nrnkSelf.toMap());
             writeMapEntry(result, "nrnks", nrnks.toMap());
@@ -204,7 +204,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 4);
-            writeMapEntry(result, "0", "isInitSngByHttp");
+            writeMapEntry(result, "cmd", "isInitSngByHttp");
             writeMapEntry(result, "1", rst.toMap());
             writeMapEntry(result, "nbl", nbl.toMap());
             writeMapEntry(result, "nname", nname.toMap());
@@ -230,7 +230,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 2);
-            writeMapEntry(result, "0", "recordPhone");
+            writeMapEntry(result, "cmd", "recordPhone");
             writeMapEntry(result, "1", rst.toMap());
             chn.send(result.toByteArray());
         } catch (Exception e) {
@@ -252,7 +252,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 3);
-            writeMapEntry(result, "0", "rndPnameByHttp");
+            writeMapEntry(result, "cmd", "rndPnameByHttp");
             writeMapEntry(result, "1", rst.toMap());
             writeMapEntry(result, "nrndName", nrndName.toMap());
             chn.send(result.toByteArray());
@@ -277,7 +277,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 3);
-            writeMapEntry(result, "0", "sendChatByHttp");
+            writeMapEntry(result, "cmd", "sendChatByHttp");
             writeMapEntry(result, "1", rst.toMap());
             writeMapEntry(result, "nchats", nchats.toMap());
             chn.send(result.toByteArray());
@@ -301,7 +301,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 2);
-            writeMapEntry(result, "0", "setPnameByHttp");
+            writeMapEntry(result, "cmd", "setPnameByHttp");
             writeMapEntry(result, "1", rst.toMap());
             chn.send(result.toByteArray());
         } catch (Exception e) {
@@ -324,17 +324,18 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         String chnSub = map2.getString("chnSub");
         int fight4hero = (int) map2.getDouble("fight4hero");
         int fight4part = (int) map2.getDouble("fight4part");
+        int npcStars = (int) map2.getDouble("npcStars");
 
         ReturnStatus rst = new ReturnStatus();
         try {
-            onSync2Game(chn, unqid, uuid, btPl, btHero, btPart, btProp, btNpc, btEmail, chnStr, chnSub, fight4hero, fight4part, rst);
+            onSync2Game(chn, unqid, uuid, btPl, btHero, btPart, btProp, btNpc, btEmail, chnStr, chnSub, fight4hero, fight4part, npcStars, rst);
         } catch ( Exception e ) {
-            Object[] othrows = {"\"unqid:\"", unqid, "\"uuid:\"", uuid, "\"btPl:\"", btPl, "\"btHero:\"", btHero, "\"btPart:\"", btPart, "\"btProp:\"", btProp, "\"btNpc:\"", btNpc, "\"btEmail:\"", btEmail, "\"chnStr:\"", chnStr, "\"chnSub:\"", chnSub, "\"fight4hero:\"", fight4hero, "\"fight4part:\"", fight4part, };
+            Object[] othrows = {"\"unqid:\"", unqid, "\"uuid:\"", uuid, "\"btPl:\"", btPl, "\"btHero:\"", btHero, "\"btPart:\"", btPart, "\"btProp:\"", btProp, "\"btNpc:\"", btNpc, "\"btEmail:\"", btEmail, "\"chnStr:\"", chnStr, "\"chnSub:\"", chnSub, "\"fight4hero:\"", fight4hero, "\"fight4part:\"", fight4part, "\"npcStars:\"", npcStars, };
             onExcept(chn, "sync2Game", rethrow(e, "sync2Game", othrows), rst);
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 2);
-            writeMapEntry(result, "0", "sync2Game");
+            writeMapEntry(result, "cmd", "sync2Game");
             writeMapEntry(result, "1", rst.toMap());
             chn.send(result.toByteArray());
         } catch (Exception e) {
@@ -363,7 +364,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 8);
-            writeMapEntry(result, "0", "sync2Local");
+            writeMapEntry(result, "cmd", "sync2Local");
             writeMapEntry(result, "1", rst.toMap());
             writeMapEntry(result, "nbtPl", nbtPl.toMap());
             writeMapEntry(result, "nbtHero", nbtHero.toMap());
@@ -392,7 +393,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 3);
-            writeMapEntry(result, "0", "verifySign4GuoQin");
+            writeMapEntry(result, "cmd", "verifySign4GuoQin");
             writeMapEntry(result, "1", rst.toMap());
             writeMapEntry(result, "nbl", nbl.toMap());
             chn.send(result.toByteArray());
@@ -416,7 +417,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         }
         try ( ByteOutStream result = getStream();) {
             writeMapTag(result, 3);
-            writeMapEntry(result, "0", "verifySytTime");
+            writeMapEntry(result, "cmd", "verifySytTime");
             writeMapEntry(result, "1", rst.toMap());
             writeMapEntry(result, "nbl", nbl.toMap());
             chn.send(result.toByteArray());
@@ -471,7 +472,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
     // 设置聊天名
     public abstract void onSetPnameByHttp(TcpChannel chn , String unqid, String newName, ReturnStatus ret) throws Exception;
     // 同步数据到服务器
-    public abstract void onSync2Game(TcpChannel chn , String unqid, String uuid, byte[] btPl, byte[] btHero, byte[] btPart, byte[] btProp, byte[] btNpc, byte[] btEmail, String chnStr, String chnSub, int fight4hero, int fight4part, ReturnStatus ret) throws Exception;
+    public abstract void onSync2Game(TcpChannel chn , String unqid, String uuid, byte[] btPl, byte[] btHero, byte[] btPart, byte[] btProp, byte[] btNpc, byte[] btEmail, String chnStr, String chnSub, int fight4hero, int fight4part, int npcStars, ReturnStatus ret) throws Exception;
     // 同步数据到本地
     public abstract void onSync2Local(TcpChannel chn , String unqid, String uuid, NBytes nbtPl, NBytes nbtHero, NBytes nbtPart, NBytes nbtProp, NBytes nbtNpc, NBytes nbtEmail, ReturnStatus ret) throws Exception;
     // 国庆7天签到的验证
@@ -693,6 +694,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
         String chnSub = map2.getString("chnSub");
         int fight4hero = map2.getInt("fight4hero");
         int fight4part = map2.getInt("fight4part");
+        int npcStars = map2.getInt("npcStars");
         StringBuffer sb = com.bowlong.objpool.StringBufPool.borrowObject();
         try {
             sb.append("sync2Game(");
@@ -708,6 +710,7 @@ public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
             sb.append("\"chnSub\":").append(chnSub).append(",");
             sb.append("\"fight4hero\":").append(fight4hero).append(",");
             sb.append("\"fight4part\":").append(fight4part).append(",");
+            sb.append("\"npcStars\":").append(npcStars).append(",");
             sb.append(")");
             return sb.toString();
         } finally {

@@ -46,17 +46,6 @@ public class RankscoreEntity extends RankscoreInternal {
 	}
 
 	// types begin
-	/***
-	 * 执行 储存过程 process
-	 * 
-	 * @throws Exception
-	 **/
-	static public void exceProcess() throws Exception {
-		RankscoreDAO dao = RankscoreDAO();
-		String sql = "call pro_rnkScore();";
-		dao.call(sql);
-	}
-
 	/*** 执行 储存过程 process **/
 	static public void exceProcessByChn(String chn) throws Exception {
 		RankscoreDAO dao = RankscoreDAO();

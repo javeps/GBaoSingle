@@ -113,7 +113,7 @@ public class Logical extends Svc {
 
 			pl = Player.newPlayer(0, unqid, uuidMCode, "pl" + uuid, 0, 0,
 					btZero, btZero, btZero, btZero, btZero, btZero, phone,
-					createtime, createtime, 0, 0, chn, chnSub, 0, 0);
+					createtime, createtime, 0, 0, chn, chnSub, 0, 0, 0);
 
 			pl = pl.insert();
 		} else {
@@ -227,7 +227,8 @@ public class Logical extends Svc {
 	static public void onSync2Game(TcpChannel chn, String unqid, String uuid,
 			byte[] btPl, byte[] btHero, byte[] btPart, byte[] btProp,
 			byte[] btNpc, byte[] btEmail, String chnStr, String chnSub,
-			int fight4hero, int fight4part, ReturnStatus ret) throws Exception {
+			int fight4hero, int fight4part, int npcStars, ReturnStatus ret)
+			throws Exception {
 		Player pl = getPl(unqid, uuid, "", chnStr, chnSub);
 		if (pl == null) {
 			return;
@@ -282,6 +283,8 @@ public class Logical extends Svc {
 
 		pl.setFight4hero(fight4hero);
 		pl.setFight4part(fight4part);
+		pl.setNpcStars(npcStars);
+		
 		pl.update();
 	}
 

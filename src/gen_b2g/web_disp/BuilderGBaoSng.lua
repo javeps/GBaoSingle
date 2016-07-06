@@ -282,7 +282,7 @@ do
          end;
 
          -- 同步数据到服务器
-         sync2Game = function(unqid, uuid, btPl, btHero, btPart, btProp, btNpc, btEmail, chnStr, chnSub, fight4hero, fight4part)
+         sync2Game = function(unqid, uuid, btPl, btHero, btPart, btProp, btNpc, btEmail, chnStr, chnSub, fight4hero, fight4part, npcStars)
             local _map = Hashtable();
             _map:Add("-100", BuilderGBaoSng.callNet.__sessionid);  -- __sessionid
             _map:Add("cmd", "sync2Game");  -- cmd:sync2Game
@@ -298,6 +298,7 @@ do
             _map:Add("chnSub", chnSub);
             _map:Add("fight4hero", fight4hero);
             _map:Add("fight4part", fight4part);
+            _map:Add("npcStars", npcStars);
             return _map;
          end;
 
@@ -347,7 +348,7 @@ do
          --]]
 
          disp = function(map)
-            local cmd = map["0"];
+            local cmd = map["cmd"];
             BuilderGBaoSng.onCallNet.disp_each(cmd, map);
          end;
 

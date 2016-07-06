@@ -137,11 +137,11 @@ public class BuilderGBaoSng {
 
 		@B2Method(type = SERVER, params = { "unqid", "uuid", "btPl", "btHero",
 				"btPart", "btProp", "btNpc", "btEmail", "chnStr", "chnSub",
-				"fight4hero", "fight4part" }, remark = "同步数据到服务器")
+				"fight4hero", "fight4part", "npcStars" }, remark = "同步数据到服务器")
 		ReturnStatus sync2Game(String unqid, String uuid, byte[] btPl,
 				byte[] btHero, byte[] btPart, byte[] btProp, byte[] btNpc,
 				byte[] btEmail, String chnStr, String chnSub, int fight4hero,
-				int fight4part);
+				int fight4part, int npcStars);
 
 		@B2Method(type = SERVER, params = { "unqid", "uuid", "nbtPl",
 				"nbtHero", "nbtPart", "nbtProp", "nbtNpc", "nbtEmail" }, remark = "同步数据到本地")

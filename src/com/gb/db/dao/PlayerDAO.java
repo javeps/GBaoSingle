@@ -32,9 +32,9 @@ public class PlayerDAO extends JdbcTemplate {
         return TABLE + DateEx.nowStr5();
     }
 
-    public static String[] carrays ={"pcid", "unqid", "uuidMCode", "pname", "sword", "wheel", "btPl", "btHero", "btPart", "btProp", "btNpc", "btEmail", "phone", "createtime", "lasttime", "statusActivity", "score4Endless", "chn", "chnSub", "fight4hero", "fight4part"};
-    public static String coulmns = "pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part";
-    public static String coulmns2 = "unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part";
+    public static String[] carrays ={"pcid", "unqid", "uuidMCode", "pname", "sword", "wheel", "btPl", "btHero", "btPart", "btProp", "btNpc", "btEmail", "phone", "createtime", "lasttime", "statusActivity", "score4Endless", "chn", "chnSub", "fight4hero", "fight4part", "npcStars"};
+    public static String coulmns = "pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars";
+    public static String coulmns2 = "unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars";
 
     public PlayerDAO(Connection conn) {
         super(conn);
@@ -56,7 +56,7 @@ public class PlayerDAO extends JdbcTemplate {
         StringBuffer sql = StringBufPool.borrowObject();
         try {
             player.reset();
-            sql.append("INSERT INTO ").append(TABLENAME2).append(" (unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part) VALUES (:unqid, :uuidMCode, :pname, :sword, :wheel, :btPl, :btHero, :btPart, :btProp, :btNpc, :btEmail, :phone, :createtime, :lasttime, :statusActivity, :score4Endless, :chn, :chnSub, :fight4hero, :fight4part)");
+            sql.append("INSERT INTO ").append(TABLENAME2).append(" (unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars) VALUES (:unqid, :uuidMCode, :pname, :sword, :wheel, :btPl, :btHero, :btPart, :btProp, :btNpc, :btEmail, :phone, :createtime, :lasttime, :statusActivity, :score4Endless, :chn, :chnSub, :fight4hero, :fight4part, :npcStars)");
             Map map = super.insert(sql.toString(), player);
             return getInt(map, "GENERATED_KEY");
         } catch(Exception e) {
@@ -127,7 +127,7 @@ public class PlayerDAO extends JdbcTemplate {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
             player.ustr();
-            sql.append("INSERT INTO ").append(TABLENAME2).append(" (pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part) VALUES (:pcid, :unqid, :uuidMCode, :pname, :sword, :wheel, :btPl, :btHero, :btPart, :btProp, :btNpc, :btEmail, :phone, :createtime, :lasttime, :statusActivity, :score4Endless, :chn, :chnSub, :fight4hero, :fight4part)");
+            sql.append("INSERT INTO ").append(TABLENAME2).append(" (pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars) VALUES (:pcid, :unqid, :uuidMCode, :pname, :sword, :wheel, :btPl, :btHero, :btPart, :btProp, :btNpc, :btEmail, :phone, :createtime, :lasttime, :statusActivity, :score4Endless, :chn, :chnSub, :fight4hero, :fight4part, :npcStars)");
             Map map = super.insert(sql.toString(), player);
             return getInt(map, "GENERATED_KEY");
         } catch(Exception e) {
@@ -146,7 +146,7 @@ public class PlayerDAO extends JdbcTemplate {
         StringBuffer sql = StringBufPool.borrowObject();
         try {
             if(players == null || players.isEmpty()) return new int[0];
-            sql.append("INSERT INTO ").append(TABLENAME2).append(" (unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part) VALUES (:unqid, :uuidMCode, :pname, :sword, :wheel, :btPl, :btHero, :btPart, :btProp, :btNpc, :btEmail, :phone, :createtime, :lasttime, :statusActivity, :score4Endless, :chn, :chnSub, :fight4hero, :fight4part)");
+            sql.append("INSERT INTO ").append(TABLENAME2).append(" (unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars) VALUES (:unqid, :uuidMCode, :pname, :sword, :wheel, :btPl, :btHero, :btPart, :btProp, :btNpc, :btEmail, :phone, :createtime, :lasttime, :statusActivity, :score4Endless, :chn, :chnSub, :fight4hero, :fight4part, :npcStars)");
             return super.batchInsert(sql.toString(), players);
          } catch (Exception e) {
              log.info(e2s(e));
@@ -289,7 +289,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectAll(final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" ORDER BY pcid");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" ORDER BY pcid");
             return super.queryForList(sql.toString(), Player.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -354,7 +354,7 @@ public class PlayerDAO extends JdbcTemplate {
                     sb.append(", ");
             }
             String str = sb.toString();
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE pcid in (").append(str).append(" ) ORDER BY pcid");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE pcid in (").append(str).append(" ) ORDER BY pcid");
             return super.queryForList(sql.toString(), Player.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -381,7 +381,7 @@ public class PlayerDAO extends JdbcTemplate {
                     sb.append(", ");
             }
             String str = sb.toString();
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE pcid in ( :str ) ORDER BY pcid");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE pcid in ( :str ) ORDER BY pcid");
             Map params = newMap();
             params.put("str", str);
             return super.queryForList(sql.toString(), params, Player.class);
@@ -433,7 +433,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectLast(final int num, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" ORDER BY pcid DESC LIMIT ").append(num).append("");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" ORDER BY pcid DESC LIMIT ").append(num).append("");
             return super.queryForList(sql.toString(), Player.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -472,7 +472,7 @@ public class PlayerDAO extends JdbcTemplate {
     public Player last(final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" ORDER BY pcid DESC LIMIT 1");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" ORDER BY pcid DESC LIMIT 1");
             return super.queryForObject(sql.toString(), Player.class);
         } catch(Exception e) {
             // log.info(e2s(e));
@@ -489,7 +489,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectGtKeyNum(final int pcid, final int _num, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE pcid > :pcid ORDER BY pcid LIMIT ").append(_num).append("");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE pcid > :pcid ORDER BY pcid LIMIT ").append(_num).append("");
             Map params = newMap();
             params.put("pcid", pcid);
             return super.queryForList(sql.toString(), params, Player.class);
@@ -508,7 +508,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectGtKey(final int pcid, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE pcid > :pcid ORDER BY pcid");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE pcid > :pcid ORDER BY pcid");
             Map params = newMap();
             params.put("pcid", pcid);
             return super.queryForList(sql.toString(), params, Player.class);
@@ -551,7 +551,7 @@ public class PlayerDAO extends JdbcTemplate {
     public Player selectByKey(final int pcid, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE pcid = :pcid");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE pcid = :pcid");
             Map params = newMap();
             params.put("pcid", pcid);
             return super.queryForObject(sql.toString(), params, Player.class);
@@ -587,7 +587,7 @@ public class PlayerDAO extends JdbcTemplate {
     public Player selectByUnqid(final String unqid, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE unqid = :unqid");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE unqid = :unqid");
             Map params = newMap();
             params.put("unqid", unqid);
             return super.queryForObject(sql.toString(), params, Player.class);
@@ -623,7 +623,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectLikeUnqid(final String unqid, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE unqid LIKE '%").append(unqid).append("%' ORDER BY pcid ");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE unqid LIKE '%").append(unqid).append("%' ORDER BY pcid ");
             return super.queryForList(sql.toString(), Player.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -682,7 +682,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectByChnSub(final String chnSub, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE chnSub = :chnSub ORDER BY pcid ");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE chnSub = :chnSub ORDER BY pcid ");
             Map params = newMap();
             params.put("chnSub", chnSub);
             return super.queryForList(sql.toString(), params, Player.class);
@@ -725,7 +725,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectPageByChnSub(final String chnSub, final int begin, final int num, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE chnSub = :chnSub ORDER BY pcid LIMIT ").append(begin).append(", ").append(num).append("");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE chnSub = :chnSub ORDER BY pcid LIMIT ").append(begin).append(", ").append(num).append("");
             Map params = newMap();
             params.put("chnSub", chnSub);
             return super.queryForList(sql.toString(), params, Player.class);
@@ -785,7 +785,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectLikeChnSub(final String chnSub, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE chnSub LIKE '%").append(chnSub).append("%' ORDER BY pcid ");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE chnSub LIKE '%").append(chnSub).append("%' ORDER BY pcid ");
             return super.queryForList(sql.toString(), Player.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -825,7 +825,7 @@ public class PlayerDAO extends JdbcTemplate {
     public Player selectByPcid(final Integer pcid, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE pcid = :pcid");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE pcid = :pcid");
             Map params = newMap();
             params.put("pcid", pcid);
             return super.queryForObject(sql.toString(), params, Player.class);
@@ -844,7 +844,7 @@ public class PlayerDAO extends JdbcTemplate {
     public Player selectByPname(final String pname, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE pname = :pname");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE pname = :pname");
             Map params = newMap();
             params.put("pname", pname);
             return super.queryForObject(sql.toString(), params, Player.class);
@@ -880,7 +880,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectLikePname(final String pname, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE pname LIKE '%").append(pname).append("%' ORDER BY pcid ");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE pname LIKE '%").append(pname).append("%' ORDER BY pcid ");
             return super.queryForList(sql.toString(), Player.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -939,7 +939,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectByChn(final String chn, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE chn = :chn ORDER BY pcid ");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE chn = :chn ORDER BY pcid ");
             Map params = newMap();
             params.put("chn", chn);
             return super.queryForList(sql.toString(), params, Player.class);
@@ -982,7 +982,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectPageByChn(final String chn, final int begin, final int num, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE chn = :chn ORDER BY pcid LIMIT ").append(begin).append(", ").append(num).append("");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE chn = :chn ORDER BY pcid LIMIT ").append(begin).append(", ").append(num).append("");
             Map params = newMap();
             params.put("chn", chn);
             return super.queryForList(sql.toString(), params, Player.class);
@@ -1042,7 +1042,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectLikeChn(final String chn, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE chn LIKE '%").append(chn).append("%' ORDER BY pcid ");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE chn LIKE '%").append(chn).append("%' ORDER BY pcid ");
             return super.queryForList(sql.toString(), Player.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -1101,7 +1101,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectByUuidMCode(final String uuidMCode, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE uuidMCode = :uuidMCode ORDER BY pcid ");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE uuidMCode = :uuidMCode ORDER BY pcid ");
             Map params = newMap();
             params.put("uuidMCode", uuidMCode);
             return super.queryForList(sql.toString(), params, Player.class);
@@ -1144,7 +1144,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectPageByUuidMCode(final String uuidMCode, final int begin, final int num, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE uuidMCode = :uuidMCode ORDER BY pcid LIMIT ").append(begin).append(", ").append(num).append("");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE uuidMCode = :uuidMCode ORDER BY pcid LIMIT ").append(begin).append(", ").append(num).append("");
             Map params = newMap();
             params.put("uuidMCode", uuidMCode);
             return super.queryForList(sql.toString(), params, Player.class);
@@ -1204,7 +1204,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectLikeUuidMCode(final String uuidMCode, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" WHERE uuidMCode LIKE '%").append(uuidMCode).append("%' ORDER BY pcid ");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" WHERE uuidMCode LIKE '%").append(uuidMCode).append("%' ORDER BY pcid ");
             return super.queryForList(sql.toString(), Player.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -1261,7 +1261,7 @@ public class PlayerDAO extends JdbcTemplate {
     public List<Player> selectByPage(final int begin, final int num, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part FROM ").append(TABLENAME2).append(" ORDER BY pcid LIMIT ").append(begin).append(", ").append(num).append("");
+            sql.append("SELECT pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars FROM ").append(TABLENAME2).append(" ORDER BY pcid LIMIT ").append(begin).append(", ").append(num).append("");
             return super.queryForList(sql.toString(), Player.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -2224,6 +2224,152 @@ public class PlayerDAO extends JdbcTemplate {
         }
     }
 
+    public int updateNpcStarsByKey(final int npcStars, final int pcid){
+        return updateNpcStarsByKey(npcStars, pcid, TABLENAME);
+    }
+
+    public int updateNpcStarsByKey(final int npcStars, final int pcid, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("UPDATE ").append(TABLENAME2).append(" SET npcStars=npcStars+:npcStars WHERE pcid=:pcid");
+            Map params = newMap();
+            params.put("pcid", pcid);
+            params.put("npcStars", npcStars);
+            return super.update(sql.toString(), params);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return 0;
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public int updateNpcStarsWithMinByKey(final int pcid, final int npcStars, final int _min){
+        return updateNpcStarsWithMinByKey(pcid, npcStars, _min, TABLENAME);
+    }
+
+    public int updateNpcStarsWithMinByKey(final int pcid, final int npcStars, final int _min, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("UPDATE ").append(TABLENAME2).append(" SET npcStars = (select case when npcStars+:npcStars<=:_min then :_min else npcStars+:npcStars end) WHERE pcid=:pcid");
+            Map params = newMap();
+            params.put("pcid", pcid);
+            params.put("_min", _min);
+            params.put("npcStars", npcStars);
+            return super.update(sql.toString(), params);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return 0;
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public int updateNpcStarsWithMinInKeys(final List<Integer> keys, final int npcStars, final int _min){
+        return updateNpcStarsWithMinInKeys(keys, npcStars, _min, TABLENAME);
+    }
+
+    public int updateNpcStarsWithMinInKeys(final List<Integer> keys, final int npcStars, final int _min, final String TABLENAME2) {
+        StringBuffer sb = StringBufPool.borrowObject();
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            if(keys == null || keys.isEmpty()) return 0;
+            int size = keys.size();
+            for (int i = 0; i < size; i ++) {
+                sb.append(keys.get(i));
+                if(i < size - 1)
+                    sb.append(", ");
+            }
+            String str = sb.toString();
+            sql.append("UPDATE ").append(TABLENAME2).append(" SET npcStars = (select case when npcStars+:npcStars<=:_min then :_min else npcStars+:npcStars end) WHERE pcid in (").append(str).append(")");
+            Map params = newMap();
+            params.put("_min", _min);
+            params.put("npcStars", npcStars);
+            return super.update(sql.toString(), params);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return 0;
+        } finally {
+            StringBufPool.returnObject(sb);
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public int updateNpcStarsWithMaxByKey(final int pcid, final int npcStars, final int _max){
+        return updateNpcStarsWithMaxByKey(pcid, npcStars, _max, TABLENAME);
+    }
+
+    public int updateNpcStarsWithMaxByKey(final int pcid, final int npcStars, final int _max, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("UPDATE ").append(TABLENAME2).append(" SET npcStars = (select case when npcStars+:npcStars>=:_max then :_max else npcStars+:npcStars end) WHERE pcid=:pcid");
+            Map params = newMap();
+            params.put("pcid", pcid);
+            params.put("_max", _max);
+            params.put("npcStars", npcStars);
+            return super.update(sql.toString(), params);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return 0;
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public int updateNpcStarsWithMaxInKeys(final List<Integer> keys, final int npcStars, final int _max){
+        return updateNpcStarsWithMaxInKeys(keys, npcStars, _max, TABLENAME);
+    }
+
+    public int updateNpcStarsWithMaxInKeys(final List<Integer> keys, final int npcStars, final int _max, final String TABLENAME2) {
+        StringBuffer sb = StringBufPool.borrowObject();
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            if(keys == null || keys.isEmpty()) return 0;
+            int size = keys.size();
+            for (int i = 0; i < size; i ++) {
+                sb.append(keys.get(i));
+                if(i < size - 1)
+                    sb.append(", ");
+            }
+            String str = sb.toString();
+            sql.append("UPDATE ").append(TABLENAME2).append(" SET npcStars = (select case when npcStars+:npcStars>=:_max then :_max else npcStars+:npcStars end) WHERE pcid in (").append(str).append(")");
+            Map params = newMap();
+            params.put("_max", _max);
+            params.put("npcStars", npcStars);
+            return super.update(sql.toString(), params);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return 0;
+        } finally {
+            StringBufPool.returnObject(sb);
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public int updateNpcStarsWithMinMaxByKey(final int pcid, final int npcStars, final int _min, final int _max){
+        return updateNpcStarsWithMinMaxByKey(pcid, npcStars, _min, _max, TABLENAME);
+    }
+
+    public int updateNpcStarsWithMinMaxByKey(final int pcid, final int npcStars, final int _min, final int _max, final String TABLENAME2){
+        if( npcStars < 0 ) {
+            return updateNpcStarsWithMinByKey(pcid, npcStars, _min, TABLENAME2);
+        } else {
+            return updateNpcStarsWithMaxByKey(pcid, npcStars, _max, TABLENAME2);
+        }
+    }
+
+    public int updateNpcStarsWithMinMaxInKeys(final List<Integer> keys, final int npcStars, final int _min, final int _max){
+        return updateNpcStarsWithMinMaxInKeys(keys, npcStars, _min, _max, TABLENAME);
+    }
+
+    public int updateNpcStarsWithMinMaxInKeys(final List<Integer> keys, final int npcStars, final int _min, final int _max, final String TABLENAME2){
+        if( npcStars < 0 ) {
+            return updateNpcStarsWithMinInKeys(keys, npcStars, _min, TABLENAME2);
+        } else {
+            return updateNpcStarsWithMaxInKeys(keys, npcStars, _max, TABLENAME2);
+        }
+    }
+
     public int[] updateByKey (final List<Player> players) {
         return updateByKey(players, TABLENAME);
     }
@@ -2232,7 +2378,7 @@ public class PlayerDAO extends JdbcTemplate {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
             if(players == null || players.isEmpty()) return new int[0];
-            sql.append("UPDATE ").append(TABLENAME2).append(" SET unqid=:unqid, uuidMCode=:uuidMCode, pname=:pname, sword=:sword, wheel=:wheel, btPl=:btPl, btHero=:btHero, btPart=:btPart, btProp=:btProp, btNpc=:btNpc, btEmail=:btEmail, phone=:phone, createtime=:createtime, lasttime=:lasttime, statusActivity=:statusActivity, score4Endless=:score4Endless, chn=:chn, chnSub=:chnSub, fight4hero=:fight4hero, fight4part=:fight4part WHERE pcid=:pcid");
+            sql.append("UPDATE ").append(TABLENAME2).append(" SET unqid=:unqid, uuidMCode=:uuidMCode, pname=:pname, sword=:sword, wheel=:wheel, btPl=:btPl, btHero=:btHero, btPart=:btPart, btProp=:btProp, btNpc=:btNpc, btEmail=:btEmail, phone=:phone, createtime=:createtime, lasttime=:lasttime, statusActivity=:statusActivity, score4Endless=:score4Endless, chn=:chn, chnSub=:chnSub, fight4hero=:fight4hero, fight4part=:fight4part, npcStars=:npcStars WHERE pcid=:pcid");
             return super.batchUpdate2(sql.toString(), players);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -2266,6 +2412,7 @@ public class PlayerDAO extends JdbcTemplate {
                 "	`chnSub`  VARCHAR(32) NOT NULL," +
                 "	`fight4hero`  INT(11) NOT NULL," +
                 "	`fight4part`  INT(11) NOT NULL," +
+                "	`npcStars`  INT(11) NOT NULL," +
                 "	PRIMARY KEY (`pcid`)," +
                 "	UNIQUE KEY `unqid` (`unqid`)," +
                 "	UNIQUE KEY `pname` (`pname`)," +
@@ -2307,6 +2454,7 @@ public class PlayerDAO extends JdbcTemplate {
                 "	`chnSub`  VARCHAR(32) NOT NULL," +
                 "	`fight4hero`  INT(11) NOT NULL," +
                 "	`fight4part`  INT(11) NOT NULL," +
+                "	`npcStars`  INT(11) NOT NULL," +
                 "	PRIMARY KEY (`pcid`)," +
                 "	KEY `unqid` (`unqid`)," +
                 "	KEY `pname` (`pname`)," +

@@ -56,9 +56,11 @@ public class GBSngGmImpl extends GBSngGmSvI {
 	public void onSync2Game(TcpChannel chn, String unqid, String uuid,
 			byte[] btPl, byte[] btHero, byte[] btPart, byte[] btProp,
 			byte[] btNpc, byte[] btEmail, String chnStr, String chnSub,
-			int fight4hero, int fight4part, ReturnStatus ret) throws Exception {
+			int fight4hero, int fight4part, int npcStars, ReturnStatus ret)
+			throws Exception {
 		Logical.onSync2Game(chn, unqid, uuid, btPl, btHero, btPart, btProp,
-				btNpc, btEmail, chnStr, chnSub, fight4hero, fight4part, ret);
+				btNpc, btEmail, chnStr, chnSub, fight4hero, fight4part,
+				npcStars, ret);
 	}
 
 	@Override

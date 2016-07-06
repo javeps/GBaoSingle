@@ -15,12 +15,13 @@ import com.bowlong.util.CalendarEx;
 import com.bowlong.util.ListEx;
 import com.gb.db.bean.Player;
 import com.gb.db.bean.Rankscore;
+import com.gb.db.bean.Rankstars;
 import com.gb.db.bean.Ranksword;
 import com.gb.db.bean.Rankwheel;
 import com.gb.db.entity.PlayerEntity;
 import com.gb.db.entity.RankscoreEntity;
+import com.gb.db.entity.RankstarsEntity;
 import com.gb.db.entity.RankswordEntity;
-import com.gb.db.entity.RankwheelEntity;
 
 public class LogicalRank extends Logical {
 
@@ -72,7 +73,7 @@ public class LogicalRank extends Logical {
 		to.index = fm.getIndexs();
 		to.pname = fm.getPname();
 		to.wheel = fm.getWheel();
-		to.type = 2;
+		to.type = 4;
 		to.unqid = fm.getUnqid();
 		return to;
 	}
@@ -140,6 +141,44 @@ public class LogicalRank extends Logical {
 		to.list = toList;
 	}
 
+	static NRank transform2RnkStars(NRank to, Rankstars fm) {
+		if (fm == null)
+			return to;
+		if (to == null)
+			to = new NRank();
+		to.index = fm.getIndexs();
+		to.pname = fm.getPname();
+		to.wheel = fm.getStars();
+		to.type = 3;
+		to.unqid = fm.getUnqid();
+		return to;
+	}
+
+	static List<NRank> transform2RnkListStars(List<NRank> to, List<Rankstars> fm) {
+		if (ListEx.isEmpty(fm))
+			return to;
+		if (to == null)
+			to = new ArrayList<NRank>();
+		int len = fm.size();
+		for (int i = 0; i < len; i++) {
+			Rankstars enFm = fm.get(i);
+			if (enFm == null)
+				continue;
+			NRank enTo = null;
+			enTo = transform2RnkStars(enTo, enFm);
+			to.add(enTo);
+		}
+		return to;
+	}
+
+	static void transform2NRnksStars(NRanks to, List<Rankstars> fm) {
+		List<NRank> toList = null;
+		toList = transform2RnkListStars(toList, fm);
+		if (ListEx.isEmpty(toList))
+			return;
+		to.list = toList;
+	}
+
 	static String getRnkDateStr() {
 		// 定时执行排行时间(凌晨4点)
 		int orderHour = 4;
@@ -157,33 +196,33 @@ public class LogicalRank extends Logical {
 		Player pl = PlayerEntity.getByUnqid(unqid);
 		if (pl != null) {
 			switch (type) {
-			case 1:
-				Ranksword en = RankswordEntity.getEnBy(unqid, dateStr);
-				transform2RnkSword(nrnkSelf, en);
+			case 3:
+				Rankstars enStar = RankstarsEntity.getEnBy(unqid, dateStr);
+				transform2RnkStars(nrnkSelf, enStar);
 				break;
 			case 2:
 				Rankscore en1 = RankscoreEntity.getEnBy(unqid, dateStr);
 				transform2RnkScore(nrnkSelf, en1);
 				break;
 			default:
-				Rankwheel en2 = RankwheelEntity.getEnBy(unqid, dateStr);
-				transform2RnkWheel(nrnkSelf, en2);
+				Ranksword en = RankswordEntity.getEnBy(unqid, dateStr);
+				transform2RnkSword(nrnkSelf, en);
 				break;
 			}
 		}
 
 		switch (type) {
-		case 1:
-			List<Ranksword> list1 = RankswordEntity.getListBy(1, 100, dateStr);
-			transform2NRnksSword(nrnks, list1);
+		case 3:
+			List<Rankstars> list3 = RankstarsEntity.getListBy(1, 100, dateStr);
+			transform2NRnksStars(nrnks, list3);
 			break;
 		case 2:
 			List<Rankscore> list2 = RankscoreEntity.getListBy(1, 100, dateStr);
 			transform2NRnksScore(nrnks, list2);
 			break;
 		default:
-			List<Rankwheel> list3 = RankwheelEntity.getListBy(1, 100, dateStr);
-			transform2NRnksWheel(nrnks, list3);
+			List<Ranksword> list1 = RankswordEntity.getListBy(1, 100, dateStr);
+			transform2NRnksSword(nrnks, list1);
 			break;
 		}
 	}

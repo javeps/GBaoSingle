@@ -22,10 +22,10 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
 
     public static final String primary = "pcid";
 
-    public static final class Col { public static final String pcid = "pcid"; public static final String unqid = "unqid"; public static final String uuidMCode = "uuidMCode"; public static final String pname = "pname"; public static final String sword = "sword"; public static final String wheel = "wheel"; public static final String btPl = "btPl"; public static final String btHero = "btHero"; public static final String btPart = "btPart"; public static final String btProp = "btProp"; public static final String btNpc = "btNpc"; public static final String btEmail = "btEmail"; public static final String phone = "phone"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime"; public static final String statusActivity = "statusActivity"; public static final String score4Endless = "score4Endless"; public static final String chn = "chn"; public static final String chnSub = "chnSub"; public static final String fight4hero = "fight4hero"; public static final String fight4part = "fight4part";  }
-    public static final class CEn { public static final String pcid = "pcid"; public static final String unqid = "unqid"; public static final String uuidMCode = "uuidMCode"; public static final String pname = "pname"; public static final String sword = "sword"; public static final String wheel = "wheel"; public static final String btPl = "btPl"; public static final String btHero = "btHero"; public static final String btPart = "btPart"; public static final String btProp = "btProp"; public static final String btNpc = "btNpc"; public static final String btEmail = "btEmail"; public static final String phone = "phone"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime"; public static final String statusActivity = "statusActivity"; public static final String score4Endless = "score4Endless"; public static final String chn = "chn"; public static final String chnSub = "chnSub"; public static final String fight4hero = "fight4hero"; public static final String fight4part = "fight4part";  }
-    public static final String[] carrays ={"pcid", "unqid", "uuidMCode", "pname", "sword", "wheel", "btPl", "btHero", "btPart", "btProp", "btNpc", "btEmail", "phone", "createtime", "lasttime", "statusActivity", "score4Endless", "chn", "chnSub", "fight4hero", "fight4part"};
-    public static final String[] dbTypes ={"INT", "VARCHAR", "VARCHAR", "VARCHAR", "INT", "INT", "BLOB", "BLOB", "BLOB", "BLOB", "BLOB", "BLOB", "VARCHAR", "DATETIME", "DATETIME", "INT", "INT", "VARCHAR", "VARCHAR", "INT", "INT"};
+    public static final class Col { public static final String pcid = "pcid"; public static final String unqid = "unqid"; public static final String uuidMCode = "uuidMCode"; public static final String pname = "pname"; public static final String sword = "sword"; public static final String wheel = "wheel"; public static final String btPl = "btPl"; public static final String btHero = "btHero"; public static final String btPart = "btPart"; public static final String btProp = "btProp"; public static final String btNpc = "btNpc"; public static final String btEmail = "btEmail"; public static final String phone = "phone"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime"; public static final String statusActivity = "statusActivity"; public static final String score4Endless = "score4Endless"; public static final String chn = "chn"; public static final String chnSub = "chnSub"; public static final String fight4hero = "fight4hero"; public static final String fight4part = "fight4part"; public static final String npcStars = "npcStars";  }
+    public static final class CEn { public static final String pcid = "pcid"; public static final String unqid = "unqid"; public static final String uuidMCode = "uuidMCode"; public static final String pname = "pname"; public static final String sword = "sword"; public static final String wheel = "wheel"; public static final String btPl = "btPl"; public static final String btHero = "btHero"; public static final String btPart = "btPart"; public static final String btProp = "btProp"; public static final String btNpc = "btNpc"; public static final String btEmail = "btEmail"; public static final String phone = "phone"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime"; public static final String statusActivity = "statusActivity"; public static final String score4Endless = "score4Endless"; public static final String chn = "chn"; public static final String chnSub = "chnSub"; public static final String fight4hero = "fight4hero"; public static final String fight4part = "fight4part"; public static final String npcStars = "npcStars";  }
+    public static final String[] carrays ={"pcid", "unqid", "uuidMCode", "pname", "sword", "wheel", "btPl", "btHero", "btPart", "btProp", "btNpc", "btEmail", "phone", "createtime", "lasttime", "statusActivity", "score4Endless", "chn", "chnSub", "fight4hero", "fight4part", "npcStars"};
+    public static final String[] dbTypes ={"INT", "VARCHAR", "VARCHAR", "VARCHAR", "INT", "INT", "BLOB", "BLOB", "BLOB", "BLOB", "BLOB", "BLOB", "VARCHAR", "DATETIME", "DATETIME", "INT", "INT", "VARCHAR", "VARCHAR", "INT", "INT", "INT"};
 
 
     public int pcid;
@@ -49,6 +49,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
     public String chnSub;
     public int fight4hero;
     public int fight4part;
+    public int npcStars;
 
     @Override
     public String _tableId() {
@@ -413,6 +414,37 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         return setFight4part(_v2 < _min  ? _min : _v2);
     }
 
+    public int getNpcStars(){
+        return npcStars;
+    }
+
+    public Player setNpcStars(int npcStars){
+        int _old = this.npcStars;
+        this.npcStars = npcStars;
+        changeIt(Col.npcStars, _old, npcStars);
+        return this;
+    }
+
+    public Player changeNpcStars(int npcStars){
+        return setNpcStars(this.npcStars + npcStars);
+    }
+
+    public Player changeNpcStarsWithMin(int npcStars, int _min){
+        int _v2 = this.npcStars + npcStars;
+        return setNpcStars(_v2 < _min  ? _min : _v2);
+    }
+
+    public Player changeNpcStarsWithMax(int npcStars, int _max){
+        int _v2 = this.npcStars + npcStars;
+        return setNpcStars(_v2 > _max  ? _max : _v2);
+    }
+
+    public Player changeNpcStarsWithMinMax(int npcStars, int _min, int _max){
+        int _v2 = this.npcStars + npcStars;
+        _v2 = _v2 > _max  ? _max : _v2;
+        return setNpcStars(_v2 < _min  ? _min : _v2);
+    }
+
     public int compareTo(Player v2, String fieldZh) {
         Object o1 = this.value(fieldZh);
         Object o2 = v2.value(fieldZh);
@@ -425,7 +457,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         return compareTo(o1, o2);
     }
 
-    public static Player newPlayer(Integer pcid, String unqid, String uuidMCode, String pname, Integer sword, Integer wheel, byte[] btPl, byte[] btHero, byte[] btPart, byte[] btProp, byte[] btNpc, byte[] btEmail, String phone, java.util.Date createtime, java.util.Date lasttime, Integer statusActivity, Integer score4Endless, String chn, String chnSub, Integer fight4hero, Integer fight4part) {
+    public static Player newPlayer(Integer pcid, String unqid, String uuidMCode, String pname, Integer sword, Integer wheel, byte[] btPl, byte[] btHero, byte[] btPart, byte[] btProp, byte[] btNpc, byte[] btEmail, String phone, java.util.Date createtime, java.util.Date lasttime, Integer statusActivity, Integer score4Endless, String chn, String chnSub, Integer fight4hero, Integer fight4part, Integer npcStars) {
         Player result = new Player();
         result.pcid = pcid;
         result.unqid = unqid;
@@ -448,6 +480,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         result.chnSub = chnSub;
         result.fight4hero = fight4hero;
         result.fight4part = fight4part;
+        result.npcStars = npcStars;
         return result;
     }
 
@@ -474,6 +507,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         result.chnSub = player.chnSub;
         result.fight4hero = player.fight4hero;
         result.fight4part = player.fight4part;
+        result.npcStars = player.npcStars;
         return result;
     }
 
@@ -508,7 +542,8 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
             String chnSub = ""; 	// chnSub
             int fight4hero = 0; 	// fight4hero
             int fight4part = 0; 	// fight4part
-            player = Player.newPlayer(pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part);
+            int npcStars = 0; 	// npcStars
+            player = Player.newPlayer(pcid, unqid, uuidMCode, pname, sword, wheel, btPl, btHero, btPart, btProp, btNpc, btEmail, phone, createtime, lasttime, statusActivity, score4Endless, chn, chnSub, fight4hero, fight4part, npcStars);
         }
         player = player.insert();
 
@@ -533,6 +568,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         String chnSub = player.getChnSub(); 	// chnSub
         int fight4hero = player.getFight4hero(); 	// fight4hero
         int fight4part = player.getFight4part(); 	// fight4part
+        int npcStars = player.getNpcStars(); 	// npcStars
     }
     */
 
@@ -557,6 +593,8 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
             return fight4hero;
         case CEn.fight4part:
             return fight4part;
+        case CEn.npcStars:
+            return npcStars;
         }
         return 0;
     }
@@ -582,6 +620,8 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
             return setFight4hero(value2);
         case CEn.fight4part:
             return setFight4part(value2);
+        case CEn.npcStars:
+            return setNpcStars(value2);
         }
         return this;
     }
@@ -605,6 +645,8 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
             return changeFight4hero(value2);
         case CEn.fight4part:
             return changeFight4part(value2);
+        case CEn.npcStars:
+            return changeNpcStars(value2);
         }
         return this;
     }
@@ -628,6 +670,8 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
             return changeFight4heroWithMin(value2, _min);
         case CEn.fight4part:
             return changeFight4partWithMin(value2, _min);
+        case CEn.npcStars:
+            return changeNpcStarsWithMin(value2, _min);
         }
         return this;
     }
@@ -745,6 +789,8 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
             return fight4hero;
         case CEn.fight4part:
             return fight4part;
+        case CEn.npcStars:
+            return npcStars;
         }
         return null;
     }
@@ -823,6 +869,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         result.put("chnSub", chnSub);
         result.put("fight4hero", fight4hero);
         result.put("fight4part", fight4part);
+        result.put("npcStars", npcStars);
         return result;
     }
 
@@ -849,6 +896,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         result.put("chnSub", chnSub);
         result.put("fight4hero", fight4hero);
         result.put("fight4part", fight4part);
+        result.put("npcStars", npcStars);
         return result;
     }
 
@@ -877,6 +925,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         result.put("chnSub", chnSub);
         result.put("fight4hero", fight4hero);
         result.put("fight4part", fight4part);
+        result.put("npcStars", npcStars);
         return result;
     }
 
@@ -902,6 +951,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         String chnSub = MapEx.getString(e, "chnSub");
         Integer fight4hero = MapEx.getInt(e, "fight4hero");
         Integer fight4part = MapEx.getInt(e, "fight4part");
+        Integer npcStars = MapEx.getInt(e, "npcStars");
 
         if(pcid == null) pcid = 0;
         if(unqid == null) unqid = "";
@@ -924,6 +974,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         if(chnSub == null) chnSub = "";
         if(fight4hero == null) fight4hero = 0;
         if(fight4part == null) fight4part = 0;
+        if(npcStars == null) npcStars = 0;
 
         setPcid(pcid);
         setUnqid(unqid);
@@ -946,6 +997,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         setChnSub(chnSub);
         setFight4hero(fight4hero);
         setFight4part(fight4part);
+        setNpcStars(npcStars);
 
         return this;
     }
@@ -974,6 +1026,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         String chnSub = MapEx.getString(e, "chnSub");
         Integer fight4hero = MapEx.getInt(e, "fight4hero");
         Integer fight4part = MapEx.getInt(e, "fight4part");
+        Integer npcStars = MapEx.getInt(e, "npcStars");
 
         if(pcid == null) pcid = 0;
         if(unqid == null) unqid = "";
@@ -996,6 +1049,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         if(chnSub == null) chnSub = "";
         if(fight4hero == null) fight4hero = 0;
         if(fight4part == null) fight4part = 0;
+        if(npcStars == null) npcStars = 0;
 
         result.pcid = pcid;
         result.unqid = unqid;
@@ -1018,6 +1072,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         result.chnSub = chnSub;
         result.fight4hero = fight4hero;
         result.fight4part = fight4part;
+        result.npcStars = npcStars;
 
         return result;
     }
@@ -1046,6 +1101,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         String chnSub = MapEx.getString(e, "chnSub");
         Integer fight4hero = MapEx.getInt(e, "fight4hero");
         Integer fight4part = MapEx.getInt(e, "fight4part");
+        Integer npcStars = MapEx.getInt(e, "npcStars");
 
         if(pcid == null) pcid = 0;
         if(unqid == null) unqid = "";
@@ -1068,6 +1124,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         if(chnSub == null) chnSub = "";
         if(fight4hero == null) fight4hero = 0;
         if(fight4part == null) fight4part = 0;
+        if(npcStars == null) npcStars = 0;
 
         result.pcid = pcid;
         result.unqid = unqid;
@@ -1090,6 +1147,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         result.chnSub = chnSub;
         result.fight4hero = fight4hero;
         result.fight4part = fight4part;
+        result.npcStars = npcStars;
 
         return result;
     }
@@ -1109,7 +1167,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
 
     public byte[] toBytes() throws Exception {
         try (ByteOutStream out = getStream();) {
-            writeMapTag(out, 21);
+            writeMapTag(out, 22);
             writeMapEntry(out, "pcid", pcid);
             writeMapEntry(out, "unqid", unqid);
             writeMapEntry(out, "uuidMCode", uuidMCode);
@@ -1131,6 +1189,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
             writeMapEntry(out, "chnSub", chnSub);
             writeMapEntry(out, "fight4hero", fight4hero);
             writeMapEntry(out, "fight4part", fight4part);
+            writeMapEntry(out, "npcStars", npcStars);
             return out.toByteArray();
         } catch (Exception e) {
             throw e;

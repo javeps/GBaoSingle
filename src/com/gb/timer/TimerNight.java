@@ -8,6 +8,7 @@ import com.bowlong.lang.task.ThreadEx;
 import com.bowlong.util.DateEx;
 import com.gb.content.Svc;
 import com.gb.db.entity.RankscoreEntity;
+import com.gb.db.entity.RankstarsEntity;
 import com.gb.db.entity.RankswordEntity;
 import com.gb.logic.opt.server.OptSvEmail4Rnk;
 import com.gb.toolkits.UtileTools;
@@ -46,7 +47,7 @@ public class TimerNight extends Svc implements Runnable {
 		int sec = 0;
 		scheduledEveryDay(SES, t, hour, minute, sec);
 	}
-	
+
 	static public void startTimer2() {
 		TimerNight t = getInstance();
 		int hour = 3;
@@ -72,8 +73,11 @@ public class TimerNight extends Svc implements Runnable {
 		}
 
 		RankswordEntity.exceProcessByChn(0, "");
+		ThreadEx.Sleep(500);
 		// RankwheelEntity.exceProcess();
-		RankscoreEntity.exceProcess();
+		RankscoreEntity.exceProcessByChn("");
+		ThreadEx.Sleep(500);
+		RankstarsEntity.exceProcessByChn("");
 	}
 
 	public void exce4Pub(boolean isReRnk, String time, boolean isRnkMail)
@@ -94,23 +98,30 @@ public class TimerNight extends Svc implements Runnable {
 	}
 
 	/***
-	 * type[1:score,2sword,3score_sword] <br/>
+	 * type[1:score,2sword,3score_sword,4npcStar] <br/>
 	 * parsType[1:fight4hero 英雄战斗力,2:fight4part 小伙伴战斗力,其他:sword Pl.sword战斗力] <br/>
 	 * chn渠道[空:所有,其他:渠道标识]
 	 * **/
 	public void exce4Chn(String chn, int type, int parsType) throws Exception {
 		boolean isScore = type == 1 || type == 3;
 		boolean isSword = type == 2 || type == 3;
+		boolean isNpcStars = type == 4 || type == 3;
 		if (isScore) {
 			RankscoreEntity.exceProcessByChn(chn);
 		}
 
-		if (type == 3) {
-			ThreadEx.Sleep(5000);
+		if (isSword) {
+			if (type == 3) {
+				ThreadEx.Sleep(5000);
+			}
+			RankswordEntity.exceProcessByChn(parsType, chn);
 		}
 
-		if (isSword) {
-			RankswordEntity.exceProcessByChn(parsType, chn);
+		if (isNpcStars) {
+			if (type == 3) {
+				ThreadEx.Sleep(5000);
+			}
+			RankstarsEntity.exceProcessByChn(chn);
 		}
 	}
 }
