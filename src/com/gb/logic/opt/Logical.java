@@ -18,9 +18,9 @@ import com.bowlong.bio2.B2InputStream;
 import com.bowlong.io.ByteInStream;
 import com.bowlong.lang.ByteEx;
 import com.bowlong.lang.PStr;
-import com.bowlong.lang.RndEx;
 import com.bowlong.lang.StrEx;
 import com.bowlong.net.TcpChannel;
+import com.bowlong.security.MD5;
 import com.bowlong.tool.TkitValidateCheck;
 import com.bowlong.util.DateEx;
 import com.bowlong.util.MapEx;
@@ -32,7 +32,7 @@ import com.gb.db.entity.PlayerEntity;
 import com.gb.logic.cache.ProChats;
 import com.gb.toolkits.NameRandom;
 
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class Logical extends Svc {
 
 	static Log log = getLog(Logical.class);
@@ -96,10 +96,7 @@ public class Logical extends Svc {
 		if (pl == null) {
 			if (StrEx.isEmpty(uuidMCode))
 				uuidMCode = unqid;
-			String uuid = RndEx.randomUUID();
-			if (uuid.length() > 12) {
-				uuid = uuid.substring(0, 12);
-			}
+			String uuid = MD5.MD5UUIDStimeF16();
 			byte[] btZero = new byte[0];
 
 			Date createtime = DateEx.nowDate();
@@ -142,7 +139,8 @@ public class Logical extends Svc {
 		if (pl != null) {
 			pname = pl.getPname();
 		}
-		boolean isRename = !(pname.length() == 14 && pname.indexOf("pl") == 0);
+		int lens = pname.length();
+		boolean isRename = (lens > 0) && ((lens != 18) || (pname.indexOf("pl") != 0));
 		nbl.val = isRename;
 		if (isRename) {
 			nname.val = pname;
@@ -231,24 +229,30 @@ public class Logical extends Svc {
 			throws Exception {
 		Player pl = getPl(unqid, uuid, "", chnStr, chnSub);
 		if (pl == null) {
+			System.out.println("pl is null, unqid = " + unqid);
 			return;
 		}
-
+		
 		if (!ByteEx.isEmpty(btHero)) {
 			pl.setBtHero(btHero);
 		}
+		
 		if (!ByteEx.isEmpty(btNpc)) {
 			pl.setBtNpc(btNpc);
 		}
+		
 		if (!ByteEx.isEmpty(btPart)) {
 			pl.setBtPart(btPart);
 		}
+		
 		if (!ByteEx.isEmpty(btPl)) {
 			pl.setBtPl(btPl);
 		}
+		
 		if (!ByteEx.isEmpty(btProp)) {
 			pl.setBtProp(btProp);
 		}
+		
 		// 取消邮件同步
 		// if (!ByteEx.isEmpty(btEmail)) {
 		// pl.setBtEmail(btEmail);
@@ -256,7 +260,7 @@ public class Logical extends Svc {
 
 		Date lasttime = DateEx.nowDate();
 		pl.setLasttime(lasttime);
-
+		
 		NewMap map = B2Helper.toMap(btPl);
 		if (!MapEx.isEmpty(map)) {
 			byte[] btsAllSword = MapEx.getByteArray(map, "allSword");
@@ -279,12 +283,15 @@ public class Logical extends Svc {
 				int score4Endless = B2InputStream.readInt(btEndless);
 				pl.setScore4Endless(score4Endless);
 			}
+
+			String pname = map.getString("pname");
+			pl.setPname(pname);
 		}
 
 		pl.setFight4hero(fight4hero);
 		pl.setFight4part(fight4part);
 		pl.setNpcStars(npcStars);
-		
+
 		pl.update();
 	}
 
