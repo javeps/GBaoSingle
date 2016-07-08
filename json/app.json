@@ -9,7 +9,7 @@
 	    "TCP_PORT"    :6001,
 	    "WEB_PORT"    :6002,
 	    "SHUTDOWNPORT":6003,
-	    "GATE_HOST" :"192.168.1.208",
+	    "GATE_HOST" :"",
 	    "GATE_PORT_TCP":6004,
 	    "GATE_PORT_WEB":6005,
 	    "SHUTDOWNPORT_GATE":6006,
