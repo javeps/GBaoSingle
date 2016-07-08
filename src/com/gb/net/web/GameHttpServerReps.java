@@ -299,6 +299,5 @@ public class GameHttpServerReps implements Serializable {
 		String newFilePath = "files/" + DateEx.nowStr4() + "." + suffix;
 		File f = FileRw.getFile(newFilePath);
 		fup.renameTo(f);
-		N4HttpResponse.send(chn, "okey");
 	}
 }
