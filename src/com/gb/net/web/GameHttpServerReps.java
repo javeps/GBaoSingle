@@ -110,6 +110,12 @@ public class GameHttpServerReps implements Serializable {
 				case "/getCop":
 					getCop(chn, msg);
 					break;
+				case "/copHtml":
+					copHtml(chn, msg);
+					break;
+				case "/upCopFee":
+					upCopFee(chn, msg);
+					break;
 				default:
 					N4HttpResponse.send(chn, Out_Error + ",该方法名字有误:" + path);
 					break;
@@ -321,5 +327,30 @@ public class GameHttpServerReps implements Serializable {
 		String strChn = MapEx.getString(map, "chn");
 		String json = LogicalCop.getCop(strChn);
 		N4HttpResponse.sendJson(chn, json);
+	}
+
+	void copHtml(Channel chn, Object msg) throws Exception {
+		// Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		// String saveFileName = MapEx.getString(map, "fileName");
+		String t = FileRw.readStr("html/copfee.html");
+		StringBuilder builder = new StringBuilder("http://");
+		String host = AppContext.getGateHost();
+		if (StrEx.isEmpty(host)) {
+			// host = "112.124.56.63";
+			host = "127.0.0.1";
+		}
+		builder.append(host);
+		builder.append(":");
+		builder.append(AppContext.getGamePortWeb());
+		builder.append("/upCopFee");
+		String action = builder.toString();
+		t = StrEx.fmt(t, action);
+
+		N4HttpResponse.send(chn, t);
+	}
+
+	void upCopFee(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		N4HttpResponse.send(chn, "成功！");
 	}
 }
