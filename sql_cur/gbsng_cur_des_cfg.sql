@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-07-06 07:49:12
--- 服务器版本： 5.6.20
--- PHP Version: 5.5.15
+-- Generation Time: 2016-07-11 18:05:48
+-- 服务器版本： 5.6.21
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -286,6 +286,22 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `cop4fee`
+--
+
+DROP TABLE IF EXISTS `cop4fee`;
+CREATE TABLE IF NOT EXISTS `cop4fee` (
+`id` int(11) NOT NULL COMMENT '标识',
+  `unqkey` varchar(64) NOT NULL COMMENT '操作唯一标识',
+  `chn` varchar(256) NOT NULL COMMENT '渠道标识',
+  `copfee` int(4) NOT NULL COMMENT '弹窗计费点控制',
+  `createtime` datetime NOT NULL COMMENT '创建时间',
+  `lasttime` datetime NOT NULL COMMENT '最后操作时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户导向过程控制之弹窗计费点控制';
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `email`
 --
 
@@ -300,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `email` (
   `isReceive` bit(1) NOT NULL COMMENT '是否已经领取奖励',
   `creattime` bigint(20) NOT NULL COMMENT '获取邮件时间',
   `validtime` bigint(20) NOT NULL COMMENT '邮件过期时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='个人邮件' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='个人邮件';
 
 -- --------------------------------------------------------
 
@@ -318,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `email4rnk` (
   `awardJson` text NOT NULL COMMENT '奖励[{tpGet,tpId,tpVal}] [string] (道具, 时装是道具ID, 主角/小伙伴是GID)',
   `creattime` bigint(20) NOT NULL COMMENT '获取邮件时间',
   `validtime` bigint(20) NOT NULL COMMENT '邮件过期时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='排名奖励邮件' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='排名奖励邮件';
 
 -- --------------------------------------------------------
 
@@ -335,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `logs4rnk` (
   `content` text NOT NULL COMMENT '邮件内容',
   `awardJson` text NOT NULL COMMENT '奖励[{tpGet,tpId,tpVal}] [string] (道具, 时装是道具ID, 主角/小伙伴是GID)',
   `creattime` bigint(20) NOT NULL COMMENT '领取时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -367,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `player` (
   `fight4hero` int(11) NOT NULL DEFAULT '0' COMMENT '英雄总战斗力',
   `fight4part` int(11) NOT NULL DEFAULT '0' COMMENT '小伙伴总战斗力',
   `npcStars` int(11) NOT NULL COMMENT '所得星数'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -383,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `rankscore` (
   `pcid` int(11) NOT NULL COMMENT '用户标识',
   `pname` varchar(32) NOT NULL COMMENT '用户名',
   `score` int(11) NOT NULL COMMENT '无尽分数'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -399,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `rankstars` (
   `pcid` int(11) NOT NULL COMMENT '用户标识',
   `pname` varchar(32) NOT NULL COMMENT '用户名',
   `stars` int(11) NOT NULL COMMENT '得的等级星数'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -415,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `ranksword` (
   `pcid` int(11) NOT NULL COMMENT '用户标识',
   `pname` varchar(32) NOT NULL COMMENT '用户名',
   `sword` int(11) NOT NULL COMMENT '战斗力'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -431,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `rankwheel` (
   `pcid` int(11) NOT NULL COMMENT '用户标识',
   `pname` varchar(32) NOT NULL COMMENT '用户名',
   `wheel` int(11) NOT NULL COMMENT '无尽循环最大次数'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -446,11 +462,17 @@ CREATE TABLE IF NOT EXISTS `recode4error` (
   `device` varchar(512) NOT NULL COMMENT '手机型号',
   `error` text NOT NULL COMMENT '错误内容',
   `createtime` datetime NOT NULL DEFAULT '2015-08-10 00:00:00' COMMENT '创建时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cop4fee`
+--
+ALTER TABLE `cop4fee`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `copfee` (`copfee`), ADD UNIQUE KEY `unqkey` (`unqkey`);
 
 --
 -- Indexes for table `email`
@@ -510,6 +532,11 @@ ALTER TABLE `recode4error`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `cop4fee`
+--
+ALTER TABLE `cop4fee`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '标识';
 --
 -- AUTO_INCREMENT for table `email`
 --

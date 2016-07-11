@@ -100,11 +100,14 @@ public class GameHttpServerReps implements Serializable {
 				case "/seePlByName":
 					seePlByName(chn, msg);
 					break;
-				case "/upJson":
-					upJson(chn, msg);
+				case "/upHtml":
+					upHtml(chn, msg);
 					break;
 				case "/upFile":
 					upFile(chn, msg);
+					break;
+				case "/getCop":
+					getCop(chn, msg);
 					break;
 				default:
 					N4HttpResponse.send(chn, Out_Error + ",该方法名字有误:" + path);
@@ -275,7 +278,9 @@ public class GameHttpServerReps implements Serializable {
 		// log.info(info);
 	}
 
-	void upJson(Channel chn, Object msg) throws Exception {
+	void upHtml(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String saveFileName = MapEx.getString(map, "fileName");
 		String t = FileRw.readStr("html/upFile.html");
 		StringBuilder builder = new StringBuilder("http://");
 		String host = AppContext.getGateHost();
@@ -288,7 +293,7 @@ public class GameHttpServerReps implements Serializable {
 		builder.append(AppContext.getGamePortWeb());
 		builder.append("/upFile");
 		String action = builder.toString();
-		t = StrEx.fmt(t, action);
+		t = StrEx.fmt(t, action, saveFileName);
 		N4HttpResponse.send(chn, t);
 	}
 
@@ -296,9 +301,24 @@ public class GameHttpServerReps implements Serializable {
 		FileUpload fup = N4HttpResp.getFileByMsg(msg);
 		String fileName = fup.getFilename();
 		String suffix = StrEx.right(fileName, ".");
-		String newFilePath = "files/" + DateEx.nowStr4() + "." + suffix;
+		
+		String saveName = "";
+		saveName = StrEx.left(fileName, ".");
+		if(StrEx.isEmpty(saveName)){
+			saveName = DateEx.nowStr4();
+		}
+		
+		String newFilePath = "files/" + saveName + "." + suffix;
 		File f = FileRw.getFile(newFilePath);
 		fup.renameTo(f);
-		N4HttpResponse.send(chn, fileName + " is up successed");
+		N4HttpResponse.send(chn, fileName + " is up successed,newFileName="
+				+ newFilePath);
+	}
+
+	void getCop(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String strChn = MapEx.getString(map, "chn");
+		String json = "{\"cop\":\"1\"}";
+		N4HttpResponse.sendJson(chn, json);
 	}
 }

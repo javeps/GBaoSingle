@@ -1,7 +1,4 @@
 {
-	"local":"192.168.1.111",
-	"93team":"211.99.222.35",
-	"127":"127.0.0.1",
 	"APP":{
 	    "NAME"        :"gbosng2.Game",
 	    "VER"         :1.0,
@@ -9,7 +6,7 @@
 	    "TCP_PORT"    :6001,
 	    "WEB_PORT"    :6002,
 	    "SHUTDOWNPORT":6003,
-	    "GATE_HOST" :"192.168.1.208",
+	    "GATE_HOST" :"112.124.56.63",
 	    "GATE_PORT_TCP":6004,
 	    "GATE_PORT_WEB":6005,
 	    "SHUTDOWNPORT_GATE":6006,

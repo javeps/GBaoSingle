@@ -24,7 +24,7 @@ http://127.0.0.1:6002/createEmail4RnkByJsonTxt?json=
 http://127.0.0.1:6002/createEmail?unqid=&title=&cont=&awardJson=
 
 -- 请求取得上传xls文件地址
-http://127.0.0.1:6002/getUpFileHtml
+http://127.0.0.1:6002/upHtml?fileName=chnJson
 -- 请求从gate到game中取得数据并返回给该请求
 http://127.0.0.1:6002/testHttpGtGm?svcid=100&ucid=
 -- 根据渠道标识排行
@@ -36,4 +36,7 @@ http://h005.ultralisk.cn:6002/isClearLog?isClear=false;
 -- 查询人物
 http://127.0.0.1:6002/seePlByName?name=杨斓
 http://112.124.56.63:6002/seePlByName?name=杨斓
+
+-- 取得cop_json
+http://112.124.56.63:6002/getCop?chn=none
  
