@@ -1,0 +1,12 @@
+<form action="${1}" method="post">
+<input type="hidden" name="unqkey" value="${2}" />
+<td>${3}</td>
+<td>
+<select name="copfee">
+	<option value="1"${4}>审核模式</option>
+	<option value="2"${5}>清晰模式</option>
+	<option value="3"${6}>模糊模式</option>
+</select>
+</td>
+<td><input type="submit" name="submit" class="btn" value="确定修改"/></td>
+</form>

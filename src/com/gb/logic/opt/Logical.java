@@ -25,6 +25,7 @@ import com.bowlong.tool.TkitValidateCheck;
 import com.bowlong.util.DateEx;
 import com.bowlong.util.MapEx;
 import com.bowlong.util.NewMap;
+import com.gb.content.AppContext;
 import com.gb.content.Svc;
 import com.gb.db.bean.Player;
 import com.gb.db.bean.Recode4error;
@@ -43,6 +44,22 @@ public class Logical extends Svc {
 		ret.msg = e2s(e);
 		log.error(ret.msg);
 		chn.close();
+	}
+
+	static public String getActionUrl(String actionName) {
+		StringBuilder builder = new StringBuilder("http://");
+		String host = AppContext.getGateHost();
+		if (StrEx.isEmpty(host)) {
+			// host = "112.124.56.63";
+			host = "127.0.0.1";
+		}
+		builder.append(host);
+		builder.append(":");
+		builder.append(AppContext.getGamePortWeb());
+		builder.append("/");
+		builder.append(actionName);
+		String action = builder.toString();
+		return action;
 	}
 
 	static public Player getPlByName(String name) {

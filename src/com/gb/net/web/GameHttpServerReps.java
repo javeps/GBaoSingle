@@ -24,7 +24,6 @@ import com.bowlong.third.netty4.httphand.N4HttpResponse;
 import com.bowlong.util.DateEx;
 import com.bowlong.util.MapEx;
 import com.bowlong.util.NewMap;
-import com.gb.content.AppContext;
 import com.gb.content.Svc;
 import com.gb.db.bean.Player;
 import com.gb.logic.impl.GBSngGmImpl;
@@ -289,17 +288,7 @@ public class GameHttpServerReps implements Serializable {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String saveFileName = MapEx.getString(map, "fileName");
 		String t = FileRw.readStr("html/upFile.html");
-		StringBuilder builder = new StringBuilder("http://");
-		String host = AppContext.getGateHost();
-		if (StrEx.isEmpty(host)) {
-			// host = "112.124.56.63";
-			host = "127.0.0.1";
-		}
-		builder.append(host);
-		builder.append(":");
-		builder.append(AppContext.getGamePortWeb());
-		builder.append("/upFile");
-		String action = builder.toString();
+		String action = Logical.getActionUrl("upFile");
 		t = StrEx.fmt(t, action, saveFileName);
 		N4HttpResponse.send(chn, t);
 	}
@@ -332,20 +321,7 @@ public class GameHttpServerReps implements Serializable {
 	void copHtml(Channel chn, Object msg) throws Exception {
 		// Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		// String saveFileName = MapEx.getString(map, "fileName");
-		String t = FileRw.readStr("html/copfee.html");
-		StringBuilder builder = new StringBuilder("http://");
-		String host = AppContext.getGateHost();
-		if (StrEx.isEmpty(host)) {
-			// host = "112.124.56.63";
-			host = "127.0.0.1";
-		}
-		builder.append(host);
-		builder.append(":");
-		builder.append(AppContext.getGamePortWeb());
-		builder.append("/upCopFee");
-		String action = builder.toString();
-		t = StrEx.fmt(t, action);
-
+		String t = LogicalCop.getCopHtml();
 		N4HttpResponse.send(chn, t);
 	}
 
