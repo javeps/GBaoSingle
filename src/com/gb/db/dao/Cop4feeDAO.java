@@ -328,7 +328,7 @@ public class Cop4feeDAO extends JdbcTemplate {
     public List<Map> selectInIndex(final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, copfee FROM ").append(TABLENAME2).append(" ORDER BY id");
+            sql.append("SELECT id, unqkey, chn FROM ").append(TABLENAME2).append(" ORDER BY id");
             return super.queryForList(sql.toString());
         } catch(Exception e) {
             log.info(e2s(e));
@@ -675,20 +675,77 @@ public class Cop4feeDAO extends JdbcTemplate {
         }
     }
 
-    public Cop4fee selectByCopfee(final Integer copfee) {
-        return selectByCopfee(copfee, TABLENAME);
+    public Cop4fee selectByChn(final String chn) {
+        return selectByChn(chn, TABLENAME);
     }
 
-    public Cop4fee selectByCopfee(final Integer copfee, final String TABLENAME2) {
+    public Cop4fee selectByChn(final String chn, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, chn, copfee, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE copfee = :copfee");
+            sql.append("SELECT id, unqkey, chn, copfee, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE chn = :chn");
             Map params = newMap();
-            params.put("copfee", copfee);
+            params.put("chn", chn);
             return super.queryForObject(sql.toString(), params, Cop4fee.class);
         } catch(Exception e) {
             // log.info(e2s(e));
             return null;
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public int countLikeChn(final String chn) {
+        return countLikeChn(chn, TABLENAME);
+    }
+
+    public int countLikeChn(final String chn, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("SELECT COUNT(*) FROM ").append(TABLENAME2).append(" WHERE chn LIKE '%").append(chn).append("%' ");
+            return super.queryForInt(sql.toString());
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return 0;
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public List<Cop4fee> selectLikeChn(final String chn) {
+        return selectLikeChn(chn, TABLENAME);
+    }
+
+    public List<Cop4fee> selectLikeChn(final String chn, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("SELECT id, unqkey, chn, copfee, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE chn LIKE '%").append(chn).append("%' ORDER BY id ");
+            return super.queryForList(sql.toString(), Cop4fee.class);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return newList();
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public List<Integer> selectLikeChnPKs(final String chn) {
+        return selectLikeChnPKs(chn, TABLENAME);
+    }
+
+    public List<Integer> selectLikeChnPKs(final String chn, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            List<Integer> result = newList();
+            sql.append("SELECT id FROM ").append(TABLENAME2).append(" WHERE chn LIKE '%").append(chn).append("%' ORDER BY id ");
+            Map params = newMap();
+            List<Map> dbresult = super.queryForList(sql.toString(), params);
+            for(Map map : dbresult){
+                result.add( getInt(map, "id") );
+            }
+            return result;
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return newList();
         } finally {
             StringBufPool.returnObject(sql);
         }
@@ -974,13 +1031,13 @@ public class Cop4feeDAO extends JdbcTemplate {
             String sql = "CREATE TABLE IF NOT EXISTS `${TABLENAME}` (" +
                 "	`id`  INT(11) NOT NULL AUTO_INCREMENT," +
                 "	`unqkey`  VARCHAR(64) NOT NULL," +
-                "	`chn`  TINYTEXT NOT NULL," +
+                "	`chn`  VARCHAR(128) NOT NULL," +
                 "	`copfee`  INT(4) NOT NULL," +
                 "	`createtime`  DATETIME NOT NULL," +
                 "	`lasttime`  DATETIME NOT NULL," +
                 "	PRIMARY KEY (`id`)," +
-                "	UNIQUE KEY `copfee` (`copfee`)," +
-                "	UNIQUE KEY `unqkey` (`unqkey`)" +
+                "	UNIQUE KEY `unqkey` (`unqkey`)," +
+                "	UNIQUE KEY `chn` (`chn`)" +
                 ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
             Map params = newMap();
@@ -997,13 +1054,13 @@ public class Cop4feeDAO extends JdbcTemplate {
             String sql = "CREATE TABLE IF NOT EXISTS `${TABLENAME}` (" +
                 "	`id`  INT(11) NOT NULL AUTO_INCREMENT," +
                 "	`unqkey`  VARCHAR(64) NOT NULL," +
-                "	`chn`  TINYTEXT NOT NULL," +
+                "	`chn`  VARCHAR(128) NOT NULL," +
                 "	`copfee`  INT(4) NOT NULL," +
                 "	`createtime`  DATETIME NOT NULL," +
                 "	`lasttime`  DATETIME NOT NULL," +
                 "	PRIMARY KEY (`id`)," +
-                "	KEY `copfee` (`copfee`)," +
-                "	KEY `unqkey` (`unqkey`)" +
+                "	KEY `unqkey` (`unqkey`)," +
+                "	KEY `chn` (`chn`)" +
                 ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
             Map params = newMap();

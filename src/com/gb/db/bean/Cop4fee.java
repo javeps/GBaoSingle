@@ -25,7 +25,7 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
     public static final class Col { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String chn = "chn"; public static final String copfee = "copfee"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
     public static final class CEn { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String chn = "chn"; public static final String copfee = "copfee"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
     public static final String[] carrays ={"id", "unqkey", "chn", "copfee", "createtime", "lasttime"};
-    public static final String[] dbTypes ={"INT", "VARCHAR", "TINYTEXT", "INT", "DATETIME", "DATETIME"};
+    public static final String[] dbTypes ={"INT", "VARCHAR", "VARCHAR", "INT", "DATETIME", "DATETIME"};
 
 
     public int id;

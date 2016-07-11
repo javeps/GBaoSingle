@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-07-11 18:05:48
+-- Generation Time: 2016-07-11 18:28:18
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.3
 
@@ -293,7 +293,7 @@ DROP TABLE IF EXISTS `cop4fee`;
 CREATE TABLE IF NOT EXISTS `cop4fee` (
 `id` int(11) NOT NULL COMMENT '标识',
   `unqkey` varchar(64) NOT NULL COMMENT '操作唯一标识',
-  `chn` varchar(256) NOT NULL COMMENT '渠道标识',
+  `chn` varchar(128) NOT NULL COMMENT '渠道标识',
   `copfee` int(4) NOT NULL COMMENT '弹窗计费点控制',
   `createtime` datetime NOT NULL COMMENT '创建时间',
   `lasttime` datetime NOT NULL COMMENT '最后操作时间'
@@ -472,7 +472,7 @@ CREATE TABLE IF NOT EXISTS `recode4error` (
 -- Indexes for table `cop4fee`
 --
 ALTER TABLE `cop4fee`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `copfee` (`copfee`), ADD UNIQUE KEY `unqkey` (`unqkey`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unqkey` (`unqkey`), ADD UNIQUE KEY `chn` (`chn`);
 
 --
 -- Indexes for table `email`

@@ -29,6 +29,7 @@ import com.gb.content.Svc;
 import com.gb.db.bean.Player;
 import com.gb.logic.impl.GBSngGmImpl;
 import com.gb.logic.opt.Logical;
+import com.gb.logic.opt.LogicalCop;
 import com.gb.logic.opt.server.IAPIOSRecharge;
 import com.gb.logic.opt.server.OptSvEmail4Rnk;
 import com.gb.timer.TimerNight;
@@ -301,13 +302,13 @@ public class GameHttpServerReps implements Serializable {
 		FileUpload fup = N4HttpResp.getFileByMsg(msg);
 		String fileName = fup.getFilename();
 		String suffix = StrEx.right(fileName, ".");
-		
+
 		String saveName = "";
 		saveName = StrEx.left(fileName, ".");
-		if(StrEx.isEmpty(saveName)){
+		if (StrEx.isEmpty(saveName)) {
 			saveName = DateEx.nowStr4();
 		}
-		
+
 		String newFilePath = "files/" + saveName + "." + suffix;
 		File f = FileRw.getFile(newFilePath);
 		fup.renameTo(f);
@@ -318,7 +319,7 @@ public class GameHttpServerReps implements Serializable {
 	void getCop(Channel chn, Object msg) throws Exception {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String strChn = MapEx.getString(map, "chn");
-		String json = "{\"cop\":\"1\"}";
+		String json = LogicalCop.getCop(strChn);
 		N4HttpResponse.sendJson(chn, json);
 	}
 }

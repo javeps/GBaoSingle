@@ -40,7 +40,7 @@ public abstract class Cop4feeInternal extends InternalSupport{
     private static Cop4fee[] FIXED = new Cop4fee[MAX];
     public static final Map<Integer, Cop4fee> vars = newSortedMap();
     public static final Map<String, Integer> varsByUnqkey = newSortedMap();
-    public static final Map<Integer, Integer> varsByCopfee = newSortedMap();
+    public static final Map<String, Integer> varsByChn = newSortedMap();
 
     private static final List<Cop4fee> fixedCache = newList();
 
@@ -69,13 +69,13 @@ public abstract class Cop4feeInternal extends InternalSupport{
           }
         }
 
-        { // 单-唯一索引 remove old index copfee
-          Object ov = cop4fee.oldVal(Col.copfee);
+        { // 单-唯一索引 remove old index chn
+          Object ov = cop4fee.oldVal(Col.chn);
           if(ov != null)
-              varsByCopfee.remove(ov);
+              varsByChn.remove(ov);
           if(ov != null || force){ // put new index
-            int copfee = cop4fee.getCopfee();
-            varsByCopfee.put(copfee, id);
+            String chn = cop4fee.getChn();
+            varsByChn.put(chn, id);
           }
         }
 
@@ -85,7 +85,7 @@ public abstract class Cop4feeInternal extends InternalSupport{
 
     public static void clear(){
         varsByUnqkey.clear();
-        varsByCopfee.clear();
+        varsByChn.clear();
         FIXED = new Cop4fee[MAX];
         fixedCache.clear();
         vars.clear();
@@ -278,22 +278,22 @@ public abstract class Cop4feeInternal extends InternalSupport{
         return cop4fees;
     }
 
-    public static List<Cop4fee> sortCopfee(List<Cop4fee> cop4fees){
+    public static List<Cop4fee> sortChn(List<Cop4fee> cop4fees){
         Collections.sort(cop4fees, new Comparator<Cop4fee>(){
             public int compare(Cop4fee o1, Cop4fee o2) {
-                Object v1 = o1.getCopfee();
-                Object v2 = o2.getCopfee();
+                Object v1 = o1.getChn();
+                Object v2 = o2.getChn();
                 return compareTo(v1, v2);
             }
         });
         return cop4fees;
     }
 
-    public static List<Cop4fee> sortCopfeeRo(List<Cop4fee> cop4fees){
+    public static List<Cop4fee> sortChnRo(List<Cop4fee> cop4fees){
         Collections.sort(cop4fees, new Comparator<Cop4fee>(){
             public int compare(Cop4fee o1, Cop4fee o2) {
-                Object v1 = o1.getCopfee();
-                Object v2 = o2.getCopfee();
+                Object v1 = o1.getChn();
+                Object v2 = o2.getChn();
                 return 0 - compareTo(v1, v2);
             };
         });
@@ -934,8 +934,8 @@ public abstract class Cop4feeInternal extends InternalSupport{
         String unqkey = cop4fee.getUnqkey();
         varsByUnqkey.remove(unqkey);
 
-        int copfee = cop4fee.getCopfee();
-        varsByCopfee.remove(copfee);
+        String chn = cop4fee.getChn();
+        varsByChn.remove(chn);
 
         return cop4fee;
     }
@@ -1072,31 +1072,82 @@ public abstract class Cop4feeInternal extends InternalSupport{
         }
     }
 
-    public static Cop4fee getByCopfee(Integer copfee) {
+    public static Cop4fee getByChn(String chn) {
         Cop4feeDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
-        return getByCopfee(DAO, copfee, DAO.TABLENAME);
+        return getByChn(DAO, chn, DAO.TABLENAME);
     }
 
-    public static Cop4fee getByCopfee(Cop4feeDAO DAO, Integer copfee) {
-        return getByCopfee(DAO, copfee, DAO.TABLENAME);
+    public static Cop4fee getByChn(Cop4feeDAO DAO, String chn) {
+        return getByChn(DAO, chn, DAO.TABLENAME);
     }
 
-    public static Cop4fee getByCopfee(Integer copfee, String TABLENAME2) {
+    public static Cop4fee getByChn(String chn, String TABLENAME2) {
         Cop4feeDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
-        return getByCopfee(DAO, copfee, TABLENAME2);
+        return getByChn(DAO, chn, TABLENAME2);
     }
 
-    public static Cop4fee getByCopfee(final Cop4feeDAO DAO, final int copfee,final String TABLENAME2) {
+    public static Cop4fee getByChn(final Cop4feeDAO DAO, final String chn,final String TABLENAME2) {
         if( cacheModel == NO_CACHE ){
-            return DAO.selectByCopfee(copfee, TABLENAME2);
+            return DAO.selectByChn(chn, TABLENAME2);
         } else { // FULL_CACHE || FULL_MEMORY
-            Integer id = varsByCopfee.get(copfee);
+            Integer id = varsByChn.get(chn);
             if(id == null) return null;
             Cop4fee result = getByKey(DAO, id, TABLENAME2);
             if(result == null) return null;
-            if(result.getCopfee() != copfee){
-                varsByCopfee.remove(copfee);
+            if(!result.getChn().equals(chn)){
+                varsByChn.remove(chn);
                 return null;
+            }
+            return result;
+        }
+    }
+
+    public static int countLikeChn(String chn) {
+        Cop4feeDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return countLikeChn(DAO, chn, DAO.TABLENAME);
+    }
+
+    public static int countLikeChn(Cop4feeDAO DAO, String chn) {
+        return countLikeChn(DAO, chn, DAO.TABLENAME);
+    }
+
+    public static int countLikeChn(String chn, String TABLENAME2) {
+        Cop4feeDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return countLikeChn(DAO, chn, TABLENAME2);
+    }
+
+    public static int countLikeChn(final Cop4feeDAO DAO, final String chn,final String TABLENAME2) {
+        if(cacheModel == NO_CACHE){
+            return DAO.countLikeChn(chn, TABLENAME2);
+        }
+        List<Cop4fee> cop4fees = getLikeChn(DAO, chn, TABLENAME2);
+        return cop4fees.size();
+    }
+
+    public static List<Cop4fee> getLikeChn(String chn) {
+        Cop4feeDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return getLikeChn(DAO, chn, DAO.TABLENAME);
+    }
+
+    public static List<Cop4fee> getLikeChn(Cop4feeDAO DAO, String chn) {
+        return getLikeChn(DAO, chn, DAO.TABLENAME);
+    }
+
+    public static List<Cop4fee> getLikeChn(String chn, String TABLENAME2) {
+        Cop4feeDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return getLikeChn(DAO, chn, TABLENAME2);
+    }
+
+    public static List<Cop4fee> getLikeChn(final Cop4feeDAO DAO, final String chn,final String TABLENAME2) {
+        if(cacheModel == NO_CACHE){
+            return DAO.selectLikeChn(chn, TABLENAME2);
+        } else { // FULL_CACHE || FULL_MEMORY
+            List<Cop4fee> result = newList();
+            List<Cop4fee> cop4fees = getAll(DAO, TABLENAME2);
+            for(Cop4fee e : cop4fees){
+                String _var = e.getChn();
+                if(_var.indexOf(chn) >= 0)
+                    result.add(e);
             }
             return result;
         }
