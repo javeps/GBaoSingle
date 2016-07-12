@@ -5,8 +5,8 @@ import static com.bowlong.net.proto.gen.B2G.DATA;
 import com.bowlong.io.FileEx;
 import com.bowlong.net.proto.gen.B2Class;
 import com.bowlong.net.proto.gen.B2Field;
-import com.bowlong.net.proto.gen.Bio2GJava4Lua;
-import com.bowlong.net.proto.gen.Bio2GLua;
+import com.bowlong.net.proto.gen.lua.ver1.Bio2GJava4Lua;
+import com.bowlong.net.proto.gen.lua.ver1.Bio2GLua;
 
 /**
  * 游戏静态常量

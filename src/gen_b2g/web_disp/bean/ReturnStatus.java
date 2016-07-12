@@ -4,14 +4,14 @@ import java.io.*;
 import java.util.*;
 
 import com.bowlong.util.*;
-import com.bowlong.net.proto.gen.Bio2GJava4LuaEncode;
+import com.bowlong.net.proto.gen.lua.LuaEncode;
 
 @SuppressWarnings("all")
 public class ReturnStatus extends com.bowlong.net.proto.NSupport {
     public static final int _CID = 991275362;
 
-    public int succ; 
-    public String msg = ""; 
+    public int succ;
+    public String msg = "";
 
     public void setReturnStatus(int succ,String msg){
         this.succ = succ;
@@ -26,8 +26,7 @@ public class ReturnStatus extends com.bowlong.net.proto.NSupport {
 
     public Map toMap() {
         Map r = new HashMap();
-        r.put("-1", _CID);
-        r.put("succ", Bio2GJava4LuaEncode.encode(succ));
+        r.put("succ", LuaEncode.encode(succ));
         r.put("msg", msg);
         return r;
     }
@@ -38,7 +37,7 @@ public class ReturnStatus extends com.bowlong.net.proto.NSupport {
 
         ReturnStatus r = new ReturnStatus();
         try {
-        r.succ = Bio2GJava4LuaEncode.decode(map2.get("succ"),Integer.class);
+        r.succ = LuaEncode.decode(map2.get("succ"),Integer.class);
         r.msg = map2.getString("msg");
         } catch (Exception e) {
         }

@@ -9,7 +9,7 @@ import com.bowlong.util.*;
 public class NStr extends com.bowlong.net.proto.NSupport {
     public static final int _CID = 2407171;
 
-    public String val = ""; 
+    public String val = "";
 
     public void setNStr(String val){
         this.val = val;
@@ -22,7 +22,6 @@ public class NStr extends com.bowlong.net.proto.NSupport {
 
     public Map toMap() {
         Map r = new HashMap();
-        r.put("-1", _CID);
         r.put("val", val);
         return r;
     }

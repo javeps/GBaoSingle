@@ -9,7 +9,7 @@ import com.bowlong.util.*;
 public class NRanks extends com.bowlong.net.proto.NSupport {
     public static final int _CID = -1983165927;
 
-    public List<NRank> list = new NewList(); 
+    public List<NRank> list = new NewList();
 
     public void setNRanks(List list){
         this.list = list;
@@ -43,7 +43,6 @@ public class NRanks extends com.bowlong.net.proto.NSupport {
 
     public Map toMap() {
         Map r = new HashMap();
-        r.put("-1", _CID);
         r.put("list", list_maps());
         return r;
     }

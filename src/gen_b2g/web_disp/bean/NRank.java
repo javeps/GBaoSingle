@@ -4,18 +4,18 @@ import java.io.*;
 import java.util.*;
 
 import com.bowlong.util.*;
-import com.bowlong.net.proto.gen.Bio2GJava4LuaEncode;
+import com.bowlong.net.proto.gen.lua.LuaEncode;
 
 @SuppressWarnings("all")
 public class NRank extends com.bowlong.net.proto.NSupport {
     public static final int _CID = 74574234;
 
-    public int index; // 排名
-    public int type; // 1sword,2wheel
-    public String unqid = ""; // 登录唯一标识
-    public String pname = ""; // 角色名
-    public int sword; // 战斗力
-    public int wheel; // 无尽循环最大次数
+    public int index;// 排名
+    public int type;// 1sword,2wheel
+    public String unqid = "";// 登录唯一标识
+    public String pname = "";// 角色名
+    public int sword;// 战斗力
+    public int wheel;// 无尽循环最大次数
 
     public void setNRank(int index,int type,String unqid,String pname,int sword,int wheel){
         this.index = index;
@@ -38,13 +38,12 @@ public class NRank extends com.bowlong.net.proto.NSupport {
 
     public Map toMap() {
         Map r = new HashMap();
-        r.put("-1", _CID);
-        r.put("index", Bio2GJava4LuaEncode.encode(index));
-        r.put("type", Bio2GJava4LuaEncode.encode(type));
+        r.put("index", LuaEncode.encode(index));
+        r.put("type", LuaEncode.encode(type));
         r.put("unqid", unqid);
         r.put("pname", pname);
-        r.put("sword", Bio2GJava4LuaEncode.encode(sword));
-        r.put("wheel", Bio2GJava4LuaEncode.encode(wheel));
+        r.put("sword", LuaEncode.encode(sword));
+        r.put("wheel", LuaEncode.encode(wheel));
         return r;
     }
 
@@ -54,12 +53,12 @@ public class NRank extends com.bowlong.net.proto.NSupport {
 
         NRank r = new NRank();
         try {
-        r.index = Bio2GJava4LuaEncode.decode(map2.get("index"),Integer.class);
-        r.type = Bio2GJava4LuaEncode.decode(map2.get("type"),Integer.class);
+        r.index = LuaEncode.decode(map2.get("index"),Integer.class);
+        r.type = LuaEncode.decode(map2.get("type"),Integer.class);
         r.unqid = map2.getString("unqid");
         r.pname = map2.getString("pname");
-        r.sword = Bio2GJava4LuaEncode.decode(map2.get("sword"),Integer.class);
-        r.wheel = Bio2GJava4LuaEncode.decode(map2.get("wheel"),Integer.class);
+        r.sword = LuaEncode.decode(map2.get("sword"),Integer.class);
+        r.wheel = LuaEncode.decode(map2.get("wheel"),Integer.class);
         } catch (Exception e) {
         }
         return r;

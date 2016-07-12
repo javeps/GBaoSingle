@@ -9,7 +9,7 @@ import com.bowlong.util.*;
 public class NBool extends com.bowlong.net.proto.NSupport {
     public static final int _CID = 74111064;
 
-    public boolean val; 
+    public boolean val;
 
     public void setNBool(boolean val){
         this.val = val;
@@ -22,7 +22,6 @@ public class NBool extends com.bowlong.net.proto.NSupport {
 
     public Map toMap() {
         Map r = new HashMap();
-        r.put("-1", _CID);
         r.put("val", val);
         return r;
     }

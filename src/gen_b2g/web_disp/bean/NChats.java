@@ -9,7 +9,7 @@ import com.bowlong.util.*;
 public class NChats extends com.bowlong.net.proto.NSupport {
     public static final int _CID = -1996822419;
 
-    public List<NChat> list = new NewList(); 
+    public List<NChat> list = new NewList();
 
     public void setNChats(List list){
         this.list = list;
@@ -43,7 +43,6 @@ public class NChats extends com.bowlong.net.proto.NSupport {
 
     public Map toMap() {
         Map r = new HashMap();
-        r.put("-1", _CID);
         r.put("list", list_maps());
         return r;
     }

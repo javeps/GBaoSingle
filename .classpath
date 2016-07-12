@@ -17,7 +17,6 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.22-bin.jar"/>
 	<classpathentry kind="lib" path="lib/netty-all-4.0.15.Final.jar"/>
-	<classpathentry kind="lib" path="lib/tool2014_utf8.jar"/>
 	<classpathentry kind="lib" path="lib/xls/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/xls/poi-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="lib/xls/poi-excelant-3.9-20121203.jar"/>
@@ -27,5 +26,6 @@
 	<classpathentry kind="lib" path="lib/xls/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/http/httpclient-4.2.5.jar"/>
 	<classpathentry kind="lib" path="lib/http/httpcore-4.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/tools2016.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

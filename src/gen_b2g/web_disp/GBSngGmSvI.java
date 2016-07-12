@@ -13,8 +13,6 @@ import gen_b2g.web_disp.bean.*;
 @SuppressWarnings("all")
 public abstract class GBSngGmSvI extends com.bowlong.net.proto.NSupport {
 
-
-
     // //////////////////////////////////////////////
     // 逻辑分发
     // //////////////////////////////////////////////

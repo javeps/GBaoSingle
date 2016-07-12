@@ -4,19 +4,19 @@ import java.io.*;
 import java.util.*;
 
 import com.bowlong.util.*;
-import com.bowlong.net.proto.gen.Bio2GJava4LuaEncode;
+import com.bowlong.net.proto.gen.lua.LuaEncode;
 
 @SuppressWarnings("all")
 public class NEmail extends com.bowlong.net.proto.NSupport {
     public static final int _CID = -1994826770;
 
-    public String title = ""; // 标题
-    public String cont = ""; // 内容
-    public boolean isRead; // 是否已读
-    public boolean isReceive; // 是否已经领取奖励
-    public String awardJson = ""; // 奖励[{tpGet,tpId,tpVal}]
-    public long creattime; // 创建时间long
-    public long validtime; // 有效时间long
+    public String title = "";// 标题
+    public String cont = "";// 内容
+    public boolean isRead;// 是否已读
+    public boolean isReceive;// 是否已经领取奖励
+    public String awardJson = "";// 奖励[{tpGet,tpId,tpVal}]
+    public long creattime;// 创建时间long
+    public long validtime;// 有效时间long
 
     public void setNEmail(String title,String cont,boolean isRead,boolean isReceive,String awardJson,long creattime,long validtime){
         this.title = title;
@@ -41,14 +41,13 @@ public class NEmail extends com.bowlong.net.proto.NSupport {
 
     public Map toMap() {
         Map r = new HashMap();
-        r.put("-1", _CID);
         r.put("title", title);
         r.put("cont", cont);
         r.put("isRead", isRead);
         r.put("isReceive", isReceive);
         r.put("awardJson", awardJson);
-        r.put("creattime", Bio2GJava4LuaEncode.encode(creattime));
-        r.put("validtime", Bio2GJava4LuaEncode.encode(validtime));
+        r.put("creattime", LuaEncode.encode(creattime));
+        r.put("validtime", LuaEncode.encode(validtime));
         return r;
     }
 
@@ -63,8 +62,8 @@ public class NEmail extends com.bowlong.net.proto.NSupport {
         r.isRead = map2.getBoolean("isRead");
         r.isReceive = map2.getBoolean("isReceive");
         r.awardJson = map2.getString("awardJson");
-        r.creattime = Bio2GJava4LuaEncode.decode(map2.get("creattime"),Long.class);
-        r.validtime = Bio2GJava4LuaEncode.decode(map2.get("validtime"),Long.class);
+        r.creattime = LuaEncode.decode(map2.get("creattime"),Long.class);
+        r.validtime = LuaEncode.decode(map2.get("validtime"),Long.class);
         } catch (Exception e) {
         }
         return r;

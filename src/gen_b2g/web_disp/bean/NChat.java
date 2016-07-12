@@ -4,18 +4,18 @@ import java.io.*;
 import java.util.*;
 
 import com.bowlong.util.*;
-import com.bowlong.net.proto.gen.Bio2GJava4LuaEncode;
+import com.bowlong.net.proto.gen.lua.LuaEncode;
 
 @SuppressWarnings("all")
 public class NChat extends com.bowlong.net.proto.NSupport {
     public static final int _CID = 74133702;
 
-    public int type; // 聊天类型
-    public int fpcid; // 说话人标识
-    public String fpname = ""; // 说话人名称
-    public String content = ""; // 说话内容
-    public long creattime; // 创建时间long
-    public String creattimeStr = ""; // 创建时间Str
+    public int type;// 聊天类型
+    public int fpcid;// 说话人标识
+    public String fpname = "";// 说话人名称
+    public String content = "";// 说话内容
+    public long creattime;// 创建时间long
+    public String creattimeStr = "";// 创建时间Str
 
     public void setNChat(int type,int fpcid,String fpname,String content,long creattime,String creattimeStr){
         this.type = type;
@@ -38,12 +38,11 @@ public class NChat extends com.bowlong.net.proto.NSupport {
 
     public Map toMap() {
         Map r = new HashMap();
-        r.put("-1", _CID);
-        r.put("type", Bio2GJava4LuaEncode.encode(type));
-        r.put("fpcid", Bio2GJava4LuaEncode.encode(fpcid));
+        r.put("type", LuaEncode.encode(type));
+        r.put("fpcid", LuaEncode.encode(fpcid));
         r.put("fpname", fpname);
         r.put("content", content);
-        r.put("creattime", Bio2GJava4LuaEncode.encode(creattime));
+        r.put("creattime", LuaEncode.encode(creattime));
         r.put("creattimeStr", creattimeStr);
         return r;
     }
@@ -54,11 +53,11 @@ public class NChat extends com.bowlong.net.proto.NSupport {
 
         NChat r = new NChat();
         try {
-        r.type = Bio2GJava4LuaEncode.decode(map2.get("type"),Integer.class);
-        r.fpcid = Bio2GJava4LuaEncode.decode(map2.get("fpcid"),Integer.class);
+        r.type = LuaEncode.decode(map2.get("type"),Integer.class);
+        r.fpcid = LuaEncode.decode(map2.get("fpcid"),Integer.class);
         r.fpname = map2.getString("fpname");
         r.content = map2.getString("content");
-        r.creattime = Bio2GJava4LuaEncode.decode(map2.get("creattime"),Long.class);
+        r.creattime = LuaEncode.decode(map2.get("creattime"),Long.class);
         r.creattimeStr = map2.getString("creattimeStr");
         } catch (Exception e) {
         }

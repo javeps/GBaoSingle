@@ -9,7 +9,7 @@ import com.bowlong.util.*;
 public class NBytes extends com.bowlong.net.proto.NSupport {
     public static final int _CID = -1997221699;
 
-    public byte[] buff; 
+    public byte[] buff;
 
     public void setNBytes(byte[] buff){
         this.buff = buff;
@@ -22,7 +22,6 @@ public class NBytes extends com.bowlong.net.proto.NSupport {
 
     public Map toMap() {
         Map r = new HashMap();
-        r.put("-1", _CID);
         r.put("buff", buff);
         return r;
     }

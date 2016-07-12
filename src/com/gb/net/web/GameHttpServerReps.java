@@ -315,7 +315,8 @@ public class GameHttpServerReps implements Serializable {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String strChn = MapEx.getString(map, "chn");
 		String json = LogicalCop.getCop(strChn);
-		N4HttpResponse.sendJson(chn, json);
+		// N4HttpResponse.sendJson(chn, json);
+		N4HttpResponse.send(chn, json);
 	}
 
 	void copHtml(Channel chn, Object msg) throws Exception {
@@ -327,6 +328,11 @@ public class GameHttpServerReps implements Serializable {
 
 	void upCopFee(Channel chn, Object msg) throws Exception {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		// String unqkey = MapEx.getString(map, "unqkey");
+		String chnStr = MapEx.getString(map, "chn");
+		int copfee = MapEx.getInt(map, "copfee");
+		System.out.println(map);
+		LogicalCop.changeCopfee(chnStr, copfee);
 		N4HttpResponse.send(chn, "成功！");
 	}
 }

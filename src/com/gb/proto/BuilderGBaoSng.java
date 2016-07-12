@@ -10,8 +10,8 @@ import com.bowlong.net.proto.gen.B2Class;
 import com.bowlong.net.proto.gen.B2Field;
 import com.bowlong.net.proto.gen.B2Method;
 import com.bowlong.net.proto.gen.B2Param;
-import com.bowlong.net.proto.gen.Bio2GJava4LuaStr;
-import com.bowlong.net.proto.gen.Bio2GLuaStr;
+import com.bowlong.net.proto.gen.lua.ver1.Bio2GJava4LuaStr;
+import com.bowlong.net.proto.gen.lua.ver1.Bio2GLuaStr;
 
 @B2Class(namespace = "web_disp")
 public class BuilderGBaoSng {
