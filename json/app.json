@@ -45,6 +45,7 @@
 			"password":"12345670",
 			"maxActive":64,
 			"maxIdle":4,
+			"initialSize":2,
 			"maxWait":60000,
 			"removeAbandoned":true,
 			"removeAbandonedTimeout":10
@@ -56,6 +57,7 @@
 			"password":"12345670",
 			"maxActive":64,
 			"maxIdle":4,
+			"initialSize":2,
 			"maxWait":60000,
 			"removeAbandoned":true,
 			"removeAbandonedTimeout":10
@@ -67,6 +69,7 @@
 			"password":"12345670",
 			"maxActive":64,
 			"maxIdle":4,
+			"initialSize":2,
 			"maxWait":60000,
 			"removeAbandoned":true,
 			"removeAbandonedTimeout":10
@@ -78,6 +81,7 @@
 			"password":"12345670",
 			"maxActive":64,
 			"maxIdle":4,
+			"initialSize":2,
 			"maxWait":60000,
 			"removeAbandoned":true,
 			"removeAbandonedTimeout":10

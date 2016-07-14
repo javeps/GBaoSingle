@@ -94,6 +94,7 @@ public abstract class JSONContext extends Svc {
 		return dataSource;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static final DruidDataSource dataSource(Map map) {
 		DruidDataSource ds = new DruidDataSource();
 		String driverClassName = getString(map, "driverClassName");
@@ -102,6 +103,7 @@ public abstract class JSONContext extends Svc {
 		String password = getString(map, "password");
 		int maxActive = getInt(map, "maxActive");
 		int maxIdle = getInt(map, "maxIdle");
+		int initialSize = getInt(map, "initialSize");
 		int maxWait = getInt(map, "maxWait");
 		boolean removeAbandoned = getBool(map, "removeAbandoned");
 		int removeAbandonedTimeout = getInt(map, "removeAbandonedTimeout");
@@ -111,12 +113,11 @@ public abstract class JSONContext extends Svc {
 		ds.setUsername(username);
 		ds.setPassword(password);
 		ds.setMaxActive(maxActive);
-		// ds.setMaxIdle(maxIdle);
-		ds.setInitialSize(maxIdle);
+		ds.setMaxIdle(maxIdle);
+		ds.setInitialSize(initialSize);
 		ds.setMaxWait(maxWait);
 		ds.setRemoveAbandoned(removeAbandoned);
 		ds.setRemoveAbandonedTimeout(removeAbandonedTimeout);
-		ds.setInitialSize(30);
 		// try {
 		// ds.getConnection().getMetaData();
 		// // System.out.println(ds.getNumActive() + "-" + ds.getNumIdle());
@@ -126,7 +127,7 @@ public abstract class JSONContext extends Svc {
 		// }
 		return ds;
 	}
-	
+
 	public static JedisPool getJedisPool() {
 		return getJedisPool((Map<String, Object>) (ctx().get("REDIS")));
 	}
