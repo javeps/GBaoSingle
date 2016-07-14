@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import redis.clients.jedis.Jedis;
 
-import com.bowlong.sql.freemarker.JedisTookits;
+import com.bowlong.third.redis.JedisTookits;
 
 @SuppressWarnings("all")
 public class AppContext extends JSONContext {
@@ -21,6 +21,8 @@ public class AppContext extends JSONContext {
 	public static void loadAll() throws Exception {
 		// //////////////////////////////////////////
 		// Apps Init begin
+		// 需要redis则开启
+		// getJedisPool();
 		// Apps Init end
 		// ////////////////////////
 	}

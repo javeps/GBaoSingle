@@ -7,7 +7,7 @@ import java.net.Socket;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.bowlong.sql.freemarker.JedisTookits;
+import com.bowlong.third.redis.JedisTookits;
 import com.gb.content.AppContext;
 import com.gb.net.web.GameHttpServerBootstrap;
 import com.gb.toolkits.UtileTools;

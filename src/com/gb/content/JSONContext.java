@@ -10,11 +10,9 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.bowlong.json.MyJson;
-import com.bowlong.third.redis.JedisEx;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class JSONContext extends Svc {
@@ -39,74 +37,6 @@ public abstract class JSONContext extends Svc {
 		if (APP == null)
 			APP = (Map<String, Object>) ctx().get("APP");
 		return APP;
-	}
-
-	// ============= redis ==============
-
-	static Map<String, Object> redisMap = null;
-
-	public static Map<String, Object> RedisMap() {
-		if (redisMap == null)
-			redisMap = (Map<String, Object>) ctx().get("REDIS");
-		return redisMap;
-	}
-
-	static JedisPool jedisSource = null;
-
-	public static JedisPool getJedisPool() {
-		if (jedisSource == null) {
-			Map<String, Object> redisConfig = RedisMap();
-			int maxActive = getInt(redisConfig, "maxActive");
-			int maxIdle = getInt(redisConfig, "maxIdle");
-			int minIdle = getInt(redisConfig, "minIdle");
-			int maxWait = getInt(redisConfig, "maxWait");
-			String host = getString(redisConfig, "host");
-			int timeOut = getInt(redisConfig, "timeOut");
-			int port = getInt(redisConfig, "port");
-
-			JedisPoolConfig config = JedisEx.newJedisPoolConfig(maxActive,
-					maxIdle, minIdle, maxWait);
-
-			// testOnBorrow：在borrow一个jedis实例时，是否提前进行alidate操作；如果为true，则得到的jedis实例均是可用的；
-			boolean testOnBorrow = getBool(redisConfig, "testOnBorrow");
-
-			// testOnReturn：在return给pool时，是否提前进行validate操作；
-			boolean testOnReturn = getBool(redisConfig, "testOnReturn");
-
-			// testWhileIdle：如果为true，表示有一个idle object evitor线程对idle
-			// object进行扫描，如果validate失败，此object会被从pool中drop掉；这一项只有在timeBetweenEvictionRunsMillis大于0时才有意义；
-			boolean testWhileIdle = getBool(redisConfig, "testWhileIdle");
-
-			// timeBetweenEvictionRunsMillis：表示idle object
-			// evitor两次扫描之间要sleep的毫秒数；
-			int timeBetweenEvictionRunsMillis = getInt(redisConfig,
-					"timeBetweenEvictionRunsMillis");
-
-			// numTestsPerEvictionRun：表示idle object evitor每次扫描的最多的对象数；
-			int numTestsPerEvictionRun = getInt(redisConfig,
-					"numTestsPerEvictionRun");
-
-			// minEvictableIdleTimeMillis：表示一个对象至少停留在idle状态的最短时间，然后才能被idle
-			// object evitor扫描并驱逐；这一项只有在timeBetweenEvictionRunsMillis大于0时才有意义；
-			int minEvictableIdleTimeMillis = getInt(redisConfig,
-					"minEvictableIdleTimeMillis");
-
-			config.setTestOnBorrow(testOnBorrow);
-			config.setTestOnReturn(testOnReturn);
-			config.setTestWhileIdle(testWhileIdle);
-			config.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
-			config.setNumTestsPerEvictionRun(numTestsPerEvictionRun);
-			config.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
-
-			jedisSource = new JedisPool(config, host, port, timeOut);
-		}
-		return jedisSource;
-	}
-
-	/** 关闭数据  **/
-	static public void closeJedisPool() {
-		if (jedisSource != null)
-			jedisSource.destroy();
 	}
 
 	// ============= sql DataSource ==============
@@ -187,14 +117,18 @@ public abstract class JSONContext extends Svc {
 		ds.setRemoveAbandoned(removeAbandoned);
 		ds.setRemoveAbandonedTimeout(removeAbandonedTimeout);
 		ds.setInitialSize(30);
-		try {
-			ds.getConnection().getMetaData();
-			// System.out.println(ds.getNumActive() + "-" + ds.getNumIdle());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// try {
+		// ds.getConnection().getMetaData();
+		// // System.out.println(ds.getNumActive() + "-" + ds.getNumIdle());
+		// } catch (Exception e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		return ds;
+	}
+	
+	public static JedisPool getJedisPool() {
+		return getJedisPool((Map<String, Object>) (ctx().get("REDIS")));
 	}
 
 	// ////////////////////////////////////////////////////////
