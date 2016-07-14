@@ -2,11 +2,12 @@
 <form action="${1}" method="post">
 <input type="hidden" name="chn" value="${2}"/>
 <td>${3}</td>
+<td>${4}</td>
 <td>
 <select name="copfee">
-	<option value="1"${4}>审核模式</option>
-	<option value="2"${5}>清晰模式</option>
-	<option value="3"${6}>模糊模式</option>
+	<option value="1"${5}>审核模式</option>
+	<option value="2"${6}>清晰模式</option>
+	<option value="3"${7}>模糊模式</option>
 </select>
 </td>
 <td><input type="submit" class="btn" value="确定修改"/></td>

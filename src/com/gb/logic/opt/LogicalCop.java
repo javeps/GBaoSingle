@@ -29,7 +29,6 @@ public class LogicalCop extends Logical {
 		return json;
 	}
 
-	
 	static public String getCopHtml() {
 		String html = FileRw.readStr("html/copfee.html");
 		String cell = FileRw.readStr("html/copfee_item.txt");
@@ -42,6 +41,7 @@ public class LogicalCop extends Logical {
 				String action = Logical.getActionUrl("upCopFee");
 				String unqkey = "";
 				String chn = "";
+				String chnName = "";
 				String checked1 = "";
 				String checked2 = "";
 				String checked3 = "";
@@ -56,6 +56,7 @@ public class LogicalCop extends Logical {
 					}
 
 					chn = MapEx.getString(mapChn, "key");
+					chnName = MapEx.getString(mapChn, "name");
 					entity = Cop4feeEntity.getByChn(chn);
 					unqkey = chn;
 					checked1 = "";
@@ -75,7 +76,7 @@ public class LogicalCop extends Logical {
 							break;
 						}
 					}
-					cellContent = StrEx.fmt(cell, action, unqkey, chn,
+					cellContent = StrEx.fmt(cell, action, unqkey, chn, chnName,
 							checked1, checked2, checked3);
 					buffer.append(cellContent);
 				}
