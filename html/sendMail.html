@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"/>
+<head>
+<title>计费点控制界面</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta name="description" content="酷猿科技(coolape),为游戏而生！开发手游。" />
+<meta name="keywords" content="酷猿,酷猿科技,coolape,为游戏而生,海岛大作战" />
+<!--
+<link rel="icon" href="pic/icon.png" type="image/x-icon" />
+<link rel="shortcut icon" href="pic/icon.png" type="image/x-icon" />
+-->
+<link href="css/copfee.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="div_wrap" id="div_wrap">
+	<div class="div_content" id="div_content">	
+		<div id="mn_mid" class="mn_mid">
+			<div class="head_title">邮件Email</div>
+			<div>
+			<form action="${1}" method="post">
+				<div><span class="title">玩家的id: </span><input type="text" name="unqid" class="content"/></div>
+				<div><span class="title">邮件名称: </span><input type="text" name="title" class="content"/></div>
+				<div><span class="title">邮件内容: </span><input type="text" name="cont" class="content"/></div>
+				<div><span class="title">奖励内容: </span><input type="text" name="awardJson" class="content"/></div>
+				<br/>
+				<div><input type="submit" value="提交" class="title" /></div>
+			</form>
+			<div>
+		</div>
+		<div style="text-align:left;margin-top:10px;line-height: 30px;" class="w_space_8">
+		说明：
+		<br/>
+		奖励内容:格式为 [{"tpGet":2,"tpId":0,"tpVal":100},..] <font size="3" color="red">不发奖励时，为空，不用填写</font>
+		<br/>
+		单个奖励: 奖励金币x100 [{"tpGet":1,"tpId":0,"tpVal":100}]
+		<br/>
+		多个奖励: 奖励金币x100,钻石x50 [{"tpGet":1,"tpId":0,"tpVal":100},{"tpGet":2,"tpId":0,"tpVal":50}]
+		<br/>
+		tpGet：1：金币，2：钻石，3:道具，4:伙伴，5:英雄，6:时装
+		<br/>
+		tpId：道具ID,(伙伴,英雄GID),时装ID
+		<br/>
+		tpVal: 获得值(伙伴，英雄，时装此时值应该为1)
+		</div>
+	</div>
+</div>
+</body>
+</html>

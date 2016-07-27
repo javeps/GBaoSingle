@@ -120,6 +120,9 @@ public class GameHttpServerReps implements Serializable {
 				case "/upCopFee":
 					upCopFee(chn, msg);
 					break;
+				case "/emailHtml":
+					emailHtml(chn, msg);
+					break;
 				default:
 					N4HttpResponse.send(chn, Out_Error + ",该方法名字有误:" + path);
 					break;
@@ -346,5 +349,13 @@ public class GameHttpServerReps implements Serializable {
 		String fileName = PStr.b("html").a(path).e();
 		String fTxt = FileRw.readStr(fileName);
 		N4HttpResponse.sendCss(chn, fTxt);
+	}
+	
+	void emailHtml(Channel chn, Object msg) throws Exception {
+		String t = FileRw.readStr("html/sendMail.html");
+		// http://112.124.56.63:6002/createEmail
+		String action = Logical.getActionUrl("createEmail");
+		t = StrEx.fmt(t, action);
+		N4HttpResponse.send(chn, t);
 	}
 }
