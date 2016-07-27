@@ -1,0 +1,94 @@
+/** @charset "UTF_8"; **/
+/*** 引用文件 **/
+.word_break {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+body, a, a:hover, a:link, a:visited, ul, li, p, span, table, tr, td, th,
+	div, input, img {
+	margin: 0px;
+	padding: 0px;
+}
+
+img {
+	border: 0px;
+}
+
+input[type="submit"], input[type="button"] {
+	padding: 2px 6px;
+	line-height: 25px;
+}
+
+ul {
+	list-style: none;
+}
+
+.inblock {
+	display: inline-block;
+}
+
+.clear {
+	clear: both;
+	margin: 0px;
+	padding: 0px;
+}
+
+.clear_margin {
+	clear: both;
+	margin: 1px 0px
+}
+
+.txt_tp {
+	vertical-align: top;
+}
+
+.txt_toolong {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.div_wrap {
+	margin: 0 auto;
+	min-width: 960px;
+	min-height: 400px;
+}
+
+.div_content {
+	position: relative;
+	left: 0px;
+	top: 0px;
+	min-width: 960px;
+	height: 100%;
+}
+
+.mn_mid{
+	background:rgba(238,242,251,1);
+	min-width:600px;
+	max-width:800px;
+	text-align:center;
+	margin:30px auto 0 auto;
+}
+
+.mn_mid th{
+	display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    color:rgba(50,160,160,1);
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid rgba(50,160,160,1);
+    margin: 1px 2px 0px 2px;
+    width: 180px;
+}
+
+.mn_mid td{
+	display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    border: 1px solid black;
+    margin: 1px 2px 0px 2px;
+    width: 180px;
+}
