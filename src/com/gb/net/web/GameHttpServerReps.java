@@ -26,9 +26,12 @@ import com.bowlong.util.MapEx;
 import com.bowlong.util.NewMap;
 import com.gb.content.Svc;
 import com.gb.db.bean.Player;
+import com.gb.logic.chn.gionee.LogicalGionee;
+import com.gb.logic.chn.mmand.LogicalMMAnd;
 import com.gb.logic.impl.GBSngGmImpl;
 import com.gb.logic.opt.Logical;
 import com.gb.logic.opt.LogicalCop;
+import com.gb.logic.opt.model.LogicalRecordOrders;
 import com.gb.logic.opt.server.IAPIOSRecharge;
 import com.gb.logic.opt.server.OptSvEmail4Rnk;
 import com.gb.timer.TimerNight;
@@ -114,6 +117,15 @@ public class GameHttpServerReps implements Serializable {
 					break;
 				case "/upCopFee":
 					upCopFee(chn, msg);
+					break;
+				case "/mmandBilling":
+					mmandBilling(chn, msg);
+					break;
+				case "/validaBilling":
+					validaBilling(chn, msg);
+					break;
+				case "/gioneeBilling":
+					gioneeBilling(chn, msg);
 					break;
 				default:
 					N4HttpResponse.send(chn, Out_Error + ",该方法名字有误:" + path);
@@ -334,5 +346,27 @@ public class GameHttpServerReps implements Serializable {
 		System.out.println(map);
 		LogicalCop.changeCopfee(chnStr, copfee);
 		N4HttpResponse.send(chn, "成功！");
+	}
+
+	// mmand 充值回调
+	void mmandBilling(Channel chn, Object msg) throws Exception {
+		String xml = N4HttpResp.getStrContByMsg(msg, "UTF-8");
+		String ret = LogicalMMAnd.handler(xml);
+		N4HttpResponse.sendTxt(chn, ret);
+	}
+
+	// 验证充值状态
+	void validaBilling(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String unqkey = MapEx.getString(map, "unqkey");
+		boolean isState = LogicalRecordOrders.useOrder(unqkey);
+		N4HttpResponse.send(chn, isState + "");
+	}
+
+	// 金立充值回调
+	void gioneeBilling(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String state = LogicalGionee.handler(map);
+		N4HttpResponse.send(chn, state);
 	}
 }

@@ -12,26 +12,26 @@ import com.bowlong.util.*;
 import com.bowlong.json.MyJson;
 import com.gb.db.entity.*;
 
-//gbosng_design - cop4fee
+//gbosng_design - recode4orders
 @SuppressWarnings({"rawtypes",  "unchecked", "serial" })
-public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
+public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
 
-    public static final int _CID = 948076514; // com.gb.db.bean.Cop4fee
+    public static final int _CID = 519677445; // com.gb.db.bean.Recode4orders
 
-    public static String TABLENAME = "cop4fee";
+    public static String TABLENAME = "recode4orders";
 
     public static final String primary = "id";
 
-    public static final class Col { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String chn = "chn"; public static final String copfee = "copfee"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
-    public static final class CEn { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String chn = "chn"; public static final String copfee = "copfee"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
-    public static final String[] carrays ={"id", "unqkey", "chn", "copfee", "createtime", "lasttime"};
-    public static final String[] dbTypes ={"INT", "VARCHAR", "VARCHAR", "INT", "DATETIME", "DATETIME"};
+    public static final class Col { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String usestate = "usestate"; public static final String content = "content"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
+    public static final class CEn { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String usestate = "usestate"; public static final String content = "content"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
+    public static final String[] carrays ={"id", "unqkey", "usestate", "content", "createtime", "lasttime"};
+    public static final String[] dbTypes ={"INT", "VARCHAR", "INT", "TEXT", "DATETIME", "DATETIME"};
 
 
     public int id;
     public String unqkey;
-    public String chn;
-    public int copfee;
+    public int usestate;
+    public String content;
     public java.util.Date createtime;
     public java.util.Date lasttime;
 
@@ -53,7 +53,7 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         return id;
     }
 
-    public Cop4fee setId(int id){
+    public Recode4orders setId(int id){
         this.id = id;
         return this;
     }
@@ -62,60 +62,60 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         return unqkey;
     }
 
-    public Cop4fee setUnqkey(String unqkey){
+    public Recode4orders setUnqkey(String unqkey){
         String _old = this.unqkey;
         this.unqkey = unqkey;
         changeIt(Col.unqkey, _old, unqkey);
         return this;
     }
 
-    public String getChn(){
-        return chn;
+    public int getUsestate(){
+        return usestate;
     }
 
-    public Cop4fee setChn(String chn){
-        String _old = this.chn;
-        this.chn = chn;
-        changeIt(Col.chn, _old, chn);
+    public Recode4orders setUsestate(int usestate){
+        int _old = this.usestate;
+        this.usestate = usestate;
+        changeIt(Col.usestate, _old, usestate);
         return this;
     }
 
-    public int getCopfee(){
-        return copfee;
+    public Recode4orders changeUsestate(int usestate){
+        return setUsestate(this.usestate + usestate);
     }
 
-    public Cop4fee setCopfee(int copfee){
-        int _old = this.copfee;
-        this.copfee = copfee;
-        changeIt(Col.copfee, _old, copfee);
-        return this;
+    public Recode4orders changeUsestateWithMin(int usestate, int _min){
+        int _v2 = this.usestate + usestate;
+        return setUsestate(_v2 < _min  ? _min : _v2);
     }
 
-    public Cop4fee changeCopfee(int copfee){
-        return setCopfee(this.copfee + copfee);
+    public Recode4orders changeUsestateWithMax(int usestate, int _max){
+        int _v2 = this.usestate + usestate;
+        return setUsestate(_v2 > _max  ? _max : _v2);
     }
 
-    public Cop4fee changeCopfeeWithMin(int copfee, int _min){
-        int _v2 = this.copfee + copfee;
-        return setCopfee(_v2 < _min  ? _min : _v2);
-    }
-
-    public Cop4fee changeCopfeeWithMax(int copfee, int _max){
-        int _v2 = this.copfee + copfee;
-        return setCopfee(_v2 > _max  ? _max : _v2);
-    }
-
-    public Cop4fee changeCopfeeWithMinMax(int copfee, int _min, int _max){
-        int _v2 = this.copfee + copfee;
+    public Recode4orders changeUsestateWithMinMax(int usestate, int _min, int _max){
+        int _v2 = this.usestate + usestate;
         _v2 = _v2 > _max  ? _max : _v2;
-        return setCopfee(_v2 < _min  ? _min : _v2);
+        return setUsestate(_v2 < _min  ? _min : _v2);
+    }
+
+    public String getContent(){
+        return content;
+    }
+
+    public Recode4orders setContent(String content){
+        String _old = this.content;
+        this.content = content;
+        changeIt(Col.content, _old, content);
+        return this;
     }
 
     public java.util.Date getCreatetime(){
         return createtime;
     }
 
-    public Cop4fee setCreatetime(java.util.Date createtime){
+    public Recode4orders setCreatetime(java.util.Date createtime){
         java.util.Date _old = this.createtime;
         this.createtime = createtime;
         changeIt(Col.createtime, _old, createtime);
@@ -126,73 +126,73 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         return lasttime;
     }
 
-    public Cop4fee setLasttime(java.util.Date lasttime){
+    public Recode4orders setLasttime(java.util.Date lasttime){
         java.util.Date _old = this.lasttime;
         this.lasttime = lasttime;
         changeIt(Col.lasttime, _old, lasttime);
         return this;
     }
 
-    public int compareTo(Cop4fee v2, String fieldZh) {
+    public int compareTo(Recode4orders v2, String fieldZh) {
         Object o1 = this.value(fieldZh);
         Object o2 = v2.value(fieldZh);
         return compareTo(o1, o2);
     }
 
-    public int compareZhTo(Cop4fee v2, String fieldZh) {
+    public int compareZhTo(Recode4orders v2, String fieldZh) {
         Object o1 = this.valueZh(fieldZh);
         Object o2 = v2.valueZh(fieldZh);
         return compareTo(o1, o2);
     }
 
-    public static Cop4fee newCop4fee(Integer id, String unqkey, String chn, Integer copfee, java.util.Date createtime, java.util.Date lasttime) {
-        Cop4fee result = new Cop4fee();
+    public static Recode4orders newRecode4orders(Integer id, String unqkey, Integer usestate, String content, java.util.Date createtime, java.util.Date lasttime) {
+        Recode4orders result = new Recode4orders();
         result.id = id;
         result.unqkey = unqkey;
-        result.chn = chn;
-        result.copfee = copfee;
+        result.usestate = usestate;
+        result.content = content;
         result.createtime = createtime;
         result.lasttime = lasttime;
         return result;
     }
 
-    public static Cop4fee newCop4fee(Cop4fee cop4fee) {
-        Cop4fee result = new Cop4fee();
-        result.id = cop4fee.id;
-        result.unqkey = cop4fee.unqkey;
-        result.chn = cop4fee.chn;
-        result.copfee = cop4fee.copfee;
-        result.createtime = cop4fee.createtime;
-        result.lasttime = cop4fee.lasttime;
+    public static Recode4orders newRecode4orders(Recode4orders recode4orders) {
+        Recode4orders result = new Recode4orders();
+        result.id = recode4orders.id;
+        result.unqkey = recode4orders.unqkey;
+        result.usestate = recode4orders.usestate;
+        result.content = recode4orders.content;
+        result.createtime = recode4orders.createtime;
+        result.lasttime = recode4orders.lasttime;
         return result;
     }
 
-    public Cop4fee createFor(ResultSet rs) throws SQLException {
+    public Recode4orders createFor(ResultSet rs) throws SQLException {
         Map e = SqlEx.toMap(rs);
         return originalTo(e);
     }
 
     /*
     @SuppressWarnings("unused")
-    public static void getCop4fee(){
-        Cop4fee cop4fee = null; // cop4fee
-        { // new and insert Cop4fee (cop4fee)
+    public static void getRecode4orders(){
+        Recode4orders recode4orders = null; // recode4orders
+        { // new and insert Recode4orders (recode4orders)
             int id = 0; 	// id
             String unqkey = ""; 	// unqkey
-            String chn = ""; 	// chn
-            int copfee = 0; 	// copfee
+            int usestate = 0; 	// usestate
+            String content = ""; 	// content
             Date createtime = new Date(); 	// createtime
             Date lasttime = new Date(); 	// lasttime
-            cop4fee = Cop4fee.newCop4fee(id, unqkey, chn, copfee, createtime, lasttime);
+            recode4orders = Recode4orders.newRecode4orders(id, unqkey, usestate, content, createtime, lasttime);
         }
-        cop4fee = cop4fee.insert();
+        recode4orders = recode4orders.insert();
 
-        int id = cop4fee.getId(); 	// id
-        String unqkey = cop4fee.getUnqkey(); 	// unqkey
-        String chn = cop4fee.getChn(); 	// chn
-        int copfee = cop4fee.getCopfee(); 	// copfee
-        Date createtime = cop4fee.getCreatetime(); 	// createtime
-        Date lasttime = cop4fee.getLasttime(); 	// lasttime
+        int id = recode4orders.getId(); 	// id
+        String unqkey = recode4orders.getUnqkey(); 	// unqkey
+        int usestate = recode4orders.getUsestate(); 	// usestate
+        String content = recode4orders.getContent(); 	// content
+        Date createtime = recode4orders.getCreatetime(); 	// createtime
+        Date lasttime = recode4orders.getLasttime(); 	// lasttime
     }
     */
 
@@ -205,49 +205,49 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         switch(fieldEn){
         case CEn.id:
             return id;
-        case CEn.copfee:
-            return copfee;
+        case CEn.usestate:
+            return usestate;
         }
         return 0;
     }
 
-    public Cop4fee setZhInt(String fieldZh, int value2) {
+    public Recode4orders setZhInt(String fieldZh, int value2) {
         String fieldEn = PinYin.getShortPinYin(fieldZh);
         return setInt(fieldEn, value2);
     }
 
-    public Cop4fee setInt(String fieldEn, int value2) {
+    public Recode4orders setInt(String fieldEn, int value2) {
         switch(fieldEn){
         case CEn.id:
             return setId(value2);
-        case CEn.copfee:
-            return setCopfee(value2);
+        case CEn.usestate:
+            return setUsestate(value2);
         }
         return this;
     }
 
-    public Cop4fee changeZhInt(String fieldZh, int value2) {
+    public Recode4orders changeZhInt(String fieldZh, int value2) {
         String fieldEn = PinYin.getShortPinYin(fieldZh);
         return changeInt(fieldEn, value2);
     }
 
-    public Cop4fee changeInt(String fieldEn, int value2) {
+    public Recode4orders changeInt(String fieldEn, int value2) {
         switch(fieldEn){
-        case CEn.copfee:
-            return changeCopfee(value2);
+        case CEn.usestate:
+            return changeUsestate(value2);
         }
         return this;
     }
 
-    public Cop4fee changeZhIntWithMin(String fieldZh, int value2, int _min) {
+    public Recode4orders changeZhIntWithMin(String fieldZh, int value2, int _min) {
         String fieldEn = PinYin.getShortPinYin(fieldZh);
         return changeIntWithMin(fieldEn, value2, _min);
     }
 
-    public Cop4fee changeIntWithMin(String fieldEn, int value2, int _min) {
+    public Recode4orders changeIntWithMin(String fieldEn, int value2, int _min) {
         switch(fieldEn) {
-        case CEn.copfee:
-            return changeCopfeeWithMin(value2, _min);
+        case CEn.usestate:
+            return changeUsestateWithMin(value2, _min);
         }
         return this;
     }
@@ -263,12 +263,12 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         return 0;
     }
 
-    public Cop4fee setZhDouble(String fieldZh, double value2) {
+    public Recode4orders setZhDouble(String fieldZh, double value2) {
         String fieldEn = PinYin.getShortPinYin(fieldZh);
         return setDouble(fieldEn, value2);
     }
 
-    public Cop4fee setDouble(String fieldEn, double value2) {
+    public Recode4orders setDouble(String fieldEn, double value2) {
         switch(fieldEn) {
         }
         return this;
@@ -293,8 +293,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         switch(fieldEn){
         case CEn.unqkey: 
             return unqkey;
-        case CEn.chn: 
-            return chn;
+        case CEn.content: 
+            return content;
         }
         return "";
     }
@@ -319,10 +319,10 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
             return id;
         case CEn.unqkey:
             return unqkey;
-        case CEn.chn:
-            return chn;
-        case CEn.copfee:
-            return copfee;
+        case CEn.usestate:
+            return usestate;
+        case CEn.content:
+            return content;
         case CEn.createtime:
             return createtime;
         case CEn.lasttime:
@@ -331,38 +331,38 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         return null;
     }
 
-    public Cop4fee setZhListForInt(String fieldZh, ListForInt value2) {
+    public Recode4orders setZhListForInt(String fieldZh, ListForInt value2) {
         String fieldEn = PinYin.getShortPinYin(fieldZh);
         return setListForInt(fieldEn, value2);
     }
 
-    public Cop4fee setListForInt(String fieldEn, ListForInt value2) {
+    public Recode4orders setListForInt(String fieldEn, ListForInt value2) {
         String str2 = value2.toString();
         return setStr(fieldEn, str2);
     }
 
-    public Cop4fee setZhStr(String fieldZh, String value2) {
+    public Recode4orders setZhStr(String fieldZh, String value2) {
         String fieldEn = PinYin.getShortPinYin(fieldZh);
         return setStr(fieldEn, value2);
     }
 
-    public Cop4fee setStr(String fieldEn, String value2) {
+    public Recode4orders setStr(String fieldEn, String value2) {
         switch(fieldEn) {
         case CEn.unqkey:
             return setUnqkey(value2);
-        case CEn.chn:
-            return setChn(value2);
+        case CEn.content:
+            return setContent(value2);
         }
         // throw new IOException("fieldEn:" + fieldEn + " Not Found.");
         return this;
     }
 
-    public Cop4fee setZhJson(String fieldZh, Object o2) {
+    public Recode4orders setZhJson(String fieldZh, Object o2) {
         String fieldEn = PinYin.getShortPinYin(fieldZh);
         return setJson(fieldEn, o2);
     }
 
-    public Cop4fee setJson(String fieldEn, Object o2) {
+    public Recode4orders setJson(String fieldEn, Object o2) {
         try {
             String value2 = MyJson.toJSONString(o2);
             return setStr(fieldEn, value2);
@@ -375,11 +375,11 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
     public Map toMap(){
         Map result = new HashMap();
         result.put("_TABLENAME", TABLENAME);
-        result.put("_CLASSNAME", "com.gb.db.bean.Cop4fee");
+        result.put("_CLASSNAME", "com.gb.db.bean.Recode4orders");
         result.put("id", id);
         result.put("unqkey", unqkey);
-        result.put("chn", chn);
-        result.put("copfee", copfee);
+        result.put("usestate", usestate);
+        result.put("content", content);
         result.put("createtime", createtime);
         result.put("lasttime", lasttime);
         return result;
@@ -389,8 +389,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         Map result = new HashMap();
         result.put("id", id);
         result.put("unqkey", unqkey);
-        result.put("chn", chn);
-        result.put("copfee", copfee);
+        result.put("usestate", usestate);
+        result.put("content", content);
         result.put("createtime", createtime);
         result.put("lasttime", lasttime);
         return result;
@@ -399,58 +399,58 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
     public Map toOriginalMap(){
         Map result = toBasicMap();
         result.put("_TABLENAME", TABLENAME);
-        result.put("_CLASSNAME", "com.gb.db.bean.Cop4fee");
+        result.put("_CLASSNAME", "com.gb.db.bean.Recode4orders");
         return result;
     }
 
-    public Cop4fee mapToThis(Map e){
+    public Recode4orders mapToThis(Map e){
         Integer id = MapEx.getInt(e, "id");
         String unqkey = MapEx.getString(e, "unqkey");
-        String chn = MapEx.getString(e, "chn");
-        Integer copfee = MapEx.getInt(e, "copfee");
+        Integer usestate = MapEx.getInt(e, "usestate");
+        String content = MapEx.getString(e, "content");
         java.util.Date createtime = MapEx.getDate(e, "createtime");
         java.util.Date lasttime = MapEx.getDate(e, "lasttime");
 
         if(unqkey == null) unqkey = "";
-        if(chn == null) chn = "";
+        if(content == null) content = "";
         if(createtime == null) createtime = new java.util.Date();
         if(lasttime == null) lasttime = new java.util.Date();
 
         setId(id);
         setUnqkey(unqkey);
-        setChn(chn);
-        setCopfee(copfee);
+        setUsestate(usestate);
+        setContent(content);
         setCreatetime(createtime);
         setLasttime(lasttime);
 
         return this;
     }
 
-    public static final Cop4fee mapTo(Map e){
-        Cop4fee result = new Cop4fee();
+    public static final Recode4orders mapTo(Map e){
+        Recode4orders result = new Recode4orders();
         result.mapToThis(e);
         return result;
     }
 
-    public static final Cop4fee originalTo(Map e){
-        Cop4fee result = new Cop4fee();
+    public static final Recode4orders originalTo(Map e){
+        Recode4orders result = new Recode4orders();
 
         Integer id = MapEx.getInt(e, "id");
         String unqkey = MapEx.getString(e, "unqkey");
-        String chn = MapEx.getString(e, "chn");
-        Integer copfee = MapEx.getInt(e, "copfee");
+        Integer usestate = MapEx.getInt(e, "usestate");
+        String content = MapEx.getString(e, "content");
         java.util.Date createtime = MapEx.getDate(e, "createtime");
         java.util.Date lasttime = MapEx.getDate(e, "lasttime");
 
         if(unqkey == null) unqkey = "";
-        if(chn == null) chn = "";
+        if(content == null) content = "";
         if(createtime == null) createtime = new java.util.Date();
         if(lasttime == null) lasttime = new java.util.Date();
 
         result.id = id;
         result.unqkey = unqkey;
-        result.chn = chn;
-        result.copfee = copfee;
+        result.usestate = usestate;
+        result.content = content;
         result.createtime = createtime;
         result.lasttime = lasttime;
 
@@ -465,7 +465,7 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         return com.bowlong.third.FastJSON.toJSONString(toOriginalMap(), prettyFormat);
     }
 
-    public static final Cop4fee createFor(String text) throws Exception {
+    public static final Recode4orders createFor(String text) throws Exception {
         Map map = com.bowlong.third.FastJSON.parseMap(text);
         return originalTo(map);
     }
@@ -475,8 +475,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
             writeMapTag(out, 6);
             writeMapEntry(out, "id", id);
             writeMapEntry(out, "unqkey", unqkey);
-            writeMapEntry(out, "chn", chn);
-            writeMapEntry(out, "copfee", copfee);
+            writeMapEntry(out, "usestate", usestate);
+            writeMapEntry(out, "content", content);
             writeMapEntry(out, "createtime", createtime);
             writeMapEntry(out, "lasttime", lasttime);
             return out.toByteArray();
@@ -485,7 +485,7 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         }
     }
 
-    public static final Cop4fee createFor(byte[] b) throws Exception {
+    public static final Recode4orders createFor(byte[] b) throws Exception {
         Map map = B2Helper.toMap(b);
         return originalTo(map);
     }
@@ -498,12 +498,12 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         String s = PStr.b(TABLENAME).e(id);
         return s.hashCode();
     }
-    public static final Cop4fee loadByKey(int id) {
-        return Cop4feeEntity.getByKey(id);
+    public static final Recode4orders loadByKey(int id) {
+        return Recode4ordersEntity.getByKey(id);
     }
 
-    public static final Future<Cop4fee> asyncByKey(int id) {
-        return Cop4feeEntity.asyncGetByKey(id);
+    public static final Future<Recode4orders> asyncByKey(int id) {
+        return Recode4ordersEntity.asyncGetByKey(id);
     }
 
     public void forced() {
@@ -514,40 +514,40 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         }
     }
 
-    public final Cop4fee insert() {
-        Cop4fee result = Cop4feeEntity.insert(this);
+    public final Recode4orders insert() {
+        Recode4orders result = Recode4ordersEntity.insert(this);
         if(result == null) return null;
         // id = result.id;
         return result;
     }
 
-    public final Cop4fee asyncInsert() {
-        Cop4fee result = Cop4feeEntity.asyncInsert(this);
+    public final Recode4orders asyncInsert() {
+        Recode4orders result = Recode4ordersEntity.asyncInsert(this);
         // id = result.id;
         return result;
     }
 
-    public final Cop4fee insert2() {
-        return Cop4feeEntity.insert2(this);
+    public final Recode4orders insert2() {
+        return Recode4ordersEntity.insert2(this);
     }
 
-    public final Cop4fee asyncInsert2() {
-        Cop4fee result = Cop4feeEntity.asyncInsert2(this);
+    public final Recode4orders asyncInsert2() {
+        Recode4orders result = Recode4ordersEntity.asyncInsert2(this);
         // id = result.id;
         return result;
     }
 
-    public final Cop4fee update() {
-        return Cop4feeEntity.update(this);
+    public final Recode4orders update() {
+        return Recode4ordersEntity.update(this);
     }
 
     public boolean asyncUpdate() {
         if(id <= 0) return false;
-        Cop4feeEntity.asyncUpdate( this );
+        Recode4ordersEntity.asyncUpdate( this );
         return true;
     }
 
-    public final Cop4fee insertOrUpdate() {
+    public final Recode4orders insertOrUpdate() {
         if(id <= 0)
             return insert();
         else
@@ -555,11 +555,11 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
     }
 
     public final int delete() {
-        return Cop4feeEntity.delete(id);
+        return Recode4ordersEntity.delete(id);
     }
 
     public final void asyncDelete() {
-        Cop4feeEntity.asyncDelete(id);
+        Recode4ordersEntity.asyncDelete(id);
     }
 
     @Override
@@ -577,9 +577,9 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         return super.clone();
     }
 
-    public Cop4fee clone2() {
+    public Recode4orders clone2() {
         try{
-            return (Cop4fee) clone();
+            return (Recode4orders) clone();
         } catch (Exception e) {
             e.printStackTrace();
         }

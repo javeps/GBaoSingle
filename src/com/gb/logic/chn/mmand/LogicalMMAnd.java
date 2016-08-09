@@ -1,0 +1,54 @@
+package com.gb.logic.chn.mmand;
+
+import java.io.Serializable;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.bowlong.lang.StrEx;
+import com.bowlong.third.xml.jaxb.JaxbReadXml;
+import com.gb.content.Svc;
+import com.gb.logic.opt.model.LogicalRecordOrders;
+
+public class LogicalMMAnd implements Serializable {
+	static Log log = LogFactory.getLog(LogicalMMAnd.class);
+
+	private static final long serialVersionUID = 1L;
+
+	static public String handler(String xml) {
+		BillingResp resp = new BillingResp();
+		resp.sethRet(0);
+		resp.setMessage("Successful");
+		boolean isState = recordMMAnd(xml);
+		if (isState) {
+			try {
+				return JaxbReadXml.getString(resp, "files/mmand.xml");
+			} catch (Exception e) {
+				log.error(Svc.e2s(e));
+			}
+		} else {
+			log.debug(xml);
+		}
+		return "";
+	}
+
+	static public boolean recordMMAnd(String xml) {
+		try {
+			BillingReq req = JaxbReadXml.readXmlContext(BillingReq.class, xml);
+			String orderid = req.getCpparam();
+			if (StrEx.isEmptyTrim(orderid)) {
+				return false;
+			}
+
+			int state = LogicalRecordOrders.recordOrder(orderid, xml);
+			if (state == 1) {
+				return true;
+			}
+			return false;
+
+		} catch (Exception e) {
+			log.error(Svc.e2s(e));
+			return false;
+		}
+	}
+}

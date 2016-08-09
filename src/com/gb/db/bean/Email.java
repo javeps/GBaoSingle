@@ -477,22 +477,13 @@ public class Email extends com.bowlong.sql.mysql.BeanSupport {
     }
 
     public Map toOriginalMap(){
-        Map result = new HashMap();
+        Map result = toBasicMap();
         result.put("_TABLENAME", TABLENAME);
         result.put("_CLASSNAME", "com.gb.db.bean.Email");
-        result.put("id", id);
-        result.put("unqid", unqid);
-        result.put("title", title);
-        result.put("content", content);
-        result.put("awardJson", awardJson);
-        result.put("isRead", isRead);
-        result.put("isReceive", isReceive);
-        result.put("creattime", creattime);
-        result.put("validtime", validtime);
         return result;
     }
 
-    public Email mapToObject(Map e){
+    public Email mapToThis(Map e){
         Integer id = MapEx.getInt(e, "id");
         String unqid = MapEx.getString(e, "unqid");
         String title = MapEx.getString(e, "title");
@@ -503,15 +494,10 @@ public class Email extends com.bowlong.sql.mysql.BeanSupport {
         Long creattime = MapEx.getLong(e, "creattime");
         Long validtime = MapEx.getLong(e, "validtime");
 
-        if(id == null) id = 0;
         if(unqid == null) unqid = "";
         if(title == null) title = "";
         if(content == null) content = "";
         if(awardJson == null) awardJson = "";
-        if(isRead == null) isRead = false;
-        if(isReceive == null) isReceive = false;
-        if(creattime == null) creattime = 0L;
-        if(validtime == null) validtime = 0L;
 
         setId(id);
         setUnqid(unqid);
@@ -528,37 +514,7 @@ public class Email extends com.bowlong.sql.mysql.BeanSupport {
 
     public static final Email mapTo(Map e){
         Email result = new Email();
-
-        Integer id = MapEx.getInt(e, "id");
-        String unqid = MapEx.getString(e, "unqid");
-        String title = MapEx.getString(e, "title");
-        String content = MapEx.getString(e, "content");
-        String awardJson = MapEx.getString(e, "awardJson");
-        Boolean isRead = MapEx.getBoolean(e, "isRead");
-        Boolean isReceive = MapEx.getBoolean(e, "isReceive");
-        Long creattime = MapEx.getLong(e, "creattime");
-        Long validtime = MapEx.getLong(e, "validtime");
-
-        if(id == null) id = 0;
-        if(unqid == null) unqid = "";
-        if(title == null) title = "";
-        if(content == null) content = "";
-        if(awardJson == null) awardJson = "";
-        if(isRead == null) isRead = false;
-        if(isReceive == null) isReceive = false;
-        if(creattime == null) creattime = 0L;
-        if(validtime == null) validtime = 0L;
-
-        result.id = id;
-        result.unqid = unqid;
-        result.title = title;
-        result.content = content;
-        result.awardJson = awardJson;
-        result.isRead = isRead;
-        result.isReceive = isReceive;
-        result.creattime = creattime;
-        result.validtime = validtime;
-
+        result.mapToThis(e);
         return result;
     }
 
@@ -575,15 +531,10 @@ public class Email extends com.bowlong.sql.mysql.BeanSupport {
         Long creattime = MapEx.getLong(e, "creattime");
         Long validtime = MapEx.getLong(e, "validtime");
 
-        if(id == null) id = 0;
         if(unqid == null) unqid = "";
         if(title == null) title = "";
         if(content == null) content = "";
         if(awardJson == null) awardJson = "";
-        if(isRead == null) isRead = false;
-        if(isReceive == null) isReceive = false;
-        if(creattime == null) creattime = 0L;
-        if(validtime == null) validtime = 0L;
 
         result.id = id;
         result.unqid = unqid;

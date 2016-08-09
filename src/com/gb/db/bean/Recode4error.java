@@ -349,25 +349,19 @@ public class Recode4error extends com.bowlong.sql.mysql.BeanSupport {
     }
 
     public Map toOriginalMap(){
-        Map result = new HashMap();
+        Map result = toBasicMap();
         result.put("_TABLENAME", TABLENAME);
         result.put("_CLASSNAME", "com.gb.db.bean.Recode4error");
-        result.put("id", id);
-        result.put("uuid", uuid);
-        result.put("device", device);
-        result.put("error", error);
-        result.put("createtime", createtime);
         return result;
     }
 
-    public Recode4error mapToObject(Map e){
+    public Recode4error mapToThis(Map e){
         Long id = MapEx.getLong(e, "id");
         String uuid = MapEx.getString(e, "uuid");
         String device = MapEx.getString(e, "device");
         String error = MapEx.getString(e, "error");
         java.util.Date createtime = MapEx.getDate(e, "createtime");
 
-        if(id == null) id = 0L;
         if(uuid == null) uuid = "";
         if(device == null) device = "";
         if(error == null) error = "";
@@ -384,25 +378,7 @@ public class Recode4error extends com.bowlong.sql.mysql.BeanSupport {
 
     public static final Recode4error mapTo(Map e){
         Recode4error result = new Recode4error();
-
-        Long id = MapEx.getLong(e, "id");
-        String uuid = MapEx.getString(e, "uuid");
-        String device = MapEx.getString(e, "device");
-        String error = MapEx.getString(e, "error");
-        java.util.Date createtime = MapEx.getDate(e, "createtime");
-
-        if(id == null) id = 0L;
-        if(uuid == null) uuid = "";
-        if(device == null) device = "";
-        if(error == null) error = "";
-        if(createtime == null) createtime = new java.util.Date();
-
-        result.id = id;
-        result.uuid = uuid;
-        result.device = device;
-        result.error = error;
-        result.createtime = createtime;
-
+        result.mapToThis(e);
         return result;
     }
 
@@ -415,7 +391,6 @@ public class Recode4error extends com.bowlong.sql.mysql.BeanSupport {
         String error = MapEx.getString(e, "error");
         java.util.Date createtime = MapEx.getDate(e, "createtime");
 
-        if(id == null) id = 0L;
         if(uuid == null) uuid = "";
         if(device == null) device = "";
         if(error == null) error = "";

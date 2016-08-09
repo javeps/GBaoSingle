@@ -1,0 +1,46 @@
+gongyanghui@3gwin.cn
+BJzg86
+
+-- 时间long 转换为 yyyy-MM-dd HH:mm:ss
+http://127.0.0.1:6002/timeToStr?time=1441123200000
+http://h005.ultralisk.cn:6002/timeToStr?time=1441123200000
+
+-- 重新排行榜,只能是当前日期，第一种排名
+http://127.0.0.1:6002/rnk?isRnk=false&isEmail=true&time=20150901
+http://h005.ultralisk.cn:6002/rnk?isRnk=false&isEmail=false&time=20150901
+
+-- 第二种排名
+http://h005.ultralisk.cn:6002/rnk4Chn?type=[1-3]&parsType=[1,2,n]&chn=none
+http://h005.ultralisk.cn:6005/rnk4Chn?type=[1-3]&parsType=[1,2,n]&chn=none
+
+-- 取得排行榜奖励邮件,isSend是标识是否可以取得
+http://127.0.0.1:6002/rnkAward4Send?isSend=true&time=20150819
+http://127.0.0.1:6002/rnkReset4Pl?unqid=20150819
+http://127.0.0.1:6002/rnkReset4Pl?name=袁定
+--发送邮件
+http://127.0.0.1:6002/createEmail4RnkByJsonTxt?json=
+
+--发送邮件
+http://127.0.0.1:6002/createEmail?unqid=&title=&cont=&awardJson=
+
+-- 请求取得上传xls文件地址
+http://127.0.0.1:6002/upHtml?fileName=chnJson
+-- 请求从gate到game中取得数据并返回给该请求
+http://127.0.0.1:6002/testHttpGtGm?svcid=100&ucid=
+-- 根据渠道标识排行
+http://127.0.0.1:6002/rnk4Chn?type=1&parsType=0&chn=
+-- log数据的日子表清除
+http://127.0.0.1:6002/isClearLog?isClear=false;
+http://h005.ultralisk.cn:6002/isClearLog?isClear=false;
+
+-- 查询人物
+http://127.0.0.1:6002/seePlByName?name=杨斓
+http://112.124.56.63:6002/seePlByName?name=杨斓
+
+-- 取得cop_json
+http://112.124.56.63:6002/getCop?chn=none
+
+http://127.0.0.1:6002/copHtml?sessionID=adfabadf
+
+http://112.124.56.63:6002/mmandBilling
+ 

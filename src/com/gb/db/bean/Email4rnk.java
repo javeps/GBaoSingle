@@ -509,21 +509,13 @@ public class Email4rnk extends com.bowlong.sql.mysql.BeanSupport {
     }
 
     public Map toOriginalMap(){
-        Map result = new HashMap();
+        Map result = toBasicMap();
         result.put("_TABLENAME", TABLENAME);
         result.put("_CLASSNAME", "com.gb.db.bean.Email4rnk");
-        result.put("id", id);
-        result.put("indexBegin", indexBegin);
-        result.put("indexEnd", indexEnd);
-        result.put("title", title);
-        result.put("content", content);
-        result.put("awardJson", awardJson);
-        result.put("creattime", creattime);
-        result.put("validtime", validtime);
         return result;
     }
 
-    public Email4rnk mapToObject(Map e){
+    public Email4rnk mapToThis(Map e){
         Integer id = MapEx.getInt(e, "id");
         Integer indexBegin = MapEx.getInt(e, "indexBegin");
         Integer indexEnd = MapEx.getInt(e, "indexEnd");
@@ -533,14 +525,9 @@ public class Email4rnk extends com.bowlong.sql.mysql.BeanSupport {
         Long creattime = MapEx.getLong(e, "creattime");
         Long validtime = MapEx.getLong(e, "validtime");
 
-        if(id == null) id = 0;
-        if(indexBegin == null) indexBegin = 0;
-        if(indexEnd == null) indexEnd = 0;
         if(title == null) title = "";
         if(content == null) content = "";
         if(awardJson == null) awardJson = "";
-        if(creattime == null) creattime = 0L;
-        if(validtime == null) validtime = 0L;
 
         setId(id);
         setIndexBegin(indexBegin);
@@ -556,34 +543,7 @@ public class Email4rnk extends com.bowlong.sql.mysql.BeanSupport {
 
     public static final Email4rnk mapTo(Map e){
         Email4rnk result = new Email4rnk();
-
-        Integer id = MapEx.getInt(e, "id");
-        Integer indexBegin = MapEx.getInt(e, "indexBegin");
-        Integer indexEnd = MapEx.getInt(e, "indexEnd");
-        String title = MapEx.getString(e, "title");
-        String content = MapEx.getString(e, "content");
-        String awardJson = MapEx.getString(e, "awardJson");
-        Long creattime = MapEx.getLong(e, "creattime");
-        Long validtime = MapEx.getLong(e, "validtime");
-
-        if(id == null) id = 0;
-        if(indexBegin == null) indexBegin = 0;
-        if(indexEnd == null) indexEnd = 0;
-        if(title == null) title = "";
-        if(content == null) content = "";
-        if(awardJson == null) awardJson = "";
-        if(creattime == null) creattime = 0L;
-        if(validtime == null) validtime = 0L;
-
-        result.id = id;
-        result.indexBegin = indexBegin;
-        result.indexEnd = indexEnd;
-        result.title = title;
-        result.content = content;
-        result.awardJson = awardJson;
-        result.creattime = creattime;
-        result.validtime = validtime;
-
+        result.mapToThis(e);
         return result;
     }
 
@@ -599,14 +559,9 @@ public class Email4rnk extends com.bowlong.sql.mysql.BeanSupport {
         Long creattime = MapEx.getLong(e, "creattime");
         Long validtime = MapEx.getLong(e, "validtime");
 
-        if(id == null) id = 0;
-        if(indexBegin == null) indexBegin = 0;
-        if(indexEnd == null) indexEnd = 0;
         if(title == null) title = "";
         if(content == null) content = "";
         if(awardJson == null) awardJson = "";
-        if(creattime == null) creattime = 0L;
-        if(validtime == null) validtime = 0L;
 
         result.id = id;
         result.indexBegin = indexBegin;

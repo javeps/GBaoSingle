@@ -901,35 +901,13 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
     }
 
     public Map toOriginalMap(){
-        Map result = new HashMap();
+        Map result = toBasicMap();
         result.put("_TABLENAME", TABLENAME);
         result.put("_CLASSNAME", "com.gb.db.bean.Player");
-        result.put("pcid", pcid);
-        result.put("unqid", unqid);
-        result.put("uuidMCode", uuidMCode);
-        result.put("pname", pname);
-        result.put("sword", sword);
-        result.put("wheel", wheel);
-        result.put("btPl", btPl);
-        result.put("btHero", btHero);
-        result.put("btPart", btPart);
-        result.put("btProp", btProp);
-        result.put("btNpc", btNpc);
-        result.put("btEmail", btEmail);
-        result.put("phone", phone);
-        result.put("createtime", createtime);
-        result.put("lasttime", lasttime);
-        result.put("statusActivity", statusActivity);
-        result.put("score4Endless", score4Endless);
-        result.put("chn", chn);
-        result.put("chnSub", chnSub);
-        result.put("fight4hero", fight4hero);
-        result.put("fight4part", fight4part);
-        result.put("npcStars", npcStars);
         return result;
     }
 
-    public Player mapToObject(Map e){
+    public Player mapToThis(Map e){
         Integer pcid = MapEx.getInt(e, "pcid");
         String unqid = MapEx.getString(e, "unqid");
         String uuidMCode = MapEx.getString(e, "uuidMCode");
@@ -953,12 +931,9 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         Integer fight4part = MapEx.getInt(e, "fight4part");
         Integer npcStars = MapEx.getInt(e, "npcStars");
 
-        if(pcid == null) pcid = 0;
         if(unqid == null) unqid = "";
         if(uuidMCode == null) uuidMCode = "";
         if(pname == null) pname = "";
-        if(sword == null) sword = 0;
-        if(wheel == null) wheel = 0;
         if(btPl == null) btPl = new byte[0];
         if(btHero == null) btHero = new byte[0];
         if(btPart == null) btPart = new byte[0];
@@ -968,13 +943,8 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         if(phone == null) phone = "";
         if(createtime == null) createtime = new java.util.Date();
         if(lasttime == null) lasttime = new java.util.Date();
-        if(statusActivity == null) statusActivity = 0;
-        if(score4Endless == null) score4Endless = 0;
         if(chn == null) chn = "";
         if(chnSub == null) chnSub = "";
-        if(fight4hero == null) fight4hero = 0;
-        if(fight4part == null) fight4part = 0;
-        if(npcStars == null) npcStars = 0;
 
         setPcid(pcid);
         setUnqid(unqid);
@@ -1004,76 +974,7 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
 
     public static final Player mapTo(Map e){
         Player result = new Player();
-
-        Integer pcid = MapEx.getInt(e, "pcid");
-        String unqid = MapEx.getString(e, "unqid");
-        String uuidMCode = MapEx.getString(e, "uuidMCode");
-        String pname = MapEx.getString(e, "pname");
-        Integer sword = MapEx.getInt(e, "sword");
-        Integer wheel = MapEx.getInt(e, "wheel");
-        byte[] btPl = MapEx.getByteArray(e, "btPl");
-        byte[] btHero = MapEx.getByteArray(e, "btHero");
-        byte[] btPart = MapEx.getByteArray(e, "btPart");
-        byte[] btProp = MapEx.getByteArray(e, "btProp");
-        byte[] btNpc = MapEx.getByteArray(e, "btNpc");
-        byte[] btEmail = MapEx.getByteArray(e, "btEmail");
-        String phone = MapEx.getString(e, "phone");
-        java.util.Date createtime = MapEx.getDate(e, "createtime");
-        java.util.Date lasttime = MapEx.getDate(e, "lasttime");
-        Integer statusActivity = MapEx.getInt(e, "statusActivity");
-        Integer score4Endless = MapEx.getInt(e, "score4Endless");
-        String chn = MapEx.getString(e, "chn");
-        String chnSub = MapEx.getString(e, "chnSub");
-        Integer fight4hero = MapEx.getInt(e, "fight4hero");
-        Integer fight4part = MapEx.getInt(e, "fight4part");
-        Integer npcStars = MapEx.getInt(e, "npcStars");
-
-        if(pcid == null) pcid = 0;
-        if(unqid == null) unqid = "";
-        if(uuidMCode == null) uuidMCode = "";
-        if(pname == null) pname = "";
-        if(sword == null) sword = 0;
-        if(wheel == null) wheel = 0;
-        if(btPl == null) btPl = new byte[0];
-        if(btHero == null) btHero = new byte[0];
-        if(btPart == null) btPart = new byte[0];
-        if(btProp == null) btProp = new byte[0];
-        if(btNpc == null) btNpc = new byte[0];
-        if(btEmail == null) btEmail = new byte[0];
-        if(phone == null) phone = "";
-        if(createtime == null) createtime = new java.util.Date();
-        if(lasttime == null) lasttime = new java.util.Date();
-        if(statusActivity == null) statusActivity = 0;
-        if(score4Endless == null) score4Endless = 0;
-        if(chn == null) chn = "";
-        if(chnSub == null) chnSub = "";
-        if(fight4hero == null) fight4hero = 0;
-        if(fight4part == null) fight4part = 0;
-        if(npcStars == null) npcStars = 0;
-
-        result.pcid = pcid;
-        result.unqid = unqid;
-        result.uuidMCode = uuidMCode;
-        result.pname = pname;
-        result.sword = sword;
-        result.wheel = wheel;
-        result.btPl = btPl;
-        result.btHero = btHero;
-        result.btPart = btPart;
-        result.btProp = btProp;
-        result.btNpc = btNpc;
-        result.btEmail = btEmail;
-        result.phone = phone;
-        result.createtime = createtime;
-        result.lasttime = lasttime;
-        result.statusActivity = statusActivity;
-        result.score4Endless = score4Endless;
-        result.chn = chn;
-        result.chnSub = chnSub;
-        result.fight4hero = fight4hero;
-        result.fight4part = fight4part;
-        result.npcStars = npcStars;
-
+        result.mapToThis(e);
         return result;
     }
 
@@ -1103,12 +1004,9 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         Integer fight4part = MapEx.getInt(e, "fight4part");
         Integer npcStars = MapEx.getInt(e, "npcStars");
 
-        if(pcid == null) pcid = 0;
         if(unqid == null) unqid = "";
         if(uuidMCode == null) uuidMCode = "";
         if(pname == null) pname = "";
-        if(sword == null) sword = 0;
-        if(wheel == null) wheel = 0;
         if(btPl == null) btPl = new byte[0];
         if(btHero == null) btHero = new byte[0];
         if(btPart == null) btPart = new byte[0];
@@ -1118,13 +1016,8 @@ public class Player extends com.bowlong.sql.mysql.BeanSupport {
         if(phone == null) phone = "";
         if(createtime == null) createtime = new java.util.Date();
         if(lasttime == null) lasttime = new java.util.Date();
-        if(statusActivity == null) statusActivity = 0;
-        if(score4Endless == null) score4Endless = 0;
         if(chn == null) chn = "";
         if(chnSub == null) chnSub = "";
-        if(fight4hero == null) fight4hero = 0;
-        if(fight4part == null) fight4part = 0;
-        if(npcStars == null) npcStars = 0;
 
         result.pcid = pcid;
         result.unqid = unqid;

@@ -453,19 +453,13 @@ public class Rankstars extends com.bowlong.sql.mysql.BeanSupport {
     }
 
     public Map toOriginalMap(){
-        Map result = new HashMap();
+        Map result = toBasicMap();
         result.put("_TABLENAME", TABLENAME);
         result.put("_CLASSNAME", "com.gb.db.bean.Rankstars");
-        result.put("id", id);
-        result.put("indexs", indexs);
-        result.put("unqid", unqid);
-        result.put("pcid", pcid);
-        result.put("pname", pname);
-        result.put("stars", stars);
         return result;
     }
 
-    public Rankstars mapToObject(Map e){
+    public Rankstars mapToThis(Map e){
         Integer id = MapEx.getInt(e, "id");
         Integer indexs = MapEx.getInt(e, "indexs");
         String unqid = MapEx.getString(e, "unqid");
@@ -473,12 +467,8 @@ public class Rankstars extends com.bowlong.sql.mysql.BeanSupport {
         String pname = MapEx.getString(e, "pname");
         Integer stars = MapEx.getInt(e, "stars");
 
-        if(id == null) id = 0;
-        if(indexs == null) indexs = 0;
         if(unqid == null) unqid = "";
-        if(pcid == null) pcid = 0;
         if(pname == null) pname = "";
-        if(stars == null) stars = 0;
 
         setId(id);
         setIndexs(indexs);
@@ -492,28 +482,7 @@ public class Rankstars extends com.bowlong.sql.mysql.BeanSupport {
 
     public static final Rankstars mapTo(Map e){
         Rankstars result = new Rankstars();
-
-        Integer id = MapEx.getInt(e, "id");
-        Integer indexs = MapEx.getInt(e, "indexs");
-        String unqid = MapEx.getString(e, "unqid");
-        Integer pcid = MapEx.getInt(e, "pcid");
-        String pname = MapEx.getString(e, "pname");
-        Integer stars = MapEx.getInt(e, "stars");
-
-        if(id == null) id = 0;
-        if(indexs == null) indexs = 0;
-        if(unqid == null) unqid = "";
-        if(pcid == null) pcid = 0;
-        if(pname == null) pname = "";
-        if(stars == null) stars = 0;
-
-        result.id = id;
-        result.indexs = indexs;
-        result.unqid = unqid;
-        result.pcid = pcid;
-        result.pname = pname;
-        result.stars = stars;
-
+        result.mapToThis(e);
         return result;
     }
 
@@ -527,12 +496,8 @@ public class Rankstars extends com.bowlong.sql.mysql.BeanSupport {
         String pname = MapEx.getString(e, "pname");
         Integer stars = MapEx.getInt(e, "stars");
 
-        if(id == null) id = 0;
-        if(indexs == null) indexs = 0;
         if(unqid == null) unqid = "";
-        if(pcid == null) pcid = 0;
         if(pname == null) pname = "";
-        if(stars == null) stars = 0;
 
         result.id = id;
         result.indexs = indexs;

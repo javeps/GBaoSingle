@@ -445,20 +445,13 @@ public class Logs4rnk extends com.bowlong.sql.mysql.BeanSupport {
     }
 
     public Map toOriginalMap(){
-        Map result = new HashMap();
+        Map result = toBasicMap();
         result.put("_TABLENAME", TABLENAME);
         result.put("_CLASSNAME", "com.gb.db.bean.Logs4rnk");
-        result.put("id", id);
-        result.put("topindex", topindex);
-        result.put("unqid", unqid);
-        result.put("title", title);
-        result.put("content", content);
-        result.put("awardJson", awardJson);
-        result.put("creattime", creattime);
         return result;
     }
 
-    public Logs4rnk mapToObject(Map e){
+    public Logs4rnk mapToThis(Map e){
         Integer id = MapEx.getInt(e, "id");
         Integer topindex = MapEx.getInt(e, "topindex");
         String unqid = MapEx.getString(e, "unqid");
@@ -467,13 +460,10 @@ public class Logs4rnk extends com.bowlong.sql.mysql.BeanSupport {
         String awardJson = MapEx.getString(e, "awardJson");
         Long creattime = MapEx.getLong(e, "creattime");
 
-        if(id == null) id = 0;
-        if(topindex == null) topindex = 0;
         if(unqid == null) unqid = "";
         if(title == null) title = "";
         if(content == null) content = "";
         if(awardJson == null) awardJson = "";
-        if(creattime == null) creattime = 0L;
 
         setId(id);
         setTopindex(topindex);
@@ -488,31 +478,7 @@ public class Logs4rnk extends com.bowlong.sql.mysql.BeanSupport {
 
     public static final Logs4rnk mapTo(Map e){
         Logs4rnk result = new Logs4rnk();
-
-        Integer id = MapEx.getInt(e, "id");
-        Integer topindex = MapEx.getInt(e, "topindex");
-        String unqid = MapEx.getString(e, "unqid");
-        String title = MapEx.getString(e, "title");
-        String content = MapEx.getString(e, "content");
-        String awardJson = MapEx.getString(e, "awardJson");
-        Long creattime = MapEx.getLong(e, "creattime");
-
-        if(id == null) id = 0;
-        if(topindex == null) topindex = 0;
-        if(unqid == null) unqid = "";
-        if(title == null) title = "";
-        if(content == null) content = "";
-        if(awardJson == null) awardJson = "";
-        if(creattime == null) creattime = 0L;
-
-        result.id = id;
-        result.topindex = topindex;
-        result.unqid = unqid;
-        result.title = title;
-        result.content = content;
-        result.awardJson = awardJson;
-        result.creattime = creattime;
-
+        result.mapToThis(e);
         return result;
     }
 
@@ -527,13 +493,10 @@ public class Logs4rnk extends com.bowlong.sql.mysql.BeanSupport {
         String awardJson = MapEx.getString(e, "awardJson");
         Long creattime = MapEx.getLong(e, "creattime");
 
-        if(id == null) id = 0;
-        if(topindex == null) topindex = 0;
         if(unqid == null) unqid = "";
         if(title == null) title = "";
         if(content == null) content = "";
         if(awardJson == null) awardJson = "";
-        if(creattime == null) creattime = 0L;
 
         result.id = id;
         result.topindex = topindex;
