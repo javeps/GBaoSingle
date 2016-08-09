@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-07-11 18:28:18
+-- Generation Time: 2016-08-09 17:27:44
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.3
 
@@ -464,6 +464,22 @@ CREATE TABLE IF NOT EXISTS `recode4error` (
   `createtime` datetime NOT NULL DEFAULT '2015-08-10 00:00:00' COMMENT '创建时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `recode4orders`
+--
+
+DROP TABLE IF EXISTS `recode4orders`;
+CREATE TABLE IF NOT EXISTS `recode4orders` (
+`id` int(11) NOT NULL COMMENT '主键',
+  `unqkey` varchar(128) NOT NULL COMMENT '订单号',
+  `usestate` int(11) NOT NULL COMMENT '使用状态(相当于得一个道具)',
+  `content` text NOT NULL COMMENT '内容',
+  `createtime` datetime NOT NULL COMMENT '创建时间',
+  `lasttime` datetime NOT NULL COMMENT '最后一次操作时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单回调记录';
+
 --
 -- Indexes for dumped tables
 --
@@ -529,6 +545,12 @@ ALTER TABLE `recode4error`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `recode4orders`
+--
+ALTER TABLE `recode4orders`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unqkey` (`unqkey`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -582,6 +604,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '标识';
 --
 ALTER TABLE `recode4error`
 MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '数据库唯一标识';
+--
+-- AUTO_INCREMENT for table `recode4orders`
+--
+ALTER TABLE `recode4orders`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键';
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
