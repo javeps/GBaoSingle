@@ -68,6 +68,11 @@ public class GameHttpServerReps implements Serializable {
 					N4HttpResponse.send(chn, Out_Error);
 					return Out_Error;
 				}
+				
+				if(path.indexOf("/css/") >= 0){
+					css(chn, msg);
+					return path;
+				}
 
 				switch (path) {
 				case "/timeToStr":
@@ -117,6 +122,9 @@ public class GameHttpServerReps implements Serializable {
 					break;
 				case "/upCopFee":
 					upCopFee(chn, msg);
+					break;
+				case "/emailHtml":
+					emailHtml(chn, msg);
 					break;
 				case "/mmandBilling":
 					mmandBilling(chn, msg);
@@ -346,6 +354,23 @@ public class GameHttpServerReps implements Serializable {
 		System.out.println(map);
 		LogicalCop.changeCopfee(chnStr, copfee);
 		N4HttpResponse.send(chn, "成功！");
+	}
+	
+	void css(Channel chn, Object msg) throws Exception {
+		HttpRequest req = (HttpRequest) msg;
+		URI uri = new URI(req.getUri());
+		String path = uri.getPath();
+		String fileName = PStr.b("html").a(path).e();
+		String fTxt = FileRw.readStr(fileName);
+		N4HttpResponse.sendCss(chn, fTxt);
+	}
+	
+	void emailHtml(Channel chn, Object msg) throws Exception {
+		String t = FileRw.readStr("html/sendMail.html");
+		// http://112.124.56.63:6002/createEmail
+		String action = Logical.getActionUrl("createEmail");
+		t = StrEx.fmt(t, action);
+		N4HttpResponse.send(chn, t);
 	}
 
 	// mmand 充值回调
