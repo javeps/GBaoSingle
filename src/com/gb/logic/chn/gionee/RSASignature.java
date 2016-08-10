@@ -85,11 +85,11 @@ public class RSASignature {
 			throws NoSuchAlgorithmException, IOException, InvalidKeySpecException, InvalidKeyException,
 			SignatureException {
 		String charset = "UTF-8";
-		if (StrEx.isEmptyTrim(encode)) {
+		if (!StrEx.isEmptyTrim(encode)) {
 			charset = encode;
 		}
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-		byte[] encodedKey = com.bowlong.util.Base64.toByteArray(publicKey);
+		byte[] encodedKey = Base64.decode(publicKey);
 		PublicKey pubKey = keyFactory.generatePublic(new X509EncodedKeySpec(encodedKey));
 
 		java.security.Signature signature = java.security.Signature.getInstance(SIGN_ALGORITHMS);
@@ -97,7 +97,7 @@ public class RSASignature {
 		signature.initVerify(pubKey);
 		signature.update(content.getBytes(charset));
 
-		boolean bverify = signature.verify(com.bowlong.util.Base64.toByteArray(sign));
+		boolean bverify = signature.verify(Base64.decode(sign));
 		return bverify;
 
 	}

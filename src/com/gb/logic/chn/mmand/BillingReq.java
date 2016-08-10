@@ -1,4 +1,3 @@
-
 package com.gb.logic.chn.mmand;
 
 import java.io.Serializable;
@@ -15,37 +14,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class BillingReq implements Serializable {
 	private static final long serialVersionUID = -5719870901076921628L;
 
-	@XmlElement(name="userId")
 	private String userId;// 用户伪码
 
-	@XmlElement(name="contentId")
 	private String contentId;// 计费代码
 
-	@XmlElement(name="consumeCode")
 	private String consumeCode;// 道具计费代码
 
-	@XmlElement(name="cpid")
 	private String cpid;// 合作代码
 
-	@XmlElement(name="hRet")
 	private String hRet;// 平台计费结果（状态码外码）0-成功 其他-失败
 
-	@XmlElement(name="status")
 	private String status;// 返回状态（内码）
 
-	@XmlElement(name="versionId")
 	private String versionId;// 版本号2_0_0, 统一填写2_0_0
 
-	@XmlElement(name="cpparam")
 	private String cpparam;// CP透传参数
-	
-	@XmlElement(name="packageID")
+
 	private String packageID;// 套餐包ID
 
 	public String getUserId() {
 		return userId;
 	}
 
+	@XmlElement(name = "userId")
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -54,6 +45,7 @@ public class BillingReq implements Serializable {
 		return contentId;
 	}
 
+	@XmlElement(name = "contentId")
 	public void setContentId(String contentId) {
 		this.contentId = contentId;
 	}
@@ -62,6 +54,7 @@ public class BillingReq implements Serializable {
 		return consumeCode;
 	}
 
+	@XmlElement(name = "consumeCode")
 	public void setConsumeCode(String consumeCode) {
 		this.consumeCode = consumeCode;
 	}
@@ -70,6 +63,7 @@ public class BillingReq implements Serializable {
 		return cpid;
 	}
 
+	@XmlElement(name = "cpid")
 	public void setCpid(String cpid) {
 		this.cpid = cpid;
 	}
@@ -78,6 +72,7 @@ public class BillingReq implements Serializable {
 		return hRet;
 	}
 
+	@XmlElement(name = "hRet")
 	public void sethRet(String hRet) {
 		this.hRet = hRet;
 	}
@@ -86,6 +81,7 @@ public class BillingReq implements Serializable {
 		return status;
 	}
 
+	@XmlElement(name = "status")
 	public void setStatus(String status) {
 		this.status = status;
 	}
@@ -94,6 +90,7 @@ public class BillingReq implements Serializable {
 		return versionId;
 	}
 
+	@XmlElement(name = "versionId")
 	public void setVersionId(String versionId) {
 		this.versionId = versionId;
 	}
@@ -102,6 +99,7 @@ public class BillingReq implements Serializable {
 		return cpparam;
 	}
 
+	@XmlElement(name = "cpparam")
 	public void setCpparam(String cpparam) {
 		this.cpparam = cpparam;
 	}
@@ -110,6 +108,7 @@ public class BillingReq implements Serializable {
 		return packageID;
 	}
 
+	@XmlElement(name="packageID")
 	public void setPackageID(String packageID) {
 		this.packageID = packageID;
 	}

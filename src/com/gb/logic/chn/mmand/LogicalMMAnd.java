@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.bowlong.lang.StrEx;
+import com.bowlong.security.MD5;
 import com.bowlong.third.xml.jaxb.JaxbReadXml;
 import com.gb.content.Svc;
 import com.gb.logic.opt.model.LogicalRecordOrders;
@@ -50,5 +51,23 @@ public class LogicalMMAnd implements Serializable {
 			log.error(Svc.e2s(e));
 			return false;
 		}
+	}
+	
+	public static void main(String[] args) {
+		String xml =
+				"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+					"<request>\n" +
+					"<userId>1234567890</userId>\n" +
+					"<contentId>000000000000</contentId>\n" +
+					"<consumeCode>000000000000</consumeCode>\n" +
+					"<cpid>701010</cpid>\n" +
+					"<hRet>0</hRet>\n" +
+					"<status>1800</status>\n" +
+					"<versionId>2_0_0</versionId>\n" +
+					"<cpparam>" + MD5.MD5UUIDStimeF16() + "</cpparam>\n" +
+					"<packageID></packageID>\n" +
+					"</request>\n";
+		String ret = handler(xml);
+		System.out.println(ret);
 	}
 }

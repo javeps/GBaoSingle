@@ -66,10 +66,13 @@ public class GameHttpServerReps implements Serializable {
 				String path = uri.getPath();
 				if (StrEx.isEmpty(path)) {
 					N4HttpResponse.send(chn, Out_Error);
+					String info = "error path is null,uri=[" + req.getUri()
+							+ "]";
+					log.error(info);
 					return Out_Error;
 				}
-				
-				if(path.indexOf("/css/") >= 0){
+
+				if (path.indexOf("/css/") >= 0) {
 					css(chn, msg);
 					return path;
 				}
@@ -144,7 +147,9 @@ public class GameHttpServerReps implements Serializable {
 			return msg.getClass().getName();
 		} catch (Exception e) {
 			try {
-				N4HttpResponse.send(chn, Svc.e2s(e));
+				String info = Svc.e2s(e);
+				N4HttpResponse.send(chn, info);
+				log.error(info);
 			} catch (Exception ee) {
 			}
 			return Out_Error;
@@ -157,20 +162,13 @@ public class GameHttpServerReps implements Serializable {
 		}
 	}
 
-	void longToTimeStr(Channel chn, Object msg) {
+	void longToTimeStr(Channel chn, Object msg) throws Exception {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String strLong = MapEx.getString(map, "time");
-		try {
-			long sub = Long.parseLong(strLong);
-			Date d = new Date(sub);
-			String t = Svc.tFmt(d);
-			N4HttpResponse.send(chn, "时间:" + t);
-		} catch (Exception e) {
-			try {
-				N4HttpResponse.send(chn, Svc.e2s(e));
-			} catch (Exception ee) {
-			}
-		}
+		long sub = Long.parseLong(strLong);
+		Date d = new Date(sub);
+		String t = Svc.tFmt(d);
+		N4HttpResponse.send(chn, "时间:" + t);
 	}
 
 	void rnkPlayer(Channel chn, Object msg) throws Exception {
@@ -355,7 +353,7 @@ public class GameHttpServerReps implements Serializable {
 		LogicalCop.changeCopfee(chnStr, copfee);
 		N4HttpResponse.send(chn, "成功！");
 	}
-	
+
 	void css(Channel chn, Object msg) throws Exception {
 		HttpRequest req = (HttpRequest) msg;
 		URI uri = new URI(req.getUri());
@@ -364,7 +362,7 @@ public class GameHttpServerReps implements Serializable {
 		String fTxt = FileRw.readStr(fileName);
 		N4HttpResponse.sendCss(chn, fTxt);
 	}
-	
+
 	void emailHtml(Channel chn, Object msg) throws Exception {
 		String t = FileRw.readStr("html/sendMail.html");
 		// http://112.124.56.63:6002/createEmail
@@ -390,7 +388,8 @@ public class GameHttpServerReps implements Serializable {
 
 	// 金立充值回调
 	void gioneeBilling(Channel chn, Object msg) throws Exception {
-		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
+		// Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalGionee.handler(map);
 		N4HttpResponse.send(chn, state);
 	}
