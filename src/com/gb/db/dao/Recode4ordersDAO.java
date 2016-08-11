@@ -32,9 +32,9 @@ public class Recode4ordersDAO extends JdbcTemplate {
         return TABLE + DateEx.nowStr5();
     }
 
-    public static String[] carrays ={"id", "unqkey", "usestate", "content", "createtime", "lasttime"};
-    public static String coulmns = "id, unqkey, usestate, content, createtime, lasttime";
-    public static String coulmns2 = "unqkey, usestate, content, createtime, lasttime";
+    public static String[] carrays ={"id", "unqkey", "usestate", "content", "chn", "createtime", "lasttime"};
+    public static String coulmns = "id, unqkey, usestate, content, chn, createtime, lasttime";
+    public static String coulmns2 = "unqkey, usestate, content, chn, createtime, lasttime";
 
     public Recode4ordersDAO(Connection conn) {
         super(conn);
@@ -56,7 +56,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
         StringBuffer sql = StringBufPool.borrowObject();
         try {
             recode4orders.reset();
-            sql.append("INSERT INTO ").append(TABLENAME2).append(" (unqkey, usestate, content, createtime, lasttime) VALUES (:unqkey, :usestate, :content, :createtime, :lasttime)");
+            sql.append("INSERT INTO ").append(TABLENAME2).append(" (unqkey, usestate, content, chn, createtime, lasttime) VALUES (:unqkey, :usestate, :content, :chn, :createtime, :lasttime)");
             Map map = super.insert(sql.toString(), recode4orders);
             return getInt(map, "GENERATED_KEY");
         } catch(Exception e) {
@@ -127,7 +127,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
             recode4orders.ustr();
-            sql.append("INSERT INTO ").append(TABLENAME2).append(" (id, unqkey, usestate, content, createtime, lasttime) VALUES (:id, :unqkey, :usestate, :content, :createtime, :lasttime)");
+            sql.append("INSERT INTO ").append(TABLENAME2).append(" (id, unqkey, usestate, content, chn, createtime, lasttime) VALUES (:id, :unqkey, :usestate, :content, :chn, :createtime, :lasttime)");
             Map map = super.insert(sql.toString(), recode4orders);
             return getInt(map, "GENERATED_KEY");
         } catch(Exception e) {
@@ -146,7 +146,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
         StringBuffer sql = StringBufPool.borrowObject();
         try {
             if(recode4orderss == null || recode4orderss.isEmpty()) return new int[0];
-            sql.append("INSERT INTO ").append(TABLENAME2).append(" (unqkey, usestate, content, createtime, lasttime) VALUES (:unqkey, :usestate, :content, :createtime, :lasttime)");
+            sql.append("INSERT INTO ").append(TABLENAME2).append(" (unqkey, usestate, content, chn, createtime, lasttime) VALUES (:unqkey, :usestate, :content, :chn, :createtime, :lasttime)");
             return super.batchInsert(sql.toString(), recode4orderss);
          } catch (Exception e) {
              log.info(e2s(e));
@@ -289,7 +289,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public List<Recode4orders> selectAll(final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" ORDER BY id");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" ORDER BY id");
             return super.queryForList(sql.toString(), Recode4orders.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -328,7 +328,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public List<Map> selectInIndex(final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey FROM ").append(TABLENAME2).append(" ORDER BY id");
+            sql.append("SELECT id, unqkey, chn FROM ").append(TABLENAME2).append(" ORDER BY id");
             return super.queryForList(sql.toString());
         } catch(Exception e) {
             log.info(e2s(e));
@@ -354,7 +354,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
                     sb.append(", ");
             }
             String str = sb.toString();
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id in (").append(str).append(" ) ORDER BY id");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id in (").append(str).append(" ) ORDER BY id");
             return super.queryForList(sql.toString(), Recode4orders.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -381,7 +381,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
                     sb.append(", ");
             }
             String str = sb.toString();
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id in ( :str ) ORDER BY id");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id in ( :str ) ORDER BY id");
             Map params = newMap();
             params.put("str", str);
             return super.queryForList(sql.toString(), params, Recode4orders.class);
@@ -433,7 +433,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public List<Recode4orders> selectLast(final int num, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" ORDER BY id DESC LIMIT ").append(num).append("");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" ORDER BY id DESC LIMIT ").append(num).append("");
             return super.queryForList(sql.toString(), Recode4orders.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -472,7 +472,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public Recode4orders last(final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" ORDER BY id DESC LIMIT 1");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" ORDER BY id DESC LIMIT 1");
             return super.queryForObject(sql.toString(), Recode4orders.class);
         } catch(Exception e) {
             // log.info(e2s(e));
@@ -489,7 +489,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public List<Recode4orders> selectGtKeyNum(final int id, final int _num, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id > :id ORDER BY id LIMIT ").append(_num).append("");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id > :id ORDER BY id LIMIT ").append(_num).append("");
             Map params = newMap();
             params.put("id", id);
             return super.queryForList(sql.toString(), params, Recode4orders.class);
@@ -508,7 +508,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public List<Recode4orders> selectGtKey(final int id, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id > :id ORDER BY id");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id > :id ORDER BY id");
             Map params = newMap();
             params.put("id", id);
             return super.queryForList(sql.toString(), params, Recode4orders.class);
@@ -551,7 +551,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public Recode4orders selectByKey(final int id, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id = :id");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id = :id");
             Map params = newMap();
             params.put("id", id);
             return super.queryForObject(sql.toString(), params, Recode4orders.class);
@@ -587,7 +587,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public Recode4orders selectByUnqkey(final String unqkey, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE unqkey = :unqkey");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE unqkey = :unqkey");
             Map params = newMap();
             params.put("unqkey", unqkey);
             return super.queryForObject(sql.toString(), params, Recode4orders.class);
@@ -623,7 +623,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public List<Recode4orders> selectLikeUnqkey(final String unqkey, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE unqkey LIKE '%").append(unqkey).append("%' ORDER BY id ");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE unqkey LIKE '%").append(unqkey).append("%' ORDER BY id ");
             return super.queryForList(sql.toString(), Recode4orders.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -663,13 +663,175 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public Recode4orders selectById(final Integer id, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id = :id");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE id = :id");
             Map params = newMap();
             params.put("id", id);
             return super.queryForObject(sql.toString(), params, Recode4orders.class);
         } catch(Exception e) {
             // log.info(e2s(e));
             return null;
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public int countByChn(final String chn) {
+        return countByChn(chn, TABLENAME);
+    }
+
+    public int countByChn(final String chn, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("SELECT COUNT(*) FROM ").append(TABLENAME2).append(" WHERE chn = :chn ");
+            Map params = newMap();
+            params.put("chn", chn);
+            return super.queryForInt(sql.toString(), params);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return 0;
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public List<Recode4orders> selectByChn(final String chn) {
+        return selectByChn(chn, TABLENAME);
+    }
+
+    public List<Recode4orders> selectByChn(final String chn, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE chn = :chn ORDER BY id ");
+            Map params = newMap();
+            params.put("chn", chn);
+            return super.queryForList(sql.toString(), params, Recode4orders.class);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return newList();
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public List<Integer> selectByChnPKs(final String chn) {
+        return selectByChnPKs(chn, TABLENAME);
+    }
+
+    public List<Integer> selectByChnPKs(final String chn, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            List<Integer> result = newList();
+            sql.append("SELECT id FROM ").append(TABLENAME2).append(" WHERE chn = :chn ORDER BY id ");
+            Map params = newMap();
+            params.put("chn", chn);
+            List<Map> dbresult = super.queryForList(sql.toString(), params);
+            for(Map map : dbresult){
+                result.add(getInt(map, "id") );
+            }
+            return result;
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return newList();
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public List<Recode4orders> selectPageByChn(final String chn, final int begin, final int num) {
+        return selectPageByChn(chn, begin, num, TABLENAME);
+    }
+
+    public List<Recode4orders> selectPageByChn(final String chn, final int begin, final int num, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE chn = :chn ORDER BY id LIMIT ").append(begin).append(", ").append(num).append("");
+            Map params = newMap();
+            params.put("chn", chn);
+            return super.queryForList(sql.toString(), params, Recode4orders.class);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return newList();
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public List<Integer> selectPageByChnPKs(final String chn, final int begin, final int num) {
+        return selectPageByChnPKs(chn, begin, num, TABLENAME);
+    }
+
+    public List<Integer> selectPageByChnPKs(final String chn, final int begin, final int num, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            List<Integer> result = newList();
+            sql.append("SELECT id FROM ").append(TABLENAME2).append(" WHERE chn = :chn ORDER BY id LIMIT ").append(begin).append(", ").append(num).append("");
+            Map params = newMap();
+            params.put("chn", chn);
+            List<Map> dbresult = super.queryForList(sql.toString(), params);
+            for(Map map : dbresult){
+                result.add( getInt(map, "id") );
+            }
+            return result;
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return newList();
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public int countLikeChn(final String chn) {
+        return countLikeChn(chn, TABLENAME);
+    }
+
+    public int countLikeChn(final String chn, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("SELECT COUNT(*) FROM ").append(TABLENAME2).append(" WHERE chn LIKE '%").append(chn).append("%' ");
+            return super.queryForInt(sql.toString());
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return 0;
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public List<Recode4orders> selectLikeChn(final String chn) {
+        return selectLikeChn(chn, TABLENAME);
+    }
+
+    public List<Recode4orders> selectLikeChn(final String chn, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" WHERE chn LIKE '%").append(chn).append("%' ORDER BY id ");
+            return super.queryForList(sql.toString(), Recode4orders.class);
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return newList();
+        } finally {
+            StringBufPool.returnObject(sql);
+        }
+    }
+
+    public List<Integer> selectLikeChnPKs(final String chn) {
+        return selectLikeChnPKs(chn, TABLENAME);
+    }
+
+    public List<Integer> selectLikeChnPKs(final String chn, final String TABLENAME2) {
+        StringBuffer sql = StringBufPool.borrowObject();
+        try{
+            List<Integer> result = newList();
+            sql.append("SELECT id FROM ").append(TABLENAME2).append(" WHERE chn LIKE '%").append(chn).append("%' ORDER BY id ");
+            Map params = newMap();
+            List<Map> dbresult = super.queryForList(sql.toString(), params);
+            for(Map map : dbresult){
+                result.add( getInt(map, "id") );
+            }
+            return result;
+        } catch(Exception e) {
+            log.info(e2s(e));
+            return newList();
         } finally {
             StringBufPool.returnObject(sql);
         }
@@ -699,7 +861,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
     public List<Recode4orders> selectByPage(final int begin, final int num, final String TABLENAME2) {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
-            sql.append("SELECT id, unqkey, usestate, content, createtime, lasttime FROM ").append(TABLENAME2).append(" ORDER BY id LIMIT ").append(begin).append(", ").append(num).append("");
+            sql.append("SELECT id, unqkey, usestate, content, chn, createtime, lasttime FROM ").append(TABLENAME2).append(" ORDER BY id LIMIT ").append(begin).append(", ").append(num).append("");
             return super.queryForList(sql.toString(), Recode4orders.class);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -940,7 +1102,7 @@ public class Recode4ordersDAO extends JdbcTemplate {
         StringBuffer sql = StringBufPool.borrowObject();
         try{
             if(recode4orderss == null || recode4orderss.isEmpty()) return new int[0];
-            sql.append("UPDATE ").append(TABLENAME2).append(" SET unqkey=:unqkey, usestate=:usestate, content=:content, createtime=:createtime, lasttime=:lasttime WHERE id=:id");
+            sql.append("UPDATE ").append(TABLENAME2).append(" SET unqkey=:unqkey, usestate=:usestate, content=:content, chn=:chn, createtime=:createtime, lasttime=:lasttime WHERE id=:id");
             return super.batchUpdate2(sql.toString(), recode4orderss);
         } catch(Exception e) {
             log.info(e2s(e));
@@ -957,10 +1119,12 @@ public class Recode4ordersDAO extends JdbcTemplate {
                 "	`unqkey`  VARCHAR(128) NOT NULL," +
                 "	`usestate`  INT(11) NOT NULL," +
                 "	`content`  TEXT NOT NULL," +
+                "	`chn`  VARCHAR(64) NOT NULL," +
                 "	`createtime`  DATETIME NOT NULL," +
                 "	`lasttime`  DATETIME NOT NULL," +
                 "	PRIMARY KEY (`id`)," +
-                "	UNIQUE KEY `unqkey` (`unqkey`)" +
+                "	UNIQUE KEY `unqkey` (`unqkey`)," +
+                "	KEY `chn` (`chn`)" +
                 ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
             Map params = newMap();
@@ -979,10 +1143,12 @@ public class Recode4ordersDAO extends JdbcTemplate {
                 "	`unqkey`  VARCHAR(128) NOT NULL," +
                 "	`usestate`  INT(11) NOT NULL," +
                 "	`content`  TEXT NOT NULL," +
+                "	`chn`  VARCHAR(64) NOT NULL," +
                 "	`createtime`  DATETIME NOT NULL," +
                 "	`lasttime`  DATETIME NOT NULL," +
                 "	PRIMARY KEY (`id`)," +
-                "	KEY `unqkey` (`unqkey`)" +
+                "	KEY `unqkey` (`unqkey`)," +
+                "	KEY `chn` (`chn`)" +
                 ") ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
             Map params = newMap();

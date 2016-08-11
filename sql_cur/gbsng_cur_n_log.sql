@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-08-09 17:27:44
+-- Generation Time: 2016-08-11 17:28:42
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.3
 
@@ -476,6 +476,7 @@ CREATE TABLE IF NOT EXISTS `recode4orders` (
   `unqkey` varchar(128) NOT NULL COMMENT '订单号',
   `usestate` int(11) NOT NULL COMMENT '使用状态(相当于得一个道具)',
   `content` text NOT NULL COMMENT '内容',
+  `chn` varchar(64) NOT NULL COMMENT '渠道标识',
   `createtime` datetime NOT NULL COMMENT '创建时间',
   `lasttime` datetime NOT NULL COMMENT '最后一次操作时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单回调记录';
@@ -548,7 +549,7 @@ ALTER TABLE `recode4error`
 -- Indexes for table `recode4orders`
 --
 ALTER TABLE `recode4orders`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unqkey` (`unqkey`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unqkey` (`unqkey`), ADD KEY `chn` (`chn`);
 
 --
 -- AUTO_INCREMENT for dumped tables

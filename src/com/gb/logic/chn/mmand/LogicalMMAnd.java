@@ -41,7 +41,7 @@ public class LogicalMMAnd implements Serializable {
 				return false;
 			}
 
-			int state = LogicalRecordOrders.recordOrder(orderid, xml);
+			int state = LogicalRecordOrders.recordOrder(orderid, xml,"mmand");
 			if (state == 1) {
 				return true;
 			}

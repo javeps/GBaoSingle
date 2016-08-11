@@ -15,7 +15,7 @@ public class LogicalRecordOrders implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	static public int recordOrder(String unqkey, String content) {
+	static public int recordOrder(String unqkey, String content, String chnStr) {
 		Recode4orders order = Recode4ordersEntity.getByUnqkey(unqkey);
 		if (order != null) {
 			return -1;
@@ -23,7 +23,7 @@ public class LogicalRecordOrders implements Serializable {
 
 		Date createtime = DateEx.nowDate();
 		Date lasttime = createtime;
-		order = Recode4orders.newRecode4orders(0, unqkey, 0, content,
+		order = Recode4orders.newRecode4orders(0, unqkey, 0, content, chnStr,
 				createtime, lasttime);
 		order.insert();
 		return 1;

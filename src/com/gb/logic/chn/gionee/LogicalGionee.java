@@ -44,7 +44,7 @@ public class LogicalGionee implements Serializable {
 				state = "fail";
 			} else {
 				int stateInt = LogicalRecordOrders.recordOrder(out_order_no,
-						cont);
+						cont,"gionee");
 				if (stateInt != 1) {
 					state = "fail";
 				}

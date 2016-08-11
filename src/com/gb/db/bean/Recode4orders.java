@@ -22,16 +22,17 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
 
     public static final String primary = "id";
 
-    public static final class Col { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String usestate = "usestate"; public static final String content = "content"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
-    public static final class CEn { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String usestate = "usestate"; public static final String content = "content"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
-    public static final String[] carrays ={"id", "unqkey", "usestate", "content", "createtime", "lasttime"};
-    public static final String[] dbTypes ={"INT", "VARCHAR", "INT", "TEXT", "DATETIME", "DATETIME"};
+    public static final class Col { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String usestate = "usestate"; public static final String content = "content"; public static final String chn = "chn"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
+    public static final class CEn { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String usestate = "usestate"; public static final String content = "content"; public static final String chn = "chn"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
+    public static final String[] carrays ={"id", "unqkey", "usestate", "content", "chn", "createtime", "lasttime"};
+    public static final String[] dbTypes ={"INT", "VARCHAR", "INT", "TEXT", "VARCHAR", "DATETIME", "DATETIME"};
 
 
     public int id;
     public String unqkey;
     public int usestate;
     public String content;
+    public String chn;
     public java.util.Date createtime;
     public java.util.Date lasttime;
 
@@ -111,6 +112,17 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         return this;
     }
 
+    public String getChn(){
+        return chn;
+    }
+
+    public Recode4orders setChn(String chn){
+        String _old = this.chn;
+        this.chn = chn;
+        changeIt(Col.chn, _old, chn);
+        return this;
+    }
+
     public java.util.Date getCreatetime(){
         return createtime;
     }
@@ -145,12 +157,13 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         return compareTo(o1, o2);
     }
 
-    public static Recode4orders newRecode4orders(Integer id, String unqkey, Integer usestate, String content, java.util.Date createtime, java.util.Date lasttime) {
+    public static Recode4orders newRecode4orders(Integer id, String unqkey, Integer usestate, String content, String chn, java.util.Date createtime, java.util.Date lasttime) {
         Recode4orders result = new Recode4orders();
         result.id = id;
         result.unqkey = unqkey;
         result.usestate = usestate;
         result.content = content;
+        result.chn = chn;
         result.createtime = createtime;
         result.lasttime = lasttime;
         return result;
@@ -162,6 +175,7 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         result.unqkey = recode4orders.unqkey;
         result.usestate = recode4orders.usestate;
         result.content = recode4orders.content;
+        result.chn = recode4orders.chn;
         result.createtime = recode4orders.createtime;
         result.lasttime = recode4orders.lasttime;
         return result;
@@ -181,9 +195,10 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
             String unqkey = ""; 	// unqkey
             int usestate = 0; 	// usestate
             String content = ""; 	// content
+            String chn = ""; 	// chn
             Date createtime = new Date(); 	// createtime
             Date lasttime = new Date(); 	// lasttime
-            recode4orders = Recode4orders.newRecode4orders(id, unqkey, usestate, content, createtime, lasttime);
+            recode4orders = Recode4orders.newRecode4orders(id, unqkey, usestate, content, chn, createtime, lasttime);
         }
         recode4orders = recode4orders.insert();
 
@@ -191,6 +206,7 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         String unqkey = recode4orders.getUnqkey(); 	// unqkey
         int usestate = recode4orders.getUsestate(); 	// usestate
         String content = recode4orders.getContent(); 	// content
+        String chn = recode4orders.getChn(); 	// chn
         Date createtime = recode4orders.getCreatetime(); 	// createtime
         Date lasttime = recode4orders.getLasttime(); 	// lasttime
     }
@@ -295,6 +311,8 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
             return unqkey;
         case CEn.content: 
             return content;
+        case CEn.chn: 
+            return chn;
         }
         return "";
     }
@@ -323,6 +341,8 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
             return usestate;
         case CEn.content:
             return content;
+        case CEn.chn:
+            return chn;
         case CEn.createtime:
             return createtime;
         case CEn.lasttime:
@@ -352,6 +372,8 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
             return setUnqkey(value2);
         case CEn.content:
             return setContent(value2);
+        case CEn.chn:
+            return setChn(value2);
         }
         // throw new IOException("fieldEn:" + fieldEn + " Not Found.");
         return this;
@@ -380,6 +402,7 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         result.put("unqkey", unqkey);
         result.put("usestate", usestate);
         result.put("content", content);
+        result.put("chn", chn);
         result.put("createtime", createtime);
         result.put("lasttime", lasttime);
         return result;
@@ -391,6 +414,7 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         result.put("unqkey", unqkey);
         result.put("usestate", usestate);
         result.put("content", content);
+        result.put("chn", chn);
         result.put("createtime", createtime);
         result.put("lasttime", lasttime);
         return result;
@@ -408,11 +432,13 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         String unqkey = MapEx.getString(e, "unqkey");
         Integer usestate = MapEx.getInt(e, "usestate");
         String content = MapEx.getString(e, "content");
+        String chn = MapEx.getString(e, "chn");
         java.util.Date createtime = MapEx.getDate(e, "createtime");
         java.util.Date lasttime = MapEx.getDate(e, "lasttime");
 
         if(unqkey == null) unqkey = "";
         if(content == null) content = "";
+        if(chn == null) chn = "";
         if(createtime == null) createtime = new java.util.Date();
         if(lasttime == null) lasttime = new java.util.Date();
 
@@ -420,6 +446,7 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         setUnqkey(unqkey);
         setUsestate(usestate);
         setContent(content);
+        setChn(chn);
         setCreatetime(createtime);
         setLasttime(lasttime);
 
@@ -439,11 +466,13 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         String unqkey = MapEx.getString(e, "unqkey");
         Integer usestate = MapEx.getInt(e, "usestate");
         String content = MapEx.getString(e, "content");
+        String chn = MapEx.getString(e, "chn");
         java.util.Date createtime = MapEx.getDate(e, "createtime");
         java.util.Date lasttime = MapEx.getDate(e, "lasttime");
 
         if(unqkey == null) unqkey = "";
         if(content == null) content = "";
+        if(chn == null) chn = "";
         if(createtime == null) createtime = new java.util.Date();
         if(lasttime == null) lasttime = new java.util.Date();
 
@@ -451,6 +480,7 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
         result.unqkey = unqkey;
         result.usestate = usestate;
         result.content = content;
+        result.chn = chn;
         result.createtime = createtime;
         result.lasttime = lasttime;
 
@@ -472,11 +502,12 @@ public class Recode4orders extends com.bowlong.sql.mysql.BeanSupport {
 
     public byte[] toBytes() throws Exception {
         try (ByteOutStream out = getStream();) {
-            writeMapTag(out, 6);
+            writeMapTag(out, 7);
             writeMapEntry(out, "id", id);
             writeMapEntry(out, "unqkey", unqkey);
             writeMapEntry(out, "usestate", usestate);
             writeMapEntry(out, "content", content);
+            writeMapEntry(out, "chn", chn);
             writeMapEntry(out, "createtime", createtime);
             writeMapEntry(out, "lasttime", lasttime);
             return out.toByteArray();

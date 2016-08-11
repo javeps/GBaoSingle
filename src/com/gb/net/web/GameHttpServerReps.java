@@ -28,6 +28,7 @@ import com.gb.content.Svc;
 import com.gb.db.bean.Player;
 import com.gb.logic.chn.gionee.LogicalGionee;
 import com.gb.logic.chn.mmand.LogicalMMAnd;
+import com.gb.logic.chn.qihoo360.LogicalQihoo360;
 import com.gb.logic.impl.GBSngGmImpl;
 import com.gb.logic.opt.Logical;
 import com.gb.logic.opt.LogicalCop;
@@ -137,6 +138,9 @@ public class GameHttpServerReps implements Serializable {
 					break;
 				case "/gioneeBilling":
 					gioneeBilling(chn, msg);
+					break;
+				case "/qihoo360Billing":
+					qihoo360Billing(chn, msg);
 					break;
 				default:
 					N4HttpResponse.send(chn, Out_Error + ",该方法名字有误:" + path);
@@ -392,5 +396,12 @@ public class GameHttpServerReps implements Serializable {
 		// Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalGionee.handler(map);
 		N4HttpResponse.send(chn, state);
+	}
+
+	// qihoo360 充值回调
+	void qihoo360Billing(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String ret = LogicalQihoo360.handler(map);
+		N4HttpResponse.sendTxt(chn, ret);
 	}
 }
