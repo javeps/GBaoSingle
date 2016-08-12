@@ -336,7 +336,8 @@ public class GameHttpServerReps implements Serializable {
 	void getCop(Channel chn, Object msg) throws Exception {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String strChn = MapEx.getString(map, "chn");
-		String json = LogicalCop.getCop(strChn);
+		String version = MapEx.getString(map, "version");
+		String json = LogicalCop.getCop(strChn, version);
 		// N4HttpResponse.sendJson(chn, json);
 		N4HttpResponse.send(chn, json);
 	}
@@ -352,9 +353,10 @@ public class GameHttpServerReps implements Serializable {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		// String unqkey = MapEx.getString(map, "unqkey");
 		String chnStr = MapEx.getString(map, "chn");
+		String version = MapEx.getString(map, "version");
 		int copfee = MapEx.getInt(map, "copfee");
 		System.out.println(map);
-		LogicalCop.changeCopfee(chnStr, copfee);
+		LogicalCop.changeCopfee(chnStr, version, copfee);
 		N4HttpResponse.send(chn, "成功！");
 	}
 
@@ -386,7 +388,8 @@ public class GameHttpServerReps implements Serializable {
 	void validaBilling(Channel chn, Object msg) throws Exception {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String unqkey = MapEx.getString(map, "unqkey");
-		boolean isState = LogicalRecordOrders.useOrder(unqkey);
+		String chnPay = MapEx.getString(map, "chnPay");
+		boolean isState = LogicalRecordOrders.useOrder(unqkey, chnPay);
 		N4HttpResponse.send(chn, isState + "");
 	}
 

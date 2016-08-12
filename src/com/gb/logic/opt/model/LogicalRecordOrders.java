@@ -24,16 +24,17 @@ public class LogicalRecordOrders implements Serializable {
 		Date createtime = DateEx.nowDate();
 		Date lasttime = createtime;
 		order = Recode4orders.newRecode4orders(0, unqkey, 0, content, chnStr,
-				createtime, lasttime);
+				chnStr, createtime, lasttime);
 		order.insert();
 		return 1;
 	}
 
-	static public boolean useOrder(String unqkey) {
+	static public boolean useOrder(String unqkey, String payChn) {
 		Recode4orders order = Recode4ordersEntity.getByUnqkey(unqkey);
 		if (order != null) {
 			if (order.getUsestate() == 0) {
 				order.setUsestate(1);
+				order.setChnPay(payChn);
 				order.setLasttime(DateEx.nowDate());
 				order.update();
 				return true;

@@ -38,7 +38,10 @@ http://127.0.0.1:6002/seePlByName?name=杨斓
 http://112.124.56.63:6002/seePlByName?name=杨斓
 
 -- 取得cop_json
-http://112.124.56.63:6002/getCop?chn=none
+http://112.124.56.63:6002/getCop?chn=none&version=
+http://127.0.0.1:6002/getCop?chn=none&version=
+
+http://112.124.56.63:6002/copHtml
 
 http://127.0.0.1:6002/copHtml?sessionID=adfabadf
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-08-11 17:28:42
+-- Generation Time: 2016-08-12 15:24:07
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.3
 
@@ -294,6 +294,7 @@ CREATE TABLE IF NOT EXISTS `cop4fee` (
 `id` int(11) NOT NULL COMMENT '标识',
   `unqkey` varchar(64) NOT NULL COMMENT '操作唯一标识',
   `chn` varchar(128) NOT NULL COMMENT '渠道标识',
+  `version` varchar(64) NOT NULL COMMENT '版本信息',
   `copfee` int(4) NOT NULL COMMENT '弹窗计费点控制',
   `createtime` datetime NOT NULL COMMENT '创建时间',
   `lasttime` datetime NOT NULL COMMENT '最后操作时间'
@@ -477,6 +478,7 @@ CREATE TABLE IF NOT EXISTS `recode4orders` (
   `usestate` int(11) NOT NULL COMMENT '使用状态(相当于得一个道具)',
   `content` text NOT NULL COMMENT '内容',
   `chn` varchar(64) NOT NULL COMMENT '渠道标识',
+  `chnPay` varchar(64) NOT NULL COMMENT '客户端传上来的,充值时候调用的渠道',
   `createtime` datetime NOT NULL COMMENT '创建时间',
   `lasttime` datetime NOT NULL COMMENT '最后一次操作时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单回调记录';
@@ -489,7 +491,7 @@ CREATE TABLE IF NOT EXISTS `recode4orders` (
 -- Indexes for table `cop4fee`
 --
 ALTER TABLE `cop4fee`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unqkey` (`unqkey`), ADD UNIQUE KEY `chn` (`chn`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unqkey` (`unqkey`), ADD UNIQUE KEY `chn` (`chn`,`version`);
 
 --
 -- Indexes for table `email`
@@ -549,7 +551,7 @@ ALTER TABLE `recode4error`
 -- Indexes for table `recode4orders`
 --
 ALTER TABLE `recode4orders`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unqkey` (`unqkey`), ADD KEY `chn` (`chn`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `unqkey` (`unqkey`), ADD KEY `chn` (`chn`), ADD KEY `chnPay` (`chnPay`);
 
 --
 -- AUTO_INCREMENT for dumped tables

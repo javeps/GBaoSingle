@@ -17,8 +17,8 @@ import com.gb.db.entity.Cop4feeEntity;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class LogicalCop extends Logical {
 
-	static public String getCop(String chn) {
-		Cop4fee entity = Cop4feeEntity.getByChn(chn);
+	static public String getCop(String chn, String version) {
+		Cop4fee entity = Cop4feeEntity.getByChnVersion(chn, version);
 		String json = "{\"copfee\":1}";
 		if (entity != null) {
 			Map map = entity.toBasicMap();
@@ -42,6 +42,7 @@ public class LogicalCop extends Logical {
 				String unqkey = "";
 				String chn = "";
 				String chnName = "";
+				String chnVer = "";
 				String checked1 = "";
 				String checked2 = "";
 				String checked3 = "";
@@ -57,7 +58,8 @@ public class LogicalCop extends Logical {
 
 					chn = MapEx.getString(mapChn, "key");
 					chnName = MapEx.getString(mapChn, "name");
-					entity = Cop4feeEntity.getByChn(chn);
+					chnVer = MapEx.getString(mapChn, "version");
+					entity = Cop4feeEntity.getByChnVersion(chn, chnVer);
 					unqkey = chn;
 					checked1 = "";
 					checked2 = "";
@@ -76,7 +78,7 @@ public class LogicalCop extends Logical {
 							break;
 						}
 					}
-					cellContent = StrEx.fmt(cell, action, unqkey, chn, chnName,
+					cellContent = StrEx.fmt(cell, action, unqkey, chn, chnName,chnVer,
 							checked1, checked2, checked3);
 					buffer.append(cellContent);
 				}
@@ -89,8 +91,8 @@ public class LogicalCop extends Logical {
 		return ret;
 	}
 
-	static public void changeCopfee(String chn, int copfee) {
-		Cop4fee entity = Cop4feeEntity.getByChn(chn);
+	static public void changeCopfee(String chn, String version, int copfee) {
+		Cop4fee entity = Cop4feeEntity.getByChnVersion(chn, version);
 		Date lasttime = DateEx.nowDate();
 		if (entity != null) {
 			entity.setCopfee(copfee);
@@ -99,8 +101,8 @@ public class LogicalCop extends Logical {
 		} else {
 			Date createtime = lasttime;
 			String unqid = MD5.MD5UUIDStime(lasttime.getTime());
-			entity = Cop4fee.newCop4fee(0, unqid, chn, copfee, createtime,
-					lasttime);
+			entity = Cop4fee.newCop4fee(0, unqid, chn, version, copfee,
+					createtime, lasttime);
 			entity.insert();
 		}
 	}

@@ -40,6 +40,7 @@ public abstract class Recode4ordersInternal extends InternalSupport{
     private static Recode4orders[] FIXED = new Recode4orders[MAX];
     public static final Map<Integer, Recode4orders> vars = newSortedMap();
     public static final Map<String, Integer> varsByUnqkey = newSortedMap();
+    public static final Map<String, Set<Integer>> varsByChnPay = newSortedMap();
     public static final Map<String, Set<Integer>> varsByChn = newSortedMap();
 
     private static final List<Recode4orders> fixedCache = newList();
@@ -69,25 +70,47 @@ public abstract class Recode4ordersInternal extends InternalSupport{
           }
         }
 
+        { // 单-非唯一索引 remove old index chnPay
+          Object ov = recode4orders.oldVal(Col.chnPay);
+          if(ov != null) {
+              String _val = (String) ov;
+              Set m1 = varsByChnPay.get(_val);
+              if(m1 != null) {
+                  m1.remove(id);
+                  if(m1.isEmpty())
+                      varsByChnPay.remove(_val);
+              }
+          }
+          if(ov != null || force){ // put new index
+            String chnPay = recode4orders.getChnPay();
+            Set m1 = varsByChnPay.get(chnPay);
+            if(m1 == null){
+                m1 = newSortedSet();
+                varsByChnPay.put(chnPay, m1);
+            }
+            m1.add(id);
+          }
+        }
+
         { // 单-非唯一索引 remove old index chn
           Object ov = recode4orders.oldVal(Col.chn);
           if(ov != null) {
               String _val = (String) ov;
-              Set m1 = varsByChn.get(_val);
-              if(m1 != null) {
-                  m1.remove(id);
-                  if(m1.isEmpty())
+              Set m2 = varsByChn.get(_val);
+              if(m2 != null) {
+                  m2.remove(id);
+                  if(m2.isEmpty())
                       varsByChn.remove(_val);
               }
           }
           if(ov != null || force){ // put new index
             String chn = recode4orders.getChn();
-            Set m1 = varsByChn.get(chn);
-            if(m1 == null){
-                m1 = newSortedSet();
-                varsByChn.put(chn, m1);
+            Set m2 = varsByChn.get(chn);
+            if(m2 == null){
+                m2 = newSortedSet();
+                varsByChn.put(chn, m2);
             }
-            m1.add(id);
+            m2.add(id);
           }
         }
 
@@ -97,6 +120,7 @@ public abstract class Recode4ordersInternal extends InternalSupport{
 
     public static void clear(){
         varsByUnqkey.clear();
+        varsByChnPay.clear();
         varsByChn.clear();
         FIXED = new Recode4orders[MAX];
         fixedCache.clear();
@@ -284,6 +308,28 @@ public abstract class Recode4ordersInternal extends InternalSupport{
             public int compare(Recode4orders o1, Recode4orders o2) {
                 Object v1 = o1.getUnqkey();
                 Object v2 = o2.getUnqkey();
+                return 0 - compareTo(v1, v2);
+            };
+        });
+        return recode4orderss;
+    }
+
+    public static List<Recode4orders> sortChnPay(List<Recode4orders> recode4orderss){
+        Collections.sort(recode4orderss, new Comparator<Recode4orders>(){
+            public int compare(Recode4orders o1, Recode4orders o2) {
+                Object v1 = o1.getChnPay();
+                Object v2 = o2.getChnPay();
+                return compareTo(v1, v2);
+            }
+        });
+        return recode4orderss;
+    }
+
+    public static List<Recode4orders> sortChnPayRo(List<Recode4orders> recode4orderss){
+        Collections.sort(recode4orderss, new Comparator<Recode4orders>(){
+            public int compare(Recode4orders o1, Recode4orders o2) {
+                Object v1 = o1.getChnPay();
+                Object v2 = o2.getChnPay();
                 return 0 - compareTo(v1, v2);
             };
         });
@@ -946,11 +992,19 @@ public abstract class Recode4ordersInternal extends InternalSupport{
         String unqkey = recode4orders.getUnqkey();
         varsByUnqkey.remove(unqkey);
 
-        String chn = recode4orders.getChn();
-        Set m1 = varsByChn.get(chn);
+        String chnPay = recode4orders.getChnPay();
+        Set m1 = varsByChnPay.get(chnPay);
         if(m1 != null) {
             m1.remove(id);
             if(m1.isEmpty())
+                varsByChnPay.remove(chnPay);
+        }
+
+        String chn = recode4orders.getChn();
+        Set m2 = varsByChn.get(chn);
+        if(m2 != null) {
+            m2.remove(id);
+            if(m2.isEmpty())
                 varsByChn.remove(chn);
         }
 
@@ -1083,6 +1137,118 @@ public abstract class Recode4ordersInternal extends InternalSupport{
             for(Recode4orders e : recode4orderss){
                 String _var = e.getUnqkey();
                 if(_var.indexOf(unqkey) >= 0)
+                    result.add(e);
+            }
+            return result;
+        }
+    }
+
+    public static int countByChnPay(String chnPay) {
+        Recode4ordersDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return countByChnPay(DAO, chnPay, DAO.TABLENAME);
+    }
+
+    public static int countByChnPay(Recode4ordersDAO DAO, String chnPay) {
+        return countByChnPay(DAO, chnPay, DAO.TABLENAME);
+    }
+
+    public static int countByChnPay(String chnPay, String TABLENAME2) {
+        Recode4ordersDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return countByChnPay(DAO, chnPay, TABLENAME2);
+    }
+
+    public static int countByChnPay(final Recode4ordersDAO DAO, final String chnPay,final String TABLENAME2) {
+        if(cacheModel == NO_CACHE){
+            return DAO.countByChnPay(chnPay, TABLENAME2);
+        }
+        List<Recode4orders> recode4orderss = getByChnPay(DAO, chnPay, TABLENAME2);
+        return recode4orderss.size();
+    }
+
+    public static List<Recode4orders> getByChnPay(String chnPay) {
+        Recode4ordersDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return getByChnPay(DAO, chnPay, DAO.TABLENAME);
+    }
+
+    public static List<Recode4orders> getByChnPay(Recode4ordersDAO DAO, String chnPay) {
+        return getByChnPay(DAO, chnPay, DAO.TABLENAME);
+    }
+
+    public static List<Recode4orders> getByChnPay(String chnPay, String TABLENAME2) {
+        Recode4ordersDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return getByChnPay(DAO, chnPay, TABLENAME2);
+    }
+
+    public static List<Recode4orders> getByChnPay(final Recode4ordersDAO DAO, final String chnPay,final String TABLENAME2) {
+        if( cacheModel == NO_CACHE ){
+            return DAO.selectByChnPay(chnPay, TABLENAME2);
+        } else { //FULL_CACHE || FULL_MEMORY {
+            List<Recode4orders> result = newList();
+            Set<Integer> m1 = varsByChnPay.get(chnPay);
+            if (m1 == null || m1.isEmpty()) return result;
+            List<Integer> list = new ArrayList(m1);
+            for (int key : list) {;
+                Recode4orders e = getByKey(DAO, key, TABLENAME2);
+                if(e == null){
+                    m1.remove(key); 
+                    continue;
+                }
+                String _chnPay = e.getChnPay();
+                if(!_chnPay.equals(chnPay)){ 
+                    m1.remove(key);
+                    continue;
+                }
+                result.add(e);
+            }
+            return result;
+        }
+    }
+
+    public static int countLikeChnPay(String chnPay) {
+        Recode4ordersDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return countLikeChnPay(DAO, chnPay, DAO.TABLENAME);
+    }
+
+    public static int countLikeChnPay(Recode4ordersDAO DAO, String chnPay) {
+        return countLikeChnPay(DAO, chnPay, DAO.TABLENAME);
+    }
+
+    public static int countLikeChnPay(String chnPay, String TABLENAME2) {
+        Recode4ordersDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return countLikeChnPay(DAO, chnPay, TABLENAME2);
+    }
+
+    public static int countLikeChnPay(final Recode4ordersDAO DAO, final String chnPay,final String TABLENAME2) {
+        if(cacheModel == NO_CACHE){
+            return DAO.countLikeChnPay(chnPay, TABLENAME2);
+        }
+        List<Recode4orders> recode4orderss = getLikeChnPay(DAO, chnPay, TABLENAME2);
+        return recode4orderss.size();
+    }
+
+    public static List<Recode4orders> getLikeChnPay(String chnPay) {
+        Recode4ordersDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return getLikeChnPay(DAO, chnPay, DAO.TABLENAME);
+    }
+
+    public static List<Recode4orders> getLikeChnPay(Recode4ordersDAO DAO, String chnPay) {
+        return getLikeChnPay(DAO, chnPay, DAO.TABLENAME);
+    }
+
+    public static List<Recode4orders> getLikeChnPay(String chnPay, String TABLENAME2) {
+        Recode4ordersDAO DAO = (cacheModel == NO_CACHE) ? DAO() : null;
+        return getLikeChnPay(DAO, chnPay, TABLENAME2);
+    }
+
+    public static List<Recode4orders> getLikeChnPay(final Recode4ordersDAO DAO, final String chnPay,final String TABLENAME2) {
+        if(cacheModel == NO_CACHE){
+            return DAO.selectLikeChnPay(chnPay, TABLENAME2);
+        } else { // FULL_CACHE || FULL_MEMORY
+            List<Recode4orders> result = newList();
+            List<Recode4orders> recode4orderss = getAll(DAO, TABLENAME2);
+            for(Recode4orders e : recode4orderss){
+                String _var = e.getChnPay();
+                if(_var.indexOf(chnPay) >= 0)
                     result.add(e);
             }
             return result;
