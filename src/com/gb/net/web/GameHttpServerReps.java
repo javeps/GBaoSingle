@@ -26,6 +26,7 @@ import com.bowlong.util.MapEx;
 import com.bowlong.util.NewMap;
 import com.gb.content.Svc;
 import com.gb.db.bean.Player;
+import com.gb.logic.chn.egame.LogicalEgame;
 import com.gb.logic.chn.gionee.LogicalGionee;
 import com.gb.logic.chn.mmand.LogicalMMAnd;
 import com.gb.logic.chn.qihoo360.LogicalQihoo360;
@@ -141,6 +142,9 @@ public class GameHttpServerReps implements Serializable {
 					break;
 				case "/qihoo360Billing":
 					qihoo360Billing(chn, msg);
+					break;
+				case "/egameBilling":
+					egameBilling(chn, msg);
 					break;
 				default:
 					N4HttpResponse.send(chn, Out_Error + ",该方法名字有误:" + path);
@@ -405,6 +409,13 @@ public class GameHttpServerReps implements Serializable {
 	void qihoo360Billing(Channel chn, Object msg) throws Exception {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String ret = LogicalQihoo360.handler(map);
+		N4HttpResponse.sendTxt(chn, ret);
+	}
+
+	// egame 充值回调
+	void egameBilling(Channel chn, Object msg) throws Exception {
+		String xml = N4HttpResp.getStrContByMsg(msg, "UTF-8");
+		String ret = LogicalEgame.handler(xml);
 		N4HttpResponse.sendTxt(chn, ret);
 	}
 }
