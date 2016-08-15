@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="lib/http/httpclient-4.2.5.jar"/>
 	<classpathentry kind="lib" path="lib/http/httpcore-4.2.4.jar"/>
 	<classpathentry kind="lib" path="lib/tools2016.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

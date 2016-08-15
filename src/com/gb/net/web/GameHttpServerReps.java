@@ -146,6 +146,10 @@ public class GameHttpServerReps implements Serializable {
 				case "/egameBilling":
 					egameBilling(chn, msg);
 					break;
+				case "/oppoBilling":
+					oppoBilling(chn, msg);
+					break;
+
 				default:
 					N4HttpResponse.send(chn, Out_Error + ",该方法名字有误:" + path);
 					break;
@@ -417,5 +421,13 @@ public class GameHttpServerReps implements Serializable {
 		String xml = N4HttpResp.getStrContByMsg(msg, "UTF-8");
 		String ret = LogicalEgame.handler(xml);
 		N4HttpResponse.sendTxt(chn, ret);
+	}
+
+	// oppo充值回调
+	void oppoBilling(Channel chn, Object msg) throws Exception {
+		// Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String state = LogicalGionee.handler(map);
+		N4HttpResponse.send(chn, state);
 	}
 }
