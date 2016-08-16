@@ -14,18 +14,9 @@ import com.gb.content.Svc;
 import com.gb.logic.opt.model.LogicalRecordOrders;
 
 /**
- * <pre>
- * <p>Title: OrderNotify.java</p>
- * <p>Description:商户接收到金立支付系统notify通知后，处理通知内容</p>
- * <p>成功响应 :"success"</p>
- * <p>失败响应 :"fail"</p>
- * <p>Copyright: Copyright (c) 2012</p>
- * <p>Company:金立通信设备有限公司</p>
- * </pre>
- * 
- * @author tianxb
- * @date 2012-11-30 下午3:06:07
- * @version V2.0
+ * 金立
+ * @author Canyon
+ * @version createtime：2016年8月16日 下午9:34:43
  */
 public class LogicalGionee implements Serializable {
 

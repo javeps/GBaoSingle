@@ -11,6 +11,11 @@ import com.bowlong.third.xml.jaxb.JaxbReadXml;
 import com.gb.content.Svc;
 import com.gb.logic.opt.model.LogicalRecordOrders;
 
+/**
+ * 咪咕游戏(和游戏[移动MM])
+ * @author Canyon
+ * @version createtime：2016年8月16日 下午9:34:57
+ */
 public class LogicalMMAnd implements Serializable {
 	static Log log = LogFactory.getLog(LogicalMMAnd.class);
 

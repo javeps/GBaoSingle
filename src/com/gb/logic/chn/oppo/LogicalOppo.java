@@ -17,6 +17,11 @@ import com.bowlong.util.MapEx;
 import com.gb.content.Svc;
 import com.gb.logic.opt.model.LogicalRecordOrders;
 
+/**
+ * oppo
+ * @author Canyon
+ * @version createtime：2016年8月16日 下午9:36:52
+ */
 public class LogicalOppo implements Serializable {
 
 	private static final long serialVersionUID = 1L;

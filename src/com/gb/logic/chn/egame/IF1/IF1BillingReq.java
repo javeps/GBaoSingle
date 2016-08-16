@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.bowlong.security.MD5;
+import com.gb.logic.chn.egame.LogicalEgame;
 
 /**
  * 
@@ -17,7 +18,7 @@ public class IF1BillingReq implements Serializable {
 
 	private static final long serialVersionUID = -5719870901076921628L;
 
-	String appKey = "";
+	String appKey = LogicalEgame.AppKey;
 
 	// CP业务流水号，由CP在游戏中支付发起时生成，CP应保证每次支付此流水号唯一不重复，
 	// 并能依据此流水号区分支付产生的游戏、道具、价格、用户等相关信息 ，长度32位以内

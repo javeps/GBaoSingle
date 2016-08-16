@@ -14,11 +14,20 @@ import com.gb.content.Svc;
 import com.gb.logic.chn.egame.IF1.IF1BillingReq;
 import com.gb.logic.chn.egame.IF2.IF2BillingReq;
 import com.gb.logic.opt.model.LogicalRecordOrders;
-
+/**
+ * egame(爱游戏[电信])
+ * @author Canyon
+ * @version createtime：2016年8月16日 下午9:32:13
+ */
 public class LogicalEgame implements Serializable {
+	
 	static Log log = LogFactory.getLog(LogicalEgame.class);
 
 	private static final long serialVersionUID = 1L;
+	
+	static public String AppID = "5116754";
+	static public String AppCode = "110256018367";
+	static public String AppKey = "70435b96d0ed409885513be1d6a72296";
 
 	static public String handler(String xml) throws Exception {
 		Element root = XMLEx.getRoot(xml);
