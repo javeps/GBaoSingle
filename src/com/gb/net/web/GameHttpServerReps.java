@@ -34,6 +34,7 @@ import com.gb.logic.chn.mmand.LogicalMMAnd;
 import com.gb.logic.chn.qihoo360.LogicalQihoo360;
 import com.gb.logic.chn.unicom.LogicalUnicom;
 import com.gb.logic.chn.vivo.LogicalVivo;
+import com.gb.logic.chn.wdj.LogicalWdj;
 import com.gb.logic.impl.GBSngGmImpl;
 import com.gb.logic.opt.Logical;
 import com.gb.logic.opt.LogicalCop;
@@ -164,6 +165,9 @@ public class GameHttpServerReps implements Serializable {
 					break;
 				case "/huaweiBilling":
 					huaweiBilling(chn, msg);
+					break;
+				case "/wdjBilling":
+					wdjBilling(chn, msg);
 					break;
 
 				default:
@@ -420,7 +424,6 @@ public class GameHttpServerReps implements Serializable {
 	// 金立充值回调
 	void gioneeBilling(Channel chn, Object msg) throws Exception {
 		Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
-		// Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalGionee.handler(map);
 		N4HttpResponse.send(chn, state);
 	}
@@ -441,7 +444,6 @@ public class GameHttpServerReps implements Serializable {
 
 	// oppo充值回调
 	void oppoBilling(Channel chn, Object msg) throws Exception {
-		// Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalGionee.handler(map);
 		N4HttpResponse.send(chn, state);
@@ -449,7 +451,6 @@ public class GameHttpServerReps implements Serializable {
 
 	// unicom(联通) 充值回调
 	void unicomBilling(Channel chn, Object msg) throws Exception {
-		// Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalUnicom.handler(map);
 		N4HttpResponse.send(chn, state);
@@ -457,7 +458,6 @@ public class GameHttpServerReps implements Serializable {
 
 	// vivo 充值回调
 	void vivoBilling(Channel chn, Object msg) throws Exception {
-		// Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalVivo.handler(map);
 		N4HttpResponse.send(chn, state);
@@ -477,5 +477,13 @@ public class GameHttpServerReps implements Serializable {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalHuaWei.handler(map);
 		N4HttpResponse.sendJson(chn, state);
+	}
+
+	// 豌豆荚充值回调
+	void wdjBilling(Channel chn, Object msg) throws Exception {
+		// Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String state = LogicalWdj.handler(map);
+		N4HttpResponse.send(chn, state);
 	}
 }
