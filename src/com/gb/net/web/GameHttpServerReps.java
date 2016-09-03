@@ -28,6 +28,7 @@ import com.gb.content.Svc;
 import com.gb.db.bean.Player;
 import com.gb.logic.chn.egame.LogicalEgame;
 import com.gb.logic.chn.gionee.LogicalGionee;
+import com.gb.logic.chn.mi.LogicalXiaoMi;
 import com.gb.logic.chn.mmand.LogicalMMAnd;
 import com.gb.logic.chn.qihoo360.LogicalQihoo360;
 import com.gb.logic.chn.unicom.LogicalUnicom;
@@ -156,6 +157,9 @@ public class GameHttpServerReps implements Serializable {
 					break;
 				case "/vivoBilling":
 					vivoBilling(chn, msg);
+					break;
+				case "/miBilling":
+					miBilling(chn, msg);
 					break;
 
 				default:
@@ -453,5 +457,13 @@ public class GameHttpServerReps implements Serializable {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalVivo.handler(map);
 		N4HttpResponse.send(chn, state);
+	}
+
+	// xiaomi 充值回调
+	void miBilling(Channel chn, Object msg) throws Exception {
+		// Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String state = LogicalXiaoMi.handler(map);
+		N4HttpResponse.sendJson(chn, state);
 	}
 }
