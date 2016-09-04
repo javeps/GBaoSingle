@@ -410,7 +410,7 @@ public class GameHttpServerReps implements Serializable {
 	}
 
 	// 验证充值状态
-	void validaBilling(Channel chn, Object msg) throws Exception {
+	private void validaBilling(Channel chn, Object msg) throws Exception {
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String unqkey = MapEx.getString(map, "unqkey");
 		String chnPay = MapEx.getString(map, "chnPay");
