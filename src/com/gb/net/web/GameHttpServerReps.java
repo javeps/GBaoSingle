@@ -26,6 +26,7 @@ import com.bowlong.util.MapEx;
 import com.bowlong.util.NewMap;
 import com.gb.content.Svc;
 import com.gb.db.bean.Player;
+import com.gb.logic.chn.baidu.LogicalBaidu;
 import com.gb.logic.chn.egame.LogicalEgame;
 import com.gb.logic.chn.gionee.LogicalGionee;
 import com.gb.logic.chn.huawei.LogicalHuaWei;
@@ -172,6 +173,9 @@ public class GameHttpServerReps implements Serializable {
 					break;
 				case "/ucBilling":
 					ucBilling(chn, msg);
+					break;
+				case "/baiduBilling":
+					baiduBilling(chn, msg);
 					break;
 
 				default:
@@ -497,5 +501,13 @@ public class GameHttpServerReps implements Serializable {
 		// Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalUc.handler(map);
 		N4HttpResponse.send(chn, state);
+	}
+
+	// 百度充值回调
+	void baiduBilling(Channel chn, Object msg) throws Exception {
+		// Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String state = LogicalBaidu.handler(map);
+		N4HttpResponse.sendJson(chn, state);
 	}
 }
