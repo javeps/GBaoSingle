@@ -30,14 +30,18 @@ public class LogicalHuaWei implements Serializable {
 		String cont = HttpBaseEx.buildQuery(map, "UTF-8");
 		int state = CallbackVerify.doVerify(mapPars);
 		if (state == 0) {
-			String storeOrder = MapEx.getString(map, "cpOrderId");
+			String storeOrder = MapEx.getString(map, "requestId");
 			if (StrEx.isEmptyTrim(storeOrder)) {
-				state = 1;
+				storeOrder = MapEx.getString(map, "extReserved");
+			}
+			
+			if (StrEx.isEmptyTrim(storeOrder)) {
+				state = 3;
 			} else {
 				int stateInt = LogicalRecordOrders.recordOrder(storeOrder,
 						cont, "huawei");
 				if (stateInt != 1) {
-					state = 1;
+					state = 3;
 				}
 			}
 		}
@@ -47,6 +51,7 @@ public class LogicalHuaWei implements Serializable {
 		}
 
 		JSONObject obj = new JSONObject();
+		obj.put("result", state);
 
 		return obj.toJSONString();
 	}

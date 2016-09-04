@@ -10,7 +10,7 @@ public class CallbackVerify implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// 支付公钥，CP需要替换成自己的
-	public static final String devPubKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAI3XiRc0OXxWQ6SCsn+Z+FKYlfmqJpmdwdOkgF19FPj8LEOvPlp2aRZe2DztWMyaBROUriGDjOlMdSHdL1Wdt88CAwEAAQ==";
+	public static final String devPubKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALdSZjN8wPEkmSFhrlEmEEj9DxLhp4hwGodFk/YJdrrXnxS+dSptD5U0vzQ1dffDAtdyWbC5+M9bBpgAGYGreD0CAwEAAQ==";
 
 	static public int doVerify(Map<String, Object> map) {
 		String sign = (String) map.get("sign");
