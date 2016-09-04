@@ -9,7 +9,7 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public class WandouRsa {
 	// 豌豆荚公钥
-	public final static String WandouPublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCd95FnJFhPinpNiE/h4VA6bU1rzRa5+a25BxsnFX8TzquWxqDCoe4xG6QKXMXuKvV57tTRpzRo2jeto40eHKClzEgjx9lTYVb2RFHHFWio/YGTfnqIPTVpi7d7uHY+0FZ0lYL5LlW4E2+CQMxFOPRwfqGzMjs1SDlH7lVrLEVy6QIDAQAB";
+	public final static String WandouPublicKey = "e66eda02d2be81c5b63a535b76bd7cbc";
 
 	public static final String SIGN_ALGORITHMS = "SHA1WithRSA";
 
