@@ -32,6 +32,7 @@ import com.gb.logic.chn.huawei.LogicalHuaWei;
 import com.gb.logic.chn.mi.LogicalXiaoMi;
 import com.gb.logic.chn.mmand.LogicalMMAnd;
 import com.gb.logic.chn.qihoo360.LogicalQihoo360;
+import com.gb.logic.chn.uc.LogicalUc;
 import com.gb.logic.chn.unicom.LogicalUnicom;
 import com.gb.logic.chn.vivo.LogicalVivo;
 import com.gb.logic.chn.wdj.LogicalWdj;
@@ -168,6 +169,9 @@ public class GameHttpServerReps implements Serializable {
 					break;
 				case "/wdjBilling":
 					wdjBilling(chn, msg);
+					break;
+				case "/ucBilling":
+					ucBilling(chn, msg);
 					break;
 
 				default:
@@ -484,6 +488,14 @@ public class GameHttpServerReps implements Serializable {
 		// Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
 		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		String state = LogicalWdj.handler(map);
+		N4HttpResponse.send(chn, state);
+	}
+
+	// 九游UC充值回调
+	void ucBilling(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapByPostDecoderBody(msg);
+		// Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String state = LogicalUc.handler(map);
 		N4HttpResponse.send(chn, state);
 	}
 }

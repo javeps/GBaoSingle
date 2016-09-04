@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="lib/tools2016.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="lib/json-20160212.jar"/>
+	<classpathentry kind="lib" path="lib/chn/UCGameServerSDK-1.2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
