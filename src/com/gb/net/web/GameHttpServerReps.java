@@ -138,11 +138,12 @@ public class GameHttpServerReps implements Serializable {
 				case "/emailHtml":
 					emailHtml(chn, msg);
 					break;
-				case "/mmandBilling":
-					mmandBilling(chn, msg);
-					break;
 				case "/validaBilling":
 					validaBilling(chn, msg);
+					break;
+
+				case "/mmandBilling":
+					mmandBilling(chn, msg);
 					break;
 				case "/gioneeBilling":
 					gioneeBilling(chn, msg);
