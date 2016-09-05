@@ -392,9 +392,10 @@ public class GameHttpServerReps implements Serializable {
 		String chnStr = MapEx.getString(map, "chn");
 		String version = MapEx.getString(map, "version");
 		int copfee = MapEx.getInt(map, "copfee");
-		System.out.println(map);
+		// System.out.println(map);
 		LogicalCop.changeCopfee(chnStr, version, copfee);
-		N4HttpResponse.send(chn, "成功！");
+		String t = LogicalCop.getUpCopStatesHtml(true);
+		N4HttpResponse.send(chn, t);
 	}
 
 	void css(Channel chn, Object msg) throws Exception {

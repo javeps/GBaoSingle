@@ -127,3 +127,15 @@ ul {
 .w_space_8{
 	word-spacing:8px;
 }
+
+.bg_002{
+	background-color:rgba(166,288,288,1);
+}
+
+.bg_003{
+	background-color:rgba(145,225,145,1);
+}
+
+.bg_004{
+	background-color:rgba(225,145,204,1);
+}

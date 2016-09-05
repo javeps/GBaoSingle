@@ -1,4 +1,4 @@
-<tr>
+<tr${10}>
 <form action="${1}" method="post">
 <input type="hidden" name="chn" value="${2}"/>
 <input type="hidden" name="version" value="${5}"/>
@@ -10,6 +10,7 @@
 	<option value="1"${6}>审核模式</option>
 	<option value="2"${7}>清晰模式</option>
 	<option value="3"${8}>模糊模式</option>
+	<option value="4"${9}>特殊模式</option>
 </select>
 </td>
 <td><input type="submit" class="btn" value="确定修改"/></td>

@@ -8,8 +8,6 @@ package com.gb.logic.chn.baidu.sdk;
  *
  * @author Administrator
  */
-import sun.misc.BASE64Decoder;     
-import sun.misc.BASE64Encoder; 
 
 public class Base64{     
         private static final char[] base64Map =  //base64 character table

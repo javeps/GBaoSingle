@@ -1,6 +1,7 @@
 package com.gb.logic.opt;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,9 @@ public class LogicalCop extends Logical {
 		return json;
 	}
 
+	// 拥有赛选的参数
+	static public Map<String, String> filterMap = new HashMap<String, String>();
+
 	static public String getCopHtml() {
 		String html = FileRw.readStr("html/copfee.html");
 		String cell = FileRw.readStr("html/copfee_item.txt");
@@ -46,6 +50,8 @@ public class LogicalCop extends Logical {
 				String checked1 = "";
 				String checked2 = "";
 				String checked3 = "";
+				String checked4 = "";
+				String css_class = "";
 				Map map;
 				Map mapChn;
 				Cop4fee entity;
@@ -64,8 +70,12 @@ public class LogicalCop extends Logical {
 					checked1 = "";
 					checked2 = "";
 					checked3 = "";
+					checked4 = "";
+					css_class = "";
 					if (entity != null) {
 						// unqkey = entity.getUnqkey();
+						css_class = " class=\"bg_00" + entity.getCopfee()
+								+ "\"";
 						switch (entity.getCopfee()) {
 						case 2:
 							checked2 = "selected=\"selected\"";
@@ -73,13 +83,18 @@ public class LogicalCop extends Logical {
 						case 3:
 							checked3 = "selected=\"selected\"";
 							break;
+						case 4:
+							checked4 = "selected=\"selected\"";
+							break;
 						default:
 							checked1 = "selected=\"selected\"";
+							css_class = "";
 							break;
 						}
 					}
-					cellContent = StrEx.fmt(cell, action, unqkey, chn, chnName,chnVer,
-							checked1, checked2, checked3);
+					cellContent = StrEx.fmt(cell, action, unqkey, chn, chnName,
+							chnVer, checked1, checked2, checked3, checked4,
+							css_class);
 					buffer.append(cellContent);
 				}
 				cellContent = buffer.toString();
@@ -105,6 +120,18 @@ public class LogicalCop extends Logical {
 					createtime, lasttime);
 			entity.insert();
 		}
+	}
+
+	static public String getUpCopStatesHtml(boolean isOkey) {
+		String html = FileRw.readStr("html/copfee_up_states.html");
+		String strStates = "";
+		if (isOkey) {
+			strStates = "成功(success)!!!";
+		} else {
+			strStates = "失败(fail)!!!";
+		}
+		String ret = StrEx.fmt(html, strStates);
+		return ret;
 	}
 
 }
