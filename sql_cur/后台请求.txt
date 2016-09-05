@@ -41,9 +41,14 @@ http://112.124.56.63:6002/seePlByName?name=杨斓
 http://112.124.56.63:6002/getCop?chn=none&version=
 http://127.0.0.1:6002/getCop?chn=none&version=
 
+-- cop管理界面
 http://112.124.56.63:6002/copHtml
-
 http://127.0.0.1:6002/copHtml?sessionID=adfabadf
+
+-- cop 更新管理界面
+http://112.124.56.63:6002/upCopFee?chn=none&version=1&copfee=1
+http://127.0.0.1:6002/upCopFee?chn=none&version=1&copfee=1
+
 
 http://112.124.56.63:6002/mmandBilling
  
