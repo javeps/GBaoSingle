@@ -73,7 +73,7 @@ public class RankwheelEntity extends RankwheelInternal {
 	static public Rankwheel getEnBy(String unqid, String dataStr) {
 		RankwheelDAO logDao = logDao();
 		if (StrEx.isEmptyTrim(dataStr))
-			dataStr = DateEx.nowStr5();
+			dataStr = DateEx.nowStrYMD();
 		String TABLENAME2 = logDao.TABLENAME + dataStr;
 		return logDao.selectByUnqid(unqid, TABLENAME2);
 	}
@@ -82,7 +82,7 @@ public class RankwheelEntity extends RankwheelInternal {
 	static public List<Rankwheel> getListBy(int page, int size, String dataStr) {
 		RankwheelDAO logDao = logDao();
 		if (StrEx.isEmptyTrim(dataStr))
-			dataStr = DateEx.nowStr5();
+			dataStr = DateEx.nowStrYMD();
 		String TABLENAME2 = logDao.TABLENAME + dataStr;
 		int begin = (page - 1) * size;
 		begin = begin < 0 ? 0 : begin;

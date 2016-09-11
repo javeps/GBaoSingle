@@ -22,10 +22,10 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
 
     public static final String primary = "id";
 
-    public static final class Col { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String chn = "chn"; public static final String version = "version"; public static final String copfee = "copfee"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
-    public static final class CEn { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String chn = "chn"; public static final String version = "version"; public static final String copfee = "copfee"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime";  }
-    public static final String[] carrays ={"id", "unqkey", "chn", "version", "copfee", "createtime", "lasttime"};
-    public static final String[] dbTypes ={"INT", "VARCHAR", "VARCHAR", "VARCHAR", "INT", "DATETIME", "DATETIME"};
+    public static final class Col { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String chn = "chn"; public static final String version = "version"; public static final String copfee = "copfee"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime"; public static final String validBegtime = "validBegtime"; public static final String validEndtime = "validEndtime";  }
+    public static final class CEn { public static final String id = "id"; public static final String unqkey = "unqkey"; public static final String chn = "chn"; public static final String version = "version"; public static final String copfee = "copfee"; public static final String createtime = "createtime"; public static final String lasttime = "lasttime"; public static final String validBegtime = "validBegtime"; public static final String validEndtime = "validEndtime";  }
+    public static final String[] carrays ={"id", "unqkey", "chn", "version", "copfee", "createtime", "lasttime", "validBegtime", "validEndtime"};
+    public static final String[] dbTypes ={"INT", "VARCHAR", "VARCHAR", "VARCHAR", "INT", "DATETIME", "DATETIME", "DATETIME", "DATETIME"};
 
 
     public int id;
@@ -35,6 +35,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
     public int copfee;
     public java.util.Date createtime;
     public java.util.Date lasttime;
+    public java.util.Date validBegtime;
+    public java.util.Date validEndtime;
 
     @Override
     public String _tableId() {
@@ -145,6 +147,28 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         return this;
     }
 
+    public java.util.Date getValidBegtime(){
+        return validBegtime;
+    }
+
+    public Cop4fee setValidBegtime(java.util.Date validBegtime){
+        java.util.Date _old = this.validBegtime;
+        this.validBegtime = validBegtime;
+        changeIt(Col.validBegtime, _old, validBegtime);
+        return this;
+    }
+
+    public java.util.Date getValidEndtime(){
+        return validEndtime;
+    }
+
+    public Cop4fee setValidEndtime(java.util.Date validEndtime){
+        java.util.Date _old = this.validEndtime;
+        this.validEndtime = validEndtime;
+        changeIt(Col.validEndtime, _old, validEndtime);
+        return this;
+    }
+
     public int compareTo(Cop4fee v2, String fieldZh) {
         Object o1 = this.value(fieldZh);
         Object o2 = v2.value(fieldZh);
@@ -157,7 +181,7 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         return compareTo(o1, o2);
     }
 
-    public static Cop4fee newCop4fee(Integer id, String unqkey, String chn, String version, Integer copfee, java.util.Date createtime, java.util.Date lasttime) {
+    public static Cop4fee newCop4fee(Integer id, String unqkey, String chn, String version, Integer copfee, java.util.Date createtime, java.util.Date lasttime, java.util.Date validBegtime, java.util.Date validEndtime) {
         Cop4fee result = new Cop4fee();
         result.id = id;
         result.unqkey = unqkey;
@@ -166,6 +190,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         result.copfee = copfee;
         result.createtime = createtime;
         result.lasttime = lasttime;
+        result.validBegtime = validBegtime;
+        result.validEndtime = validEndtime;
         return result;
     }
 
@@ -178,6 +204,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         result.copfee = cop4fee.copfee;
         result.createtime = cop4fee.createtime;
         result.lasttime = cop4fee.lasttime;
+        result.validBegtime = cop4fee.validBegtime;
+        result.validEndtime = cop4fee.validEndtime;
         return result;
     }
 
@@ -198,7 +226,9 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
             int copfee = 0; 	// copfee
             Date createtime = new Date(); 	// createtime
             Date lasttime = new Date(); 	// lasttime
-            cop4fee = Cop4fee.newCop4fee(id, unqkey, chn, version, copfee, createtime, lasttime);
+            Date validBegtime = new Date(); 	// validBegtime
+            Date validEndtime = new Date(); 	// validEndtime
+            cop4fee = Cop4fee.newCop4fee(id, unqkey, chn, version, copfee, createtime, lasttime, validBegtime, validEndtime);
         }
         cop4fee = cop4fee.insert();
 
@@ -209,6 +239,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         int copfee = cop4fee.getCopfee(); 	// copfee
         Date createtime = cop4fee.getCreatetime(); 	// createtime
         Date lasttime = cop4fee.getLasttime(); 	// lasttime
+        Date validBegtime = cop4fee.getValidBegtime(); 	// validBegtime
+        Date validEndtime = cop4fee.getValidEndtime(); 	// validEndtime
     }
     */
 
@@ -347,6 +379,10 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
             return createtime;
         case CEn.lasttime:
             return lasttime;
+        case CEn.validBegtime:
+            return validBegtime;
+        case CEn.validEndtime:
+            return validEndtime;
         }
         return null;
     }
@@ -405,6 +441,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         result.put("copfee", copfee);
         result.put("createtime", createtime);
         result.put("lasttime", lasttime);
+        result.put("validBegtime", validBegtime);
+        result.put("validEndtime", validEndtime);
         return result;
     }
 
@@ -417,6 +455,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         result.put("copfee", copfee);
         result.put("createtime", createtime);
         result.put("lasttime", lasttime);
+        result.put("validBegtime", validBegtime);
+        result.put("validEndtime", validEndtime);
         return result;
     }
 
@@ -435,12 +475,16 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         Integer copfee = MapEx.getInt(e, "copfee");
         java.util.Date createtime = MapEx.getDate(e, "createtime");
         java.util.Date lasttime = MapEx.getDate(e, "lasttime");
+        java.util.Date validBegtime = MapEx.getDate(e, "validBegtime");
+        java.util.Date validEndtime = MapEx.getDate(e, "validEndtime");
 
         if(unqkey == null) unqkey = "";
         if(chn == null) chn = "";
         if(version == null) version = "";
         if(createtime == null) createtime = new java.util.Date();
         if(lasttime == null) lasttime = new java.util.Date();
+        if(validBegtime == null) validBegtime = new java.util.Date();
+        if(validEndtime == null) validEndtime = new java.util.Date();
 
         setId(id);
         setUnqkey(unqkey);
@@ -449,6 +493,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         setCopfee(copfee);
         setCreatetime(createtime);
         setLasttime(lasttime);
+        setValidBegtime(validBegtime);
+        setValidEndtime(validEndtime);
 
         return this;
     }
@@ -469,12 +515,16 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         Integer copfee = MapEx.getInt(e, "copfee");
         java.util.Date createtime = MapEx.getDate(e, "createtime");
         java.util.Date lasttime = MapEx.getDate(e, "lasttime");
+        java.util.Date validBegtime = MapEx.getDate(e, "validBegtime");
+        java.util.Date validEndtime = MapEx.getDate(e, "validEndtime");
 
         if(unqkey == null) unqkey = "";
         if(chn == null) chn = "";
         if(version == null) version = "";
         if(createtime == null) createtime = new java.util.Date();
         if(lasttime == null) lasttime = new java.util.Date();
+        if(validBegtime == null) validBegtime = new java.util.Date();
+        if(validEndtime == null) validEndtime = new java.util.Date();
 
         result.id = id;
         result.unqkey = unqkey;
@@ -483,6 +533,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
         result.copfee = copfee;
         result.createtime = createtime;
         result.lasttime = lasttime;
+        result.validBegtime = validBegtime;
+        result.validEndtime = validEndtime;
 
         return result;
     }
@@ -502,7 +554,7 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
 
     public byte[] toBytes() throws Exception {
         try (ByteOutStream out = getStream();) {
-            writeMapTag(out, 7);
+            writeMapTag(out, 9);
             writeMapEntry(out, "id", id);
             writeMapEntry(out, "unqkey", unqkey);
             writeMapEntry(out, "chn", chn);
@@ -510,6 +562,8 @@ public class Cop4fee extends com.bowlong.sql.mysql.BeanSupport {
             writeMapEntry(out, "copfee", copfee);
             writeMapEntry(out, "createtime", createtime);
             writeMapEntry(out, "lasttime", lasttime);
+            writeMapEntry(out, "validBegtime", validBegtime);
+            writeMapEntry(out, "validEndtime", validEndtime);
             return out.toByteArray();
         } catch (Exception e) {
             throw e;

@@ -25,11 +25,11 @@ public class Email4rnkDAO extends JdbcTemplate {
     }
 
     public static String TABLEMM() {
-        return TABLE + DateEx.nowStr6();
+        return TABLE + DateEx.nowStrYM();
     }
 
     public static String TABLEDD() {
-        return TABLE + DateEx.nowStr5();
+        return TABLE + DateEx.nowStrYMD();
     }
 
     public static String[] carrays ={"id", "indexBegin", "indexEnd", "title", "content", "awardJson", "creattime", "validtime"};

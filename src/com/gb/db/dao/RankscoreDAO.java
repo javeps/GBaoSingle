@@ -25,11 +25,11 @@ public class RankscoreDAO extends JdbcTemplate {
     }
 
     public static String TABLEMM() {
-        return TABLE + DateEx.nowStr6();
+        return TABLE + DateEx.nowStrYM();
     }
 
     public static String TABLEDD() {
-        return TABLE + DateEx.nowStr5();
+        return TABLE + DateEx.nowStrYMD();
     }
 
     public static String[] carrays ={"id", "indexs", "unqid", "pcid", "pname", "score"};

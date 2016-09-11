@@ -53,7 +53,7 @@ public class OptSvEmail4Rnk {
 		if (isTimeComapar)
 			return;
 
-		String nowStr = DateEx.nowStr5();
+		String nowStr = DateEx.nowStrYMD();
 		isTimeComapar = StrEx.isBefore(time, nowStr);
 		if (isTimeComapar)
 			return;
@@ -339,7 +339,7 @@ public class OptSvEmail4Rnk {
 
 		if (statusActivity != 1)
 			return;
-		String nowStr = DateEx.nowStr5();
+		String nowStr = DateEx.nowStrYMD();
 		if (StrEx.isBefore(nowStr, dataStr4CreatTable)) {
 			return;
 		}
@@ -377,7 +377,7 @@ public class OptSvEmail4Rnk {
 		if (statusActivity != 0) {
 			return null;
 		}
-		String nowStr = DateEx.nowStr5();
+		String nowStr = DateEx.nowStrYMD();
 		if (StrEx.isBefore(nowStr, dataStr4GetTable)) {
 			return null;
 		}

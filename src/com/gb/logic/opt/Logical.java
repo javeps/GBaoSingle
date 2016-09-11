@@ -355,7 +355,7 @@ public class Logical extends Svc {
 	/*** 验证时间 timeStr:yyyyMMdd **/
 	static public void onVerifySytTime(TcpChannel chn, String timeStr,
 			NBool nbl, ReturnStatus ret) throws Exception {
-		String nowStr = DateEx.nowStr5();
+		String nowStr = DateEx.nowStrYMD();
 		boolean isSame = StrEx.isSame(timeStr, nowStr);
 		nbl.val = isSame;
 	}

@@ -13,6 +13,8 @@
 	<option value="4"${9}>特殊模式</option>
 </select>
 </td>
+<td>${11}</td>
+<td>${12}</td>
 <td><input type="submit" class="btn" value="确定修改"/></td>
 </form>
 </tr>

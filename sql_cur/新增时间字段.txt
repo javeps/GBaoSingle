@@ -1,0 +1,2 @@
+ALTER TABLE `cop4fee` ADD `validBegtime` DATETIME NOT NULL COMMENT '有效期开始时间' ;
+ALTER TABLE `cop4fee` ADD `validEndtime` DATETIME NOT NULL COMMENT '有效期结束时间' ;

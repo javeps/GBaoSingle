@@ -25,11 +25,11 @@ public class PlayerDAO extends JdbcTemplate {
     }
 
     public static String TABLEMM() {
-        return TABLE + DateEx.nowStr6();
+        return TABLE + DateEx.nowStrYM();
     }
 
     public static String TABLEDD() {
-        return TABLE + DateEx.nowStr5();
+        return TABLE + DateEx.nowStrYMD();
     }
 
     public static String[] carrays ={"pcid", "unqid", "uuidMCode", "pname", "sword", "wheel", "btPl", "btHero", "btPart", "btProp", "btNpc", "btEmail", "phone", "createtime", "lasttime", "statusActivity", "score4Endless", "chn", "chnSub", "fight4hero", "fight4part", "npcStars"};

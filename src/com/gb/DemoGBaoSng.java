@@ -106,7 +106,7 @@ public class DemoGBaoSng {
 		System.out.println("ed = " + ed);
 		System.out.println("ed2 = " + ed2);
 		System.out.println("====== 当前时间与开始，结束时间之间的比较 =======");
-		String v2 = CalendarEx.nowStr3();
+		String v2 = CalendarEx.nowStr_Hms();
 		System.out.println("v2 = " + v2);
 		System.out.println(Svc.compareTo(v2, bg));
 		System.out.println(Svc.compareTo(v2, ed));
@@ -192,7 +192,7 @@ public class DemoGBaoSng {
 		Calendar cal = CalendarEx.parse2Cal(bg, CalendarEx.fmt_HH_mm);
 		cal = CalendarEx.addMinute(cal, duration);
 		String ed = CalendarEx.format(cal, CalendarEx.fmt_HH_mm_ss);
-		String nt = CalendarEx.nowStr3();
+		String nt = CalendarEx.nowStr_Hms();
 		int vBg = Svc.compareTo(nt, bg);
 		int vEd = Svc.compareTo(nt, ed);
 		if (vBg > 0 && vEd < 0) {
@@ -208,15 +208,15 @@ public class DemoGBaoSng {
 		Calendar v = null;
 		t = 1419307113258l;
 		v = CalendarEx.parse2Cal(t);
-		System.out.println("开始时间:" + CalendarEx.format1(v));
+		System.out.println("开始时间:" + CalendarEx.format_YMDHms(v));
 
 		t = 1419310773258l;
 		v = CalendarEx.parse2Cal(t);
-		System.out.println("结束时间:" + CalendarEx.format1(v));
+		System.out.println("结束时间:" + CalendarEx.format_YMDHms(v));
 
 		t = 1419325179585l;
 		v = CalendarEx.parse2Cal(t);
-		System.out.println("当时时间:" + CalendarEx.format1(v));
+		System.out.println("当时时间:" + CalendarEx.format_YMDHms(v));
 	}
 
 	static void testMapList() {

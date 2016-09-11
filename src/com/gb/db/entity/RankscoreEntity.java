@@ -78,7 +78,7 @@ public class RankscoreEntity extends RankscoreInternal {
 	static public Rankscore getEnBy(String unqid, String dataStr) {
 		RankscoreDAO logDao = logDao();
 		if (StrEx.isEmptyTrim(dataStr))
-			dataStr = DateEx.nowStr5();
+			dataStr = DateEx.nowStrYMD();
 		String TABLENAME2 = logDao.TABLENAME + dataStr;
 		return logDao.selectByUnqid(unqid, TABLENAME2);
 	}
@@ -87,7 +87,7 @@ public class RankscoreEntity extends RankscoreInternal {
 	static public List<Rankscore> getListBy(int page, int size, String dataStr) {
 		RankscoreDAO logDao = logDao();
 		if (StrEx.isEmptyTrim(dataStr))
-			dataStr = DateEx.nowStr5();
+			dataStr = DateEx.nowStrYMD();
 		String TABLENAME2 = logDao.TABLENAME + dataStr;
 		int begin = (page - 1) * size;
 		begin = begin < 0 ? 0 : begin;

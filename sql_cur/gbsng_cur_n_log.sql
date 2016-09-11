@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-08-12 15:24:07
+-- Generation Time: 2016-09-11 17:21:31
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.3
 
@@ -297,7 +297,9 @@ CREATE TABLE IF NOT EXISTS `cop4fee` (
   `version` varchar(64) NOT NULL COMMENT '版本信息',
   `copfee` int(4) NOT NULL COMMENT '弹窗计费点控制',
   `createtime` datetime NOT NULL COMMENT '创建时间',
-  `lasttime` datetime NOT NULL COMMENT '最后操作时间'
+  `lasttime` datetime NOT NULL COMMENT '最后操作时间',
+  `validBegtime` datetime NOT NULL COMMENT '有效期开始时间',
+  `validEndtime` datetime NOT NULL COMMENT '有效期结束时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户导向过程控制之弹窗计费点控制';
 
 -- --------------------------------------------------------

@@ -107,7 +107,7 @@ public class RankswordEntity extends RankswordInternal {
 	static public Ranksword getEnBy(String unqid, String dataStr) {
 		RankswordDAO logDao = logDao();
 		if (StrEx.isEmptyTrim(dataStr))
-			dataStr = DateEx.nowStr5();
+			dataStr = DateEx.nowStrYMD();
 		String TABLENAME2 = logDao.TABLENAME + dataStr;
 		return logDao.selectByUnqid(unqid, TABLENAME2);
 	}
@@ -121,7 +121,7 @@ public class RankswordEntity extends RankswordInternal {
 	static public List<Ranksword> getListBy(int page, int size, String dataStr) {
 		RankswordDAO logDao = logDao();
 		if (StrEx.isEmptyTrim(dataStr))
-			dataStr = DateEx.nowStr5();
+			dataStr = DateEx.nowStrYMD();
 		String TABLENAME2 = logDao.TABLENAME + dataStr;
 		int begin = (page - 1) * size;
 		begin = begin < 0 ? 0 : begin;

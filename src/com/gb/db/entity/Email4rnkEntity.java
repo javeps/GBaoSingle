@@ -58,7 +58,7 @@ public class Email4rnkEntity extends Email4rnkInternal {
 			return;
 		Email4rnkDAO logDao = logDao();
 		if (StrEx.isEmptyTrim(dataStr))
-			dataStr = DateEx.nowStr5();
+			dataStr = DateEx.nowStrYMD();
 
 		String TABLENAME2 = logDao.TABLENAME + dataStr;
 		boolean ew = logDao.exist_w(TABLENAME2);
@@ -77,7 +77,7 @@ public class Email4rnkEntity extends Email4rnkInternal {
 
 		Email4rnkDAO logDao = logDao();
 		if (StrEx.isEmptyTrim(dataStr))
-			dataStr = DateEx.nowStr5();
+			dataStr = DateEx.nowStrYMD();
 		StringBuffer buff = new StringBuffer("SELECT * FROM ").append(
 				logDao.TABLENAME).append(dataStr);
 		buff.append(" WHERE 1 = 1 ");

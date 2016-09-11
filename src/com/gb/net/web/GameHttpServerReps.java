@@ -360,7 +360,7 @@ public class GameHttpServerReps implements Serializable {
 		String saveName = "";
 		saveName = StrEx.left(fileName, ".");
 		if (StrEx.isEmpty(saveName)) {
-			saveName = DateEx.nowStr4();
+			saveName = DateEx.nowStrYMDHms();
 		}
 
 		String newFilePath = "files/" + saveName + "." + suffix;

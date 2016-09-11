@@ -49,6 +49,9 @@ http://127.0.0.1:6002/copHtml?sessionID=adfabadf
 http://112.124.56.63:6002/upCopFee?chn=none&version=1&copfee=1
 http://127.0.0.1:6002/upCopFee?chn=none&version=1&copfee=1
 
+邮件
+http://112.124.56.63:6002/emailHtml
+http://127.0.0.1:6002/emailHtml
 
 http://112.124.56.63:6002/mmandBilling
  

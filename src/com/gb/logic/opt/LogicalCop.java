@@ -25,6 +25,11 @@ public class LogicalCop extends Logical {
 			Map map = entity.toBasicMap();
 			map.clear();
 			map.put("copfee", entity.getCopfee());
+			if (entity.getCopfee() == 4) {
+				map.put("nowtime", DateEx.now());
+				map.put("begtime", entity.getValidBegtime().getTime());
+				map.put("endtime", entity.getValidEndtime().getTime());
+			}
 			json = FastJSON.toJSONString(map);
 		}
 		return json;
@@ -33,91 +38,113 @@ public class LogicalCop extends Logical {
 	// 拥有赛选的参数
 	static public Map<String, String> filterMap = new HashMap<String, String>();
 
-	static public String getCopHtml() {
-		String html = FileRw.readStr("html/copfee.html");
-		String cell = FileRw.readStr("html/copfee_item.txt");
-		String chnJson = FileRw.readStr("files/chns.json");
-		String cellContent = "";
-		if (!StrEx.isEmpty(chnJson)) {
-			List list = FastJSON.parseList(chnJson);
-			if (!ListEx.isEmpty(list)) {
-				StringBuffer buffer = new StringBuffer();
-				String action = Logical.getActionUrl("upCopFee");
-				String unqkey = "";
-				String chn = "";
-				String chnName = "";
-				String chnVer = "";
-				String checked1 = "";
-				String checked2 = "";
-				String checked3 = "";
-				String checked4 = "";
-				String css_class = "";
-				Map map;
-				Map mapChn;
-				Cop4fee entity;
-				for (Object obj : list) {
-					map = (Map) obj;
-					mapChn = MapEx.getMap(map, "chn");
-					if (MapEx.isEmpty(mapChn)) {
-						continue;
-					}
+	static public boolean isCanResetListChns = false;
+	static List listChns;
 
-					chn = MapEx.getString(mapChn, "key");
-					chnName = MapEx.getString(mapChn, "name");
-					chnVer = MapEx.getString(mapChn, "version");
-					entity = Cop4feeEntity.getByChnVersion(chn, chnVer);
-					unqkey = chn;
-					checked1 = "";
-					checked2 = "";
-					checked3 = "";
-					checked4 = "";
-					css_class = "";
-					if (entity != null) {
-						// unqkey = entity.getUnqkey();
-						css_class = " class=\"bg_00" + entity.getCopfee()
-								+ "\"";
-						switch (entity.getCopfee()) {
-						case 2:
-							checked2 = "selected=\"selected\"";
-							break;
-						case 3:
-							checked3 = "selected=\"selected\"";
-							break;
-						case 4:
-							checked4 = "selected=\"selected\"";
-							break;
-						default:
-							checked1 = "selected=\"selected\"";
-							css_class = "";
-							break;
-						}
-					}
-					cellContent = StrEx.fmt(cell, action, unqkey, chn, chnName,
-							chnVer, checked1, checked2, checked3, checked4,
-							css_class);
-					buffer.append(cellContent);
-				}
-				cellContent = buffer.toString();
-				buffer.setLength(0);
-				buffer = null;
+	static void initListChns(boolean isReset) {
+		if (!isCanResetListChns) {
+			if (!isReset && listChns != null) {
+				return;
 			}
 		}
-		String ret = StrEx.fmt(html, cellContent);
+		isCanResetListChns = false;
+
+		String chnJson = FileRw.readStr("files/chns.json");
+		if (!StrEx.isEmpty(chnJson)) {
+			listChns = FastJSON.parseList(chnJson);
+		}
+	}
+
+	static public String getCopHtml() {
+		isCanResetListChns = true;
+		initListChns(false);
+
+		String html = FileRw.readStr("html/copfee.html");
+		String cell = FileRw.readStr("html/copfee_item.txt");
+		String cellContent = "";
+		if (!ListEx.isEmpty(listChns)) {
+			StringBuffer buffer = new StringBuffer();
+			String action = Logical.getActionUrl("upCopFee");
+			String unqkey = "";
+			String chn = "";
+			String chnName = "";
+			String chnVer = "";
+			String checked1 = "";
+			String checked2 = "";
+			String checked3 = "";
+			String checked4 = "";
+			String css_class = "";
+			String begtime = "";
+			String endtime = "";
+			Map map;
+			Map mapChn;
+			Cop4fee entity;
+			for (Object obj : listChns) {
+				map = (Map) obj;
+				mapChn = MapEx.getMap(map, "chn");
+				if (MapEx.isEmpty(mapChn)) {
+					continue;
+				}
+
+				chn = MapEx.getString(mapChn, "key");
+				chnName = MapEx.getString(mapChn, "name");
+				chnVer = MapEx.getString(mapChn, "version");
+				entity = Cop4feeEntity.getByChnVersion(chn, chnVer);
+				unqkey = chn;
+				checked1 = "";
+				checked2 = "";
+				checked3 = "";
+				checked4 = "";
+				css_class = "";
+				begtime = "";
+				endtime = "";
+				if (entity != null) {
+					// unqkey = entity.getUnqkey();
+					css_class = " class=\"bg_00" + entity.getCopfee() + "\"";
+					switch (entity.getCopfee()) {
+					case 2:
+						checked2 = "selected=\"selected\"";
+						break;
+					case 3:
+						checked3 = "selected=\"selected\"";
+						break;
+					case 4:
+						checked4 = "selected=\"selected\"";
+						begtime = DateEx.format_YMDHms(entity.getValidBegtime());
+						endtime = DateEx.format_YMDHms(entity.getValidEndtime());
+						break;
+					default:
+						checked1 = "selected=\"selected\"";
+						css_class = "";
+						break;
+					}
+				}
+				cellContent = StrEx.fmt(cell, action, unqkey, chn, chnName,
+						chnVer, checked1, checked2, checked3, checked4,
+						css_class, begtime, endtime);
+				buffer.append(cellContent);
+			}
+			cellContent = buffer.toString();
+			buffer.setLength(0);
+			buffer = null;
+		}
+
+		String midText = "";
+		String ret = StrEx.fmt(html, midText, cellContent);
 		return ret;
 	}
 
 	static public void changeCopfee(String chn, String version, int copfee) {
 		Cop4fee entity = Cop4feeEntity.getByChnVersion(chn, version);
-		Date lasttime = DateEx.nowDate();
+		Date nowtime = DateEx.nowDate();
 		if (entity != null) {
 			entity.setCopfee(copfee);
-			entity.setLasttime(lasttime);
+			entity.setLasttime(nowtime);
 			entity.update();
 		} else {
-			Date createtime = lasttime;
-			String unqid = MD5.MD5UUIDStime(lasttime.getTime());
+			String unqid = MD5.MD5UUIDStime(nowtime.getTime());
 			entity = Cop4fee.newCop4fee(0, unqid, chn, version, copfee,
-					createtime, lasttime);
+					nowtime, nowtime, nowtime, nowtime);
 			entity.insert();
 		}
 	}
