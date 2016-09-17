@@ -74,7 +74,8 @@ ul {
 .mn_mid2{
 	background:rgba(238,242,251,1);
 	min-width:600px;
-	max-width:1304px;
+	max-width:932px;
+	/** max-width:1304px; **/
 	text-align:center;
 	margin:30px auto 0 auto;
 }

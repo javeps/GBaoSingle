@@ -1,0 +1,19 @@
+<form action="${1}" method="post">
+<tr>
+	<td>
+		<select name="chn">
+			${2}
+		</select>
+	</td>
+	<td>
+	</td>
+	<td>
+		<select name="version">
+			${3}
+		</select>
+	</td>
+	<td>
+	</td>
+	<td><input type="submit" class="btn" value="筛  选"/></td>
+</tr>
+</form>

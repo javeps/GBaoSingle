@@ -138,6 +138,17 @@ public class GameHttpServerReps implements Serializable {
 				case "/emailHtml":
 					emailHtml(chn, msg);
 					break;
+				case "/reloadCop":
+					reloadCop(chn, msg);
+					break;
+				case "/upCopSpecail":
+					upCopSpecail(chn, msg);
+					break;
+				case "/upFilterCop":
+					upFilterCop(chn, msg);
+					break;
+					
+					
 				case "/validaBilling":
 					validaBilling(chn, msg);
 					break;
@@ -379,11 +390,15 @@ public class GameHttpServerReps implements Serializable {
 		N4HttpResponse.send(chn, json);
 	}
 
+	private void sendCopHtml(Channel chn) throws Exception{
+		String t = LogicalCop.getCopHtml();
+		N4HttpResponse.send(chn, t);
+	}
+	
 	void copHtml(Channel chn, Object msg) throws Exception {
 		// Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
 		// String saveFileName = MapEx.getString(map, "fileName");
-		String t = LogicalCop.getCopHtml();
-		N4HttpResponse.send(chn, t);
+		sendCopHtml(chn);
 	}
 
 	void upCopFee(Channel chn, Object msg) throws Exception {
@@ -394,8 +409,28 @@ public class GameHttpServerReps implements Serializable {
 		int copfee = MapEx.getInt(map, "copfee");
 		// System.out.println(map);
 		LogicalCop.changeCopfee(chnStr, version, copfee);
+		
 		String t = LogicalCop.getUpCopStatesHtml(true);
 		N4HttpResponse.send(chn, t);
+	}
+	
+	void upCopSpecail(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		int begtime = MapEx.getInt(map, "validBegtime");
+		int endtime = MapEx.getInt(map, "validEndtime");
+		LogicalCop.upCopSpecail(begtime, endtime);
+		
+		String t = LogicalCop.getUpCopStatesHtml(true);
+		N4HttpResponse.send(chn, t);
+	}
+	
+	void upFilterCop(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		String chnStr = MapEx.getString(map, "chn");
+		String version = MapEx.getString(map, "version");
+		LogicalCop.upFilterCop(chnStr, version,-1);
+		
+		sendCopHtml(chn);
 	}
 
 	void css(Channel chn, Object msg) throws Exception {
@@ -413,6 +448,15 @@ public class GameHttpServerReps implements Serializable {
 		String action = Logical.getActionUrl("createEmail");
 		t = StrEx.fmt(t, action);
 		N4HttpResponse.send(chn, t);
+	}
+	
+	void reloadCop(Channel chn, Object msg) throws Exception {
+		Map<String, String> map = N4HttpResp.getMapKVByMsg(msg);
+		boolean isReloadCop = MapEx.getBoolean(map, "isReloadCop");
+		boolean isReloadChn = MapEx.getBoolean(map, "isReloadChn");
+		LogicalCop.isCanResetListChns = isReloadChn;
+		LogicalCop.isCanResetMapCopSpecial = isReloadCop;
+		N4HttpResponse.send(chn,"reloadCop 重新加载成功");
 	}
 
 	// 验证充值状态

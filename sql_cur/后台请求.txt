@@ -54,4 +54,8 @@ http://112.124.56.63:6002/emailHtml
 http://127.0.0.1:6002/emailHtml
 
 http://112.124.56.63:6002/mmandBilling
- 
+
+
+重新加载
+http://112.124.56.63:6002/reloadCop?isReloadCop=0&isReloadChn=0
+http://127.0.0.1:6002/reloadCop?isReloadCop=0&isReloadChn=0
