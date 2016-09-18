@@ -55,10 +55,12 @@ public class LogicalCop extends Logical {
 		if (!MapEx.isEmpty(tmpMap)) {
 			int begtime = MapEx.getInt(tmpMap, "begtime");
 			int endtime = MapEx.getInt(tmpMap, "endtime");
-			// if (begtime >= 0 && endtime > begtime) {
-			jsonObj.put("begtime", begtime);
-			jsonObj.put("endtime", endtime);
-			// }
+			if (begtime >= 0) {
+				jsonObj.put("begPointTime", begtime);
+			}
+			if (endtime >= 0) {
+				jsonObj.put("endPointTime", endtime);
+			}
 		}
 		json = jsonObj.toString();
 		return json;
@@ -202,7 +204,7 @@ public class LogicalCop extends Logical {
 					&& !chnVer.equals(fiterVer)) {
 				continue;
 			}
-			
+
 			ret.add(map);
 		}
 
