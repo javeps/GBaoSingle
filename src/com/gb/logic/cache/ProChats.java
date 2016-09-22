@@ -34,7 +34,10 @@ public class ProChats {
 		int diff = len - LenChat;
 		if (diff > 0) {
 			for (int i = 0; i < diff; i++) {
-				listLev = (NewCpWrList<NChat>) listLev.subList(diff, len);
+				List<NChat> subList = listLev.subList(diff, len);
+
+				listLev.clear();
+				listLev.addE(subList);
 			}
 		}
 	}
