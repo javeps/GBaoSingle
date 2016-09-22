@@ -1,10 +1,5 @@
 package com.gb.net.web;
 
-import gen_b2g.web_disp.GBSngGmSvI;
-import io.netty.channel.Channel;
-import io.netty.handler.codec.http.HttpRequest;
-import io.netty.handler.codec.http.multipart.FileUpload;
-
 import java.io.File;
 import java.io.Serializable;
 import java.net.URI;
@@ -18,6 +13,8 @@ import com.bowlong.bio2.B2Helper;
 import com.bowlong.io.FileRw;
 import com.bowlong.lang.PStr;
 import com.bowlong.lang.StrEx;
+import com.bowlong.net.http.urlcon.HttpUrlConEx;
+import com.bowlong.text.EncodingEx;
 import com.bowlong.third.FastJSON;
 import com.bowlong.third.netty4.httphand.N4HttpResp;
 import com.bowlong.third.netty4.httphand.N4HttpResponse;
@@ -44,6 +41,11 @@ import com.gb.logic.opt.model.LogicalRecordOrders;
 import com.gb.logic.opt.server.IAPIOSRecharge;
 import com.gb.logic.opt.server.OptSvEmail4Rnk;
 import com.gb.timer.TimerNight;
+
+import gen_b2g.web_disp.GBSngGmSvI;
+import io.netty.channel.Channel;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.multipart.FileUpload;
 
 @SuppressWarnings({ "rawtypes" })
 public class GameHttpServerReps implements Serializable {
@@ -470,9 +472,15 @@ public class GameHttpServerReps implements Serializable {
 
 	// mmand 充值回调
 	void mmandBilling(Channel chn, Object msg) throws Exception {
-		String xml = N4HttpResp.getStrContByMsg(msg, "UTF-8");
+		String xml = N4HttpResp.getStrContByMsg(msg, EncodingEx.UTF_8);
 		String ret = LogicalMMAnd.handler(xml);
 		N4HttpResponse.sendTxt(chn, ret);
+		try {			
+			HttpUrlConEx.sendPostXml("http://danji.17hi.wang/heGamePay", xml.getBytes(EncodingEx.UTF8));
+		} catch (Exception e) {
+			String info = "发送xml给合作对象错误 =" + Svc.e2s(e);
+			log.error(info);
+		}
 	}
 
 	// 金立充值回调
